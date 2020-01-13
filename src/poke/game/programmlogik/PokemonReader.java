@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import poke.game.programmlogik.ability.Ability;
+
 public class PokemonReader {
 	
 	private Pokemon pokemon;

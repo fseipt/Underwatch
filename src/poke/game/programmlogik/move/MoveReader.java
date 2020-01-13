@@ -1,10 +1,12 @@
-package poke.game.programmlogik;
+package poke.game.programmlogik.move;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import poke.game.programmlogik.WrongArgumentException;
 
 public class MoveReader {
 	

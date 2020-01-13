@@ -1,4 +1,4 @@
-package poke.game.programmlogik;
+package poke.game.programmlogik.ability;
 
 public class Ability {
 

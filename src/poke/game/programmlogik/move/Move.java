@@ -1,4 +1,7 @@
-package poke.game.programmlogik;
+package poke.game.programmlogik.move;
+
+import poke.game.programmlogik.Allgemein;
+import poke.game.programmlogik.WrongArgumentException;
 
 public class Move implements Allgemein {
 
