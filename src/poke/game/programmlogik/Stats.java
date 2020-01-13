@@ -9,4 +9,7 @@ public class Stats {
 	private int spezialdefense;
 	private int speed;
 	
+	public Stats(String s) {
+		
+	}
 }

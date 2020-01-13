@@ -1,11 +1,67 @@
 package poke.game.programmlogik;
 
-public class Move {
+public class Move implements Allgemein {
 
 	private String name;
-	private Typ typ;
+	private String typ;
 	private int staerke;
 	private int genauigkeit;
+	private int angriffspunkte;
 	private String zusatz;
+	private boolean checkR = false;
+
+	public void setMove(String n) {
+		name=n;
+	}
+	public void setTyp(String t) throws WrongArgumentException {
+		this.checkR = false;
+		for(int x = 0; x < Allgemein.typen.length; x++) {
+			if(t.equals(Allgemein.typen[x])) {
+				checkR = true;
+			}
+		}
+		if(checkR == true) {
+			this.typ = t;
+		}
+		else {
+			throw new WrongArgumentException();
+		}
+	}
+	public void setStaerke(int s) throws WrongArgumentException {
+		if(s >= 0) {
+			this.staerke = s;
+		}
+		else {
+			throw new WrongArgumentException();
+		}
+	}
+	public void setGenauigkeit(int g) throws WrongArgumentException {
+		if(g >= 0 && g <= 100) {
+			this.genauigkeit = g;
+		}
+		if(g > 100) {
+			this.genauigkeit = 111;
+		}
+		if(g < 0) {
+			throw new WrongArgumentException();
+		}
+	}
+	public void setAngriffspunkte(int a) throws WrongArgumentException {
+		this.checkR = false;
+		for(int x = 0; x < Allgemein.ap.length; x++) {
+			if(a == Allgemein.ap[x]) {
+				checkR = true;
+			}
+		}
+		if(checkR == true) {
+			this.angriffspunkte = a;
+		}
+		else {
+			throw new WrongArgumentException();
+		}
+	}
+	public void setZusatz(String z) {
+		
+	}
 	
 }
