@@ -6,7 +6,10 @@ public interface Allgemein {
 					  "Kaefer","Geist","Stahl","Feuer","Wasser","Pflanze",
 				      "Elektro","Psycho","Eis","Drache","Unlicht","Fee"};
 	
-	String[] staten = {"Alive", "Dead", "Poisened", "Freezed", "Paralysed", "Burned", "Sleep"};
+	
+	String[] statusse = {"Alive", "Dead", "Poisened", "Freezed", "Paralysed", "Burned", "Sleep", "Flinched", "Attracted", "Confused"};
+	
+	String[] stausveraenderungen = {"Attack", "Defense", "Spezialattack", "Spezialdefense", "Speed", "Genauigkeit", "Fluchtwert", "Crit-Chance"}; 
 	
 	int[] ap = {5,10,15,20,25,30,35,40};
 	

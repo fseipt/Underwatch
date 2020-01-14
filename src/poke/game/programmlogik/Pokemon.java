@@ -97,8 +97,8 @@ public class Pokemon implements Allgemein{
 	}
 	public void setStatus(Status status) throws WrongArgumentException {
 		this.zcheckR = false;
-		for(int x = 0; x < Allgemein.staten.length; x++) { // ÄNDERN!!!
-			if(status.equals(Allgemein.staten[x])) { // ÄNDERN!!!
+		for(int x = 0; x < Allgemein.statusse.length; x++) { // ÄNDERN!!!
+			if(status.equals(Allgemein.statusse[x])) { // ÄNDERN!!!
 				zcheckR = true;
 			}
 		}

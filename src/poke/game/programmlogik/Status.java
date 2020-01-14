@@ -3,7 +3,6 @@ package poke.game.programmlogik;
 public class Status implements Allgemein{
 
 	private String status;
-	private boolean checkR = false;
 	
 	
 	public Status(String s) {
@@ -11,8 +10,9 @@ public class Status implements Allgemein{
 	}
 	
 	public void setStatus(String s) {
-		for(int x = 0; x < Allgemein.staten.length; x++) {
-			if(s.equals(Allgemein.staten[x])) {
+		boolean checkR = false;
+		for(int x = 0; x < Allgemein.statusse.length; x++) {
+			if(s.equals(Allgemein.statusse[x])) {
 				checkR = true;
 			}
 		}

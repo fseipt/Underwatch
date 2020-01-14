@@ -89,7 +89,8 @@ public class MoveReader {
 			move.setStaerke(Integer.parseInt(this.att[2])); // Staerke setzen
 			move.setGenauigkeit(Integer.parseInt(this.att[3])); // Genauigkeit setzem
 			move.setAngriffspunkte(Integer.parseInt(this.att[4])); // AP setzen
-			move.setZusatz(this.att[5]); // Effekte Setzen
+			Zusatz z = new Zusatz(this.att[5]);
+			move.setZusatz(z); // Effekte Setzen
 			this.addEintragA(this.move); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());

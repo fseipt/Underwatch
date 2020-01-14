@@ -10,7 +10,7 @@ public class Move implements Allgemein {
 	private int staerke;
 	private int genauigkeit;
 	private int angriffspunkte;
-	private String zusatz;
+	private Zusatz zusatz;
 	private boolean zcheckR = false;
 
 	public void setMove(String n) {
@@ -63,8 +63,8 @@ public class Move implements Allgemein {
 			throw new WrongArgumentException();
 		}
 	}
-	public void setZusatz(String z) {
-		
+	public void setZusatz(Zusatz z) {
+		this.zusatz = z;
 	}
 	
 }
