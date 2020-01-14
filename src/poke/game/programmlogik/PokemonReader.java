@@ -79,6 +79,12 @@ public class PokemonReader {
 				this.att[x] = s.substring((b[x-1]+1)); // setzt Zusatz effekt zum letzten Index
 			}
 		}
+		while(this.att[8].length()<3) {
+			this.att[8] = "0"+this.att[8];
+		}
+		while(this.att[9].length()<3) {
+			this.att[9] = "0"+this.att[9];
+		}
 		pokemon = new Pokemon(); // Neues Move Object
 		try {
 			pokemon.setName(this.att[0]); // Namen setzen

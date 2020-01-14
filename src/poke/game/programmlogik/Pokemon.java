@@ -7,7 +7,7 @@ public class Pokemon implements Allgemein{
 	
 	private String name;
 	private String[] typ = new String[2];
-	private int typi = 0;
+	private int zahl1 = 0;
 	private int form;
 	static final int level = 100;
 	private int gender;
@@ -15,29 +15,29 @@ public class Pokemon implements Allgemein{
 	private int happiness;
 	private Ability ability;
 	private String[] bilder = new String[3];
-	private int bildi;
+	private int zahl2;
 	private Stats stat;
 	private String item;
 	private Move[] move = new Move[4];
-	private int movi;
+	private int zahl3;
 	private Status status;
 	private Statusveraenderungen statusveraenderung;
-	private boolean checkR = false;
+	private boolean zcheckR = false;
 	
 	public void setName(String name) {
 		this.name = name;
 	}
 	public void setTyp(String typ) throws WrongArgumentException {
-		this.checkR = false;
+		this.zcheckR = false;
 		for(int x = 0; x < Allgemein.typen.length; x++) {
 			if(typ.equals(Allgemein.typen[x])) {
-				checkR = true;
+				zcheckR = true;
 				break;
 			}
 		}
-		if(checkR == true) {
-			this.typ[typi] = typ;
-			typi++;
+		if(zcheckR == true) {
+			this.typ[zahl1] = typ;
+			zahl1++;
 		}
 		else {
 			throw new WrongArgumentException();
@@ -71,20 +71,20 @@ public class Pokemon implements Allgemein{
 		
 	}
 	public void setBilder(String bilder) {
-		this.bilder[bildi] = bilder;
-		this.bildi++;
+		this.bilder[zahl2] = bilder;
+		this.zahl2++;
 	}
 	public void setStats(Stats stats) {
 		this.stat = stats;
 	}
 	public void setItem(String item) throws WrongArgumentException {
-		this.checkR = false;
+		this.zcheckR = false;
 		for(int x = 0; x < Allgemein.typen.length; x++) { // ÄNDERN!!!
 			if(item.equals(Allgemein.typen[x])) { // ÄNDERN!!!
-				checkR = true;
+				zcheckR = true;
 			}
 		}
-		if(checkR == true) {
+		if(zcheckR == true) {
 			this.item = item;
 		}
 		else {
@@ -92,17 +92,17 @@ public class Pokemon implements Allgemein{
 		}
 	}
 	public void setMove(Move move) {
-		this.move[movi] = move;
-		this.movi++;
+		this.move[zahl3] = move;
+		this.zahl3++;
 	}
 	public void setStatus(Status status) throws WrongArgumentException {
-		this.checkR = false;
+		this.zcheckR = false;
 		for(int x = 0; x < Allgemein.staten.length; x++) { // ÄNDERN!!!
 			if(status.equals(Allgemein.staten[x])) { // ÄNDERN!!!
-				checkR = true;
+				zcheckR = true;
 			}
 		}
-		if(checkR == true) {
+		if(zcheckR == true) {
 			this.status = status;
 		}
 		else {

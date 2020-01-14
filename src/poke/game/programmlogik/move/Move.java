@@ -11,19 +11,19 @@ public class Move implements Allgemein {
 	private int genauigkeit;
 	private int angriffspunkte;
 	private String zusatz;
-	private boolean checkR = false;
+	private boolean zcheckR = false;
 
 	public void setMove(String n) {
 		name=n;
 	}
 	public void setTyp(String t) throws WrongArgumentException {
-		this.checkR = false;
+		this.zcheckR = false;
 		for(int x = 0; x < Allgemein.typen.length; x++) {
 			if(t.equals(Allgemein.typen[x])) {
-				checkR = true;
+				zcheckR = true;
 			}
 		}
-		if(checkR == true) {
+		if(zcheckR == true) {
 			this.typ = t;
 		}
 		else {
@@ -50,13 +50,13 @@ public class Move implements Allgemein {
 		}
 	}
 	public void setAngriffspunkte(int a) throws WrongArgumentException {
-		this.checkR = false;
+		this.zcheckR = false;
 		for(int x = 0; x < Allgemein.ap.length; x++) {
 			if(a == Allgemein.ap[x]) {
-				checkR = true;
+				zcheckR = true;
 			}
 		}
-		if(checkR == true) {
+		if(zcheckR == true) {
 			this.angriffspunkte = a;
 		}
 		else {

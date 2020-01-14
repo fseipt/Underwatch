@@ -21,6 +21,7 @@ public class MoveReader {
 	public MoveReader() {
 		this.moves = new Move[0]; // erzeugt ein Move Array
 		this.reader(); // fuehrt die reader Methode aus 
+		int t = 1;
 		
 	}
 	
@@ -37,7 +38,7 @@ public class MoveReader {
 	 * liesst ein CSV-File aus und fuellt eine Move Array
 	 */
 	public void reader() {
-		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("./resource/Moves")))) {
+		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Move.csv")))) {
 	      	  while(sc.hasNext()) {
 	      		 addEintrag(sc.nextLine()); // gibt die naechste Zeile an die Methode weiter
 	      	  }
@@ -62,7 +63,7 @@ public class MoveReader {
 	public void addEintrag(String s) {
 		b = new int[0];
 		for(int x = 0; x < s.length(); x++) {
-			if(s.charAt(x) == ',') {
+			if(s.charAt(x) == 59) {
 				this.addB(x); // feugt den Index zum Array an dem ein Beistrich liegt
 			}
 		}
@@ -72,20 +73,23 @@ public class MoveReader {
 				this.att[x] = s.substring(x, b[x]); // setzt Namen auf den ersten Index
 			} 
 			if(x > 0 && x < b.length) {
-				this.att[x] = s.substring(b[x -1], b[x]); // setzt Index 2 - 5
+				this.att[x] = s.substring(b[x -1]+1, b[x]); // setzt Index 2 - 5
 			}
-			if(x == (b.length+1)) {
-				this.att[x] = s.substring(b[x]); // setzt Zusatz effekt zum letzten Index
+			if(x == (b.length)) {
+				this.att[x] = s.substring(b[x-1]+1); // setzt Zusatz effekt zum letzten Index
 			}
+		}
+		while(this.att[0].charAt(0) < 65 || this.att[0].charAt(0) > 90) {
+			this.att[0] = this.att[0].substring(1);
 		}
 		move = new Move(); // Neues Move Object
 		try {
-			move.setMove(this.att[1]); // Namen setzen
-			move.setTyp(this.att[2]); // Typen setzen
-			move.setStaerke(Integer.parseInt(this.att[3])); // Staerke setzen
-			move.setGenauigkeit(Integer.parseInt(this.att[4])); // Genauigkeit setzem
-			move.setAngriffspunkte(Integer.parseInt(this.att[5])); // AP setzen
-			move.setZusatz(this.att[6]); // Effekte Setzen
+			move.setMove(this.att[0]); // Namen setzen
+			move.setTyp(this.att[1]); // Typen setzen
+			move.setStaerke(Integer.parseInt(this.att[2])); // Staerke setzen
+			move.setGenauigkeit(Integer.parseInt(this.att[3])); // Genauigkeit setzem
+			move.setAngriffspunkte(Integer.parseInt(this.att[4])); // AP setzen
+			move.setZusatz(this.att[5]); // Effekte Setzen
 			this.addEintragA(this.move); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
