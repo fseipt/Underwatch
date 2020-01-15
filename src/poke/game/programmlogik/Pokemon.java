@@ -17,9 +17,8 @@ public class Pokemon implements Allgemein{
 	private String[] bilder = new String[3];
 	private int zahl2;
 	private Stats stat;
-	private String item;
+	private Item item;
 	private Move[] move = new Move[4];
-	private int zahl3;
 	private Status status;
 	private Statusveraenderungen statusveraenderung;
 	private boolean zcheckR = false;
@@ -77,7 +76,7 @@ public class Pokemon implements Allgemein{
 	public void setStats(Stats stats) {
 		this.stat = stats;
 	}
-	public void setItem(String item) throws WrongArgumentException {
+	public void setItem(Item item) throws WrongArgumentException {
 		this.zcheckR = false;
 		for(int x = 0; x < Allgemein.typen.length; x++) { // ÄNDERN!!!
 			if(item.equals(Allgemein.typen[x])) { // ÄNDERN!!!
@@ -91,9 +90,8 @@ public class Pokemon implements Allgemein{
 			throw new WrongArgumentException();
 		}
 	}
-	public void setMove(Move move) {
-		this.move[zahl3] = move;
-		this.zahl3++;
+	public void setMove(Move[] move) {
+		this.move = move;
 	}
 	public void setStatus(Status status) throws WrongArgumentException {
 		this.zcheckR = false;
