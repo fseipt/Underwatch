@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Pokemon</name>
+	<name>Underwatch</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -18,7 +18,13 @@
 		<link>
 			<name>resource/Pokemon.csv</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Documents/Pokemon.csv</locationURI>
+			<location>D:/OneDrive/OneDrive - tgm - Die Schule der Technik/Schule/ITP/3.Klasse/Semesterprojekt/Underwatch/Documents/Pokemon.csv</location>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>
