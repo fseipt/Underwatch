@@ -24,7 +24,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	// dimensions
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	
 	
 	// game thread
@@ -33,7 +33,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	private int FPS = 60;
 	private long targetTime = 1000/FPS;
 	
-	
+	private JFrame window;
 	
 	// image
 	private BufferedImage image;
@@ -43,7 +43,8 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	private GameStateManager gsm;
 	
 	
-	public Launcher() {
+	public Launcher(JFrame window) {
+		this.window = window;
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 		setFocusable(true);
 		requestFocus(); 
@@ -114,7 +115,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	}
 	public static void main(String[] args) {
 		JFrame window = new JFrame("Underwatch");
-		window.setContentPane(new Launcher());
+		window.setContentPane(new Launcher(window));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.pack();

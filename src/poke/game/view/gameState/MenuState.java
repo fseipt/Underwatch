@@ -10,7 +10,7 @@ import poke.game.view.tileMap.Background;
 public class MenuState extends GameState {
 	
 	private Background bg;
-	private String[] options = {"New Game", "Load Game", "Quit"	};
+	private String[] options = {"New Game", "Combat-GUI bis jetzt", "Quit"	};
 	private int currentChoice = 0;
 	private Color titleColor;
 	private Font titleFont;
@@ -62,6 +62,7 @@ public class MenuState extends GameState {
 			gsm.setState(GameStateManager.MENUSTATE);
 			break;
 		case 1:
+			gsm.setState(GameStateManager.COMBAT);
 			break;
 		case 2:
 			System.exit(0);

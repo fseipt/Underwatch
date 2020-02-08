@@ -64,8 +64,8 @@ public class TileMap {
 		try {
 			InputStream in = getClass().getResourceAsStream(s);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			numCols = Integer.parseInt(br.readLine());
-			numRows = Integer.parseInt(br.readLine());
+			numCols = Integer.parseInt(br.readLine()); // Wie viele Spalten die Map hat
+			numRows = Integer.parseInt(br.readLine()); // Wie viele Zeilen die Map hat
 			map = new int[numRows][numCols];
 			width = numCols * tileSize;
 			height = numRows * tileSize; 
