@@ -56,7 +56,7 @@ public class MenuState extends GameState {
 	public void update() {
 		bg.update();
 	}
-	public void select() {
+	public void select() { // Servus
 		switch(currentChoice) {
 		case 0:
 			gsm.setState(GameStateManager.MENUSTATE);
