@@ -65,7 +65,7 @@ public class MenuState extends GameState {
 			gsm.setState(GameStateManager.COMBAT); // seruss
 			break;
 		case 2:
-			System.exit(0);// Servusservus
+			System.exit(0);// Servusservuss
 			break;
 		}
 	}
