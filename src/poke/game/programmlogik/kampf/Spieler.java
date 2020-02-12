@@ -1,10 +1,10 @@
 package poke.game.programmlogik.kampf;
 
-import poke.game.programmlogik.Item;
 import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.Status;
 import poke.game.programmlogik.Statusveraenderungen;
 import poke.game.programmlogik.WrongArgumentException;
+import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.move.Move;
 
 public class Spieler extends Team{

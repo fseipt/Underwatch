@@ -1,6 +1,7 @@
 package poke.game.programmlogik;
 
 import poke.game.programmlogik.ability.Ability;
+import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.move.Move;
 
 public class Pokemon implements Allgemein{
