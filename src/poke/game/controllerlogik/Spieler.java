@@ -1,5 +1,7 @@
 package poke.game.controllerlogik;
 
+import java.util.Arrays;
+
 import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.Status;
 import poke.game.programmlogik.Statusveraenderungen;
@@ -10,10 +12,13 @@ import poke.game.programmlogik.move.Move;
 public class Spieler extends Team{
 
 	private Pokemon[] spieler;
+	private Pokemon[] building;
+	private Pokemon p;
 	private int z;
 	
-	public Spieler(Pokemon[] t) throws WrongArgumentException {
-		this.setTeam(t);
+	public Spieler() throws WrongArgumentException {
+		building = new Pokemon[0];
+		spieler = new Pokemon[6];
 	}
 	@Override
 	public void setTeam(Pokemon[] t) throws WrongArgumentException {
@@ -33,12 +38,12 @@ public class Spieler extends Team{
 		return array;
 	}
 
-	public void setZusatz(Item item, Move[] move, Status status, Statusveraenderungen statusveraenderungen) {
+	public void setZusatz(Item item, Move[] move) {
 		try {
 			this.spieler[z].setItem(item);
 			this.spieler[z].setMove(move);
-			this.spieler[z].setStatus(status);
-			this.spieler[z].setStatusveraenderungen(statusveraenderungen);
+			this.spieler[z].setStatus(new Status("Alive"));
+			this.spieler[z].setStatusveraenderungen(new Statusveraenderungen());
 			this.z++;
 		} catch (WrongArgumentException e) {
 			// TODO Auto-generated catch block
@@ -62,6 +67,18 @@ public class Spieler extends Team{
 		}
 	}
 	
+	public void setPokemon(Pokemon p) {
+		this.p = p;
+		this.building = Arrays.copyOf(this.building, this.building.length+1);
+		this.building[this.building.length-1] = p;
+		
+	}
+	
+	public void remPokemon(int i) {
+		if(building[i] != null) {
+			this.building[i] = null;
+		}
+	}
 	public Pokemon[] getSpieler() {
 		return this.spieler;
 	}

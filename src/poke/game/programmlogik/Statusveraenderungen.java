@@ -11,6 +11,7 @@ public class Statusveraenderungen {
 	private double fluchtwert = 1;
 	private double critchance = 1;
 	private int[] multyplier;
+	
 	public Statusveraenderungen() {
 		
 	}

@@ -109,7 +109,7 @@ public class Gegnerreader {
 			pokemon.setMove(m);
 			this.addEintragA(this.pokemon); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
-			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
+			System.err.println("Fehler beim speichern eines Gegners: " + wae.getMessage());
 		}
 	}
 
