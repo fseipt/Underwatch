@@ -12,7 +12,14 @@ public class Move implements Allgemein {
 	private int angriffspunkte;
 	private Zusatz zusatz;
 	private boolean zcheckR = false;
-
+	
+	public Move() {
+		
+	}
+	
+	public Move(String move) {
+		
+	}
 	public void setMove(String n) {
 		name=n;
 	}
@@ -67,4 +74,7 @@ public class Move implements Allgemein {
 		this.zusatz = z;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
 }

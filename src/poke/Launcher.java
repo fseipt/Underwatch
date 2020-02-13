@@ -1,5 +1,5 @@
-package poke;
 
+package poke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -123,4 +123,5 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		window.setBackground(Color.white);
 	}
 }
+
 

@@ -1,6 +1,7 @@
 package poke.game.programmlogik;
 
 import poke.game.programmlogik.ability.Ability;
+import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.move.Move;
 
 public class Pokemon implements Allgemein{
@@ -22,6 +23,7 @@ public class Pokemon implements Allgemein{
 	private Status status;
 	private Statusveraenderungen statusveraenderung;
 	private boolean zcheckR = false;
+	private Move[] possible;
 	
 	public void setName(String name) {
 		this.name = name;
@@ -90,8 +92,18 @@ public class Pokemon implements Allgemein{
 			throw new WrongArgumentException();
 		}
 	}
-	public void setMove(Move[] move) {
-		this.move = move;
+	public void setMove(Move[] move) throws WrongArgumentException {
+		boolean t = true;
+		for(int x = 0; x < move.length; x++) {
+			for(int y = 0; y < this.possible.length; x++) {
+				if(!(move[x].equals(this.possible[y]))) {
+					t = false;
+					throw new WrongArgumentException();
+				}
+			}
+		} if(t == true) {
+			this.move = move;
+		}
 	}
 	public void setStatus(Status status) throws WrongArgumentException {
 		this.zcheckR = false;
@@ -110,7 +122,23 @@ public class Pokemon implements Allgemein{
 	}
 	public void setStatusveraenderungen(Statusveraenderungen statusveraenderungen) {
 		this.statusveraenderung = statusveraenderungen;
-}
+	}
 	
+	public String getVBild() {
+		return this.bilder[0];
+	}
+	public String getBBild() {
+		return this.bilder[1];
+	}
+	public String getIcon() {
+		return this.bilder[2];
+	}
 	
+	public void setPossible(Move[] m) {
+		this.possible = m;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
 }

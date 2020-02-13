@@ -10,6 +10,7 @@ public class Statusveraenderungen {
 	private double genauigkeit = 1;
 	private double fluchtwert = 1;
 	private double critchance = 1;
+	private int[] multyplier;
 	
 	public Statusveraenderungen() {
 		
@@ -22,13 +23,14 @@ public class Statusveraenderungen {
 			}
 		}
 		String[] stat = new String[c];
-		int[] multyplier = new int[c];
+		multyplier = new int[c];
 		double m = 0;
 		for(int y = 0; y < c; y++) {
 			for(int x = 0; x < s.length(); x++) {
 				if(s.charAt(x) == 47) {
 					stat[y] = s.substring(0,x);
 					multyplier[y] = Integer.parseInt(s.substring((x+1)));
+					break;
 				}
 			}
 			if(multyplier[y] > 6 || multyplier[y] < -6 ) {

@@ -8,7 +8,7 @@ public class Stats {
 	private int spezialattack;
 	private int spezialdefense;
 	private int speed;
-	private int[] stats = new int[6];
+	private int[] stats = new int[9];
 	private int zb = 0, zp = 0;
 	private boolean zhelp = false;
 	
@@ -55,6 +55,11 @@ public class Stats {
 				break;
 			case 5: this.stats[x] = (((2*this.speed+94)*100)/100)+5;
 				break;
+			case 6: this.stats[x] = 1;
+				break;
+			case 7: this.stats[x] = 1;
+				break;
+			case 8: this.stats[x] = 20;
 			}
 		}
 	}
