@@ -1,4 +1,4 @@
-package poke.game.programmlogik;
+package poke.game.controllerlogik;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,10 +7,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.Stats;
+import poke.game.programmlogik.WrongArgumentException;
 import poke.game.programmlogik.ability.Ability;
+import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.move.Move;
 
-public class PokemonReader {
+public class Gegnerreader {
 	
 	private Pokemon pokemon;
 	private Pokemon[] pokemons;
@@ -20,7 +24,7 @@ public class PokemonReader {
 	/**
 	 * Konstruktor: erzeugt ein Move array und ruft die reader Methode auf
 	 */
-	public PokemonReader() {
+	public Gegnerreader() {
 		this.pokemons = new Pokemon[0]; // erzeugt ein Move Array
 		this.reader(); // fuehrt die reader Methode aus 
 		
@@ -39,7 +43,7 @@ public class PokemonReader {
 	 * liesst ein CSV-File aus und fuellt eine Move Array
 	 */
 	public void reader() {
-		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Pokemon.csv")))) {
+		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Gegner.csv")))) {
 	      	  while(sc.hasNext()) {
 	      		 addEintrag(sc.nextLine()); // gibt die naechste Zeile an die Methode weiter
 	      	  }
@@ -102,14 +106,22 @@ public class PokemonReader {
 			pokemon.setBilder(this.att[10]); // Icon setzeen
 			Stats stats = new Stats(this.att[11]); // Stats erzeugen
 			pokemon.setStats(stats); // Stats setzen
-			Move[] m = new Move[this.att.length-11];
-			for(int x = 11; x < this.att.length; x++) {
-				m[x-11] = new Move(this.att[x]);
-			}
-			pokemon.setPossible(m);
+			Item item = new Item(this.att[12]);
+			pokemon.setItem(item);
+			Move[] m = new Move[4];
+			m[0] = new Move(this.att[13]);
+			m[1] = new Move(this.att[14]);
+			m[2] = new Move(this.att[15]);
+			m[3] = new Move(this.att[16]);
+			pokemon.setMove(m);
 			this.addEintragA(this.pokemon); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
 		}
+	}
+
+	
+	public Pokemon random() {
+		 return pokemons[(int) (Math.random() * this.pokemons.length) - 1];
 	}
 }

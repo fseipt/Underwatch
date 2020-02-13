@@ -17,6 +17,5 @@ public class Effekt {
 	 * @param s der Effekt
 	 */
 	public void setEffekt(String s) {
-				
 	}
 }

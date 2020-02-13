@@ -6,6 +6,7 @@ public class Ability {
 
 	private String ability;
 	private Effekt effekt;
+	private String bezeichnung;
 	
 	/**
 	 * Konstruktor ohne Parameter / für Abilityreader
@@ -20,11 +21,21 @@ public class Ability {
 	 * @throws WrongArgumentException
 	 */
 	public Ability(String t) throws WrongArgumentException {
+		int z = 0;
+		int c = 0;
 		for(int x = 0; x < t.length(); x++) {
 			if(t.charAt(x) == 44) {
-				this.setAbility(t.substring(0,x));
-				Effekt e = new Effekt(t.substring(x+1));
-				this.setEffekt(e);
+				if(z == 0) {
+					this.setAbility(t.substring(0,x));
+					c = x;
+					z++;
+				}
+				if(z == 1) {
+					Effekt e = new Effekt(t.substring(c, x));
+					this.setEffekt(e);
+					this.setBezeichnung(t.substring(x+1));
+				}
+				
 			}
 		}
 	}
@@ -54,5 +65,13 @@ public class Ability {
 			this.effekt = e;
 		}
 		
+	}
+	
+	public void setBezeichnung(String s) throws WrongArgumentException {
+		if(s.length() < 2) {
+			throw new WrongArgumentException();
+		} else {
+			this.bezeichnung = s;
+		}
 	}
 }
