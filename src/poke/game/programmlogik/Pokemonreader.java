@@ -9,19 +9,22 @@ import java.util.Scanner;
 
 import poke.game.programmlogik.ability.Ability;
 import poke.game.programmlogik.move.Move;
+import poke.game.programmlogik.move.Movereader;
 
-public class PokemonReader {
+public class Pokemonreader {
 	
 	private Pokemon pokemon;
 	private Pokemon[] pokemons;
+	private Move[] m;
 	private int[] b;
 	private String[] att;
 	
 	/**
 	 * Konstruktor: erzeugt ein Move array und ruft die reader Methode auf
 	 */
-	public PokemonReader() {
+	public Pokemonreader(Movereader m) {
 		this.pokemons = new Pokemon[0]; // erzeugt ein Move Array
+		this.m =m.getMoves();
 		this.reader(); // fuehrt die reader Methode aus 
 		
 	}
@@ -104,7 +107,12 @@ public class PokemonReader {
 			pokemon.setStats(stats); // Stats setzen
 			Move[] m = new Move[this.att.length-11];
 			for(int x = 11; x < this.att.length; x++) {
-				m[x-11] = new Move(this.att[x]);
+				for(int y = 0; y < m .length; x++) {
+					if(this.att[x].equals(this.m[y].getName())) {
+						m[x-11] = m[y];
+						break;
+					}
+				}
 			}
 			pokemon.setPossible(m);
 			this.addEintragA(this.pokemon); // fuegt den neu erstellten Move zu der Liste hinzu

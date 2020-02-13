@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import poke.game.programmlogik.WrongArgumentException;
 
-public class MoveReader {
+public class Movereader {
 	
 	private Move move;
 	private Move[] moves;
@@ -18,7 +18,7 @@ public class MoveReader {
 	/**
 	 * Konstruktor: erzeugt ein Move array und ruft die reader Methode auf
 	 */
-	public MoveReader() {
+	public Movereader() {
 		this.moves = new Move[0]; // erzeugt ein Move Array
 		this.reader(); // fuehrt die reader Methode aus 
 		int t = 1;
@@ -96,5 +96,7 @@ public class MoveReader {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
 		}
 	}
-	
+	public Move[] getMoves() {
+		return moves;
+	}
 }

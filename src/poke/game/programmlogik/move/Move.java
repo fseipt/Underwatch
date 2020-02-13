@@ -74,4 +74,7 @@ public class Move implements Allgemein {
 		this.zusatz = z;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
 }
