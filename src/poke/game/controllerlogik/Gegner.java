@@ -1,7 +1,6 @@
 package poke.game.controllerlogik;
 
 import poke.game.programmlogik.Pokemon;
-import poke.game.programmlogik.Pokemonreader;
 import poke.game.programmlogik.Status;
 import poke.game.programmlogik.Statusveraenderungen;
 import poke.game.programmlogik.WrongArgumentException;

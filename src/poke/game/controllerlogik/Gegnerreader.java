@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.Pokemonreader;
 import poke.game.programmlogik.Stats;
 import poke.game.programmlogik.WrongArgumentException;
 import poke.game.programmlogik.ability.Ability;
@@ -18,14 +19,16 @@ public class Gegnerreader {
 	
 	private Pokemon pokemon;
 	private Pokemon[] pokemons;
+	private Pokemon[] p;
 	private int[] b;
 	private String[] att;
 	
 	/**
 	 * Konstruktor: erzeugt ein Move array und ruft die reader Methode auf
 	 */
-	public Gegnerreader() {
+	public Gegnerreader(Pokemonreader p) {
 		this.pokemons = new Pokemon[0]; // erzeugt ein Move Array
+		this.p = p.getPokemon();
 		this.reader(); // fuehrt die reader Methode aus 
 		
 	}
@@ -92,27 +95,17 @@ public class Gegnerreader {
 		}
 		pokemon = new Pokemon(); // Neues Move Object
 		try {
-			pokemon.setName(this.att[0]); // Namen setzen
-			pokemon.setTyp(this.att[1]); // Typen setzen
-			pokemon.setTyp(this.att[2]); // Typen setzen
-			pokemon.setForm(Integer.parseInt(this.att[3])); // Form setzen
-			pokemon.setGender(Integer.parseInt(this.att[4])); // Gender setzen
-			pokemon.setWeight(Integer.parseInt(this.att[5])); // Weight Setzen
-			pokemon.setHappiness(Integer.parseInt(this.att[6])); // Happiness Setzen
-			Ability a = new Ability(this.att[7]); // Ability erzeugen
-			pokemon.setAbility(a); // Ability setzen
-			pokemon.setBilder(this.att[8]); // Front Bild setzen
-			pokemon.setBilder(this.att[9]); // Back BIld setzen
-			pokemon.setBilder(this.att[10]); // Icon setzeen
-			Stats stats = new Stats(this.att[11]); // Stats erzeugen
-			pokemon.setStats(stats); // Stats setzen
-			Item item = new Item(this.att[12]);
+			for(int x = 0; x < this.p.length; x++) {
+				if(this.att[1].equals(p[x])) {
+					pokemon = p[x];
+				}
+			}
+			Item item = new Item(this.att[2]);
 			pokemon.setItem(item);
 			Move[] m = new Move[4];
-			m[0] = new Move(this.att[13]);
-			m[1] = new Move(this.att[14]);
-			m[2] = new Move(this.att[15]);
-			m[3] = new Move(this.att[16]);
+			for(int x = 3; x < this.att.length; x++) {
+				m[x-3] = new Move(this.att[x]);
+			}
 			pokemon.setMove(m);
 			this.addEintragA(this.pokemon); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {

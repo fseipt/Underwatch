@@ -106,7 +106,7 @@ public class Pokemonreader {
 			Stats stats = new Stats(this.att[11]); // Stats erzeugen
 			pokemon.setStats(stats); // Stats setzen
 			Move[] m = new Move[this.att.length-11];
-			for(int x = 11; x < this.att.length; x++) {
+			for(int x = 12; x < this.att.length; x++) {
 				for(int y = 0; y < m .length; x++) {
 					if(this.att[x].equals(this.m[y].getName())) {
 						m[x-11] = m[y];
@@ -119,5 +119,9 @@ public class Pokemonreader {
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
 		}
+	}
+
+	public Pokemon[] getPokemon() {
+		return this.pokemons;
 	}
 }
