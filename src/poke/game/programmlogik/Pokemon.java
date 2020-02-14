@@ -137,7 +137,9 @@ public class Pokemon implements Allgemein{
 	public void setPossible(Move[] m) {
 		this.possible = m;
 	}
-	
+	public Move[] getPossible() {
+		return this.possible;
+	}
 	public String getName() {
 		return this.name;
 	}

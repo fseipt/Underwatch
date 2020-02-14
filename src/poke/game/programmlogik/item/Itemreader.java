@@ -86,4 +86,8 @@ public class Itemreader {
 		}
 	}
 	
+	public Item[] getItems() {
+		return this.items;
+	}
+	
 }

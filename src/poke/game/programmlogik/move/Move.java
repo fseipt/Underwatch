@@ -2,6 +2,7 @@ package poke.game.programmlogik.move;
 
 import poke.game.programmlogik.Allgemein;
 import poke.game.programmlogik.WrongArgumentException;
+import poke.game.programmlogik.typ.Typ;
 
 public class Move implements Allgemein {
 
@@ -17,9 +18,7 @@ public class Move implements Allgemein {
 		
 	}
 	
-	public Move(String move) {
-		
-	}
+	
 	public void setMove(String n) {
 		name=n;
 	}
@@ -76,5 +75,9 @@ public class Move implements Allgemein {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public Typ getTyp() {
+		return null;
 	}
 }

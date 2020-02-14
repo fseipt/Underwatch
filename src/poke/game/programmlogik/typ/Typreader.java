@@ -1,4 +1,4 @@
-package poke.game.controllerlogik;
+package poke.game.programmlogik.typ;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,31 +7,20 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import poke.game.programmlogik.Pokemon;
-import poke.game.programmlogik.Pokemonreader;
-import poke.game.programmlogik.Stats;
 import poke.game.programmlogik.WrongArgumentException;
-import poke.game.programmlogik.ability.Ability;
-import poke.game.programmlogik.item.Item;
-import poke.game.programmlogik.item.Itemreader;
-import poke.game.programmlogik.move.Move;
 
-public class Gegnerreader {
+public class Typreader {
 	
-	private Pokemon pokemon;
-	private Pokemon[] pokemons;
-	private Pokemon[] p;
-	private Item[] i;
+	private Typ typ;
+	private Typ[] typen;
 	private int[] b;
 	private String[] att;
 	
 	/**
 	 * Konstruktor: erzeugt ein Move array und ruft die reader Methode auf
 	 */
-	public Gegnerreader(Pokemonreader p, Itemreader i) {
-		this.pokemons = new Pokemon[0]; // erzeugt ein Move Array
-		this.p = p.getPokemon();
-		this.i = i.getItems();
+	public Typreader() {
+		this.typen = new Typ[0]; // erzeugt ein Move Array
 		this.reader(); // fuehrt die reader Methode aus 
 		
 	}
@@ -40,16 +29,16 @@ public class Gegnerreader {
 	 * veregoessert das int Array um 1 und fuegt den Parameter hinzu
 	 * @param m der Move der in das Array hinzugefuegt wrid
 	 */
-	public void addEintragA(Pokemon p) {
-		this.pokemons = Arrays.copyOf(pokemons, pokemons.length+ 1); // kopiert das Array unf vergroessert es um 1
-		this.pokemons[this.pokemons.length - 1] = p; // fuegt den Parameter zum Array hinzu
+	public void addEintragA(Typ t) {
+		this.typen = Arrays.copyOf(typen, typen.length+ 1); // kopiert das Array unf vergroessert es um 1
+		this.typen[this.typen.length - 1] = t; // fuegt den Parameter zum Array hinzu
 	}
 	
 	/**
 	 * liesst ein CSV-File aus und fuellt eine Move Array
 	 */
 	public void reader() {
-		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Gegner.csv")))) {
+		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Typ.csv")))) {
 	      	  while(sc.hasNext()) {
 	      		 addEintrag(sc.nextLine()); // gibt die naechste Zeile an die Methode weiter
 	      	  }
@@ -90,41 +79,29 @@ public class Gegnerreader {
 				this.att[x] = s.substring((b[x-1]+1)); // setzt Zusatz effekt zum letzten Index
 			}
 		}
-		pokemon = new Pokemon(); // Neues Move Object
+		
+		Typ t = new Typ(); // Neues Move Object
 		try {
-			
-			for(int x = 0; x < this.p.length; x++) {
-				if(this.att[1].equals(p[x])) {
-					pokemon = p[x];
-				}
+			if(!(this.att[0].equals("null"))) {
+				t.setTyp(this.att[0]);
 			}
-			
-			Item item = null;
-			for(int x = 0; x < i.length; x++) {
-				if(this.att[2].equals(i[x])) {
-					item = i[x];
-				}
+			if(!(this.att[1].equals("null"))) {
+				t.setImm(this.att[1]);
 			}
-			pokemon.setItem(item);
-			
-			Move[] m = new Move[4];
-			Move[] po = pokemon.getPossible();
-			for(int x = 3; x < this.att.length; x++) {
-				for(int y = 0; y < po.length; x++) {
-					if(this.att[x].equals(po[y])) {
-						m[x-3] = po[y];
-					}
-				}
+			if(!(this.att[2].equals("null"))) {
+				t.setZweiRes(this.att[2]);
 			}
-			pokemon.setMove(m);
-			this.addEintragA(this.pokemon); // fuegt den neu erstellten Move zu der Liste hinzu
+			if(!(this.att[3].equals("null"))) {
+				t.setZweiEff(this.att[3]);
+			}
+			this.addEintragA(t); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Gegners: " + wae.getMessage());
 		}
 	}
 
 	
-	public Pokemon random() {
-		 return pokemons[(int) (Math.random() * this.pokemons.length) - 1];
+	public Typ[] getTypen() {
+		return this.typen;
 	}
 }

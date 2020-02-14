@@ -7,21 +7,24 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import poke.game.programmlogik.WrongArgumentException;
+import poke.game.programmlogik.typ.Typ;
+import poke.game.programmlogik.typ.Typreader;
 
 public class Movereader {
 	
 	private Move move;
 	private Move[] moves;
+	private Typ[] t;
 	private int[] b;
 	private String[] att;
 	
 	/**
 	 * Konstruktor: erzeugt ein Move array und ruft die reader Methode auf
 	 */
-	public Movereader() {
+	public Movereader(Typreader t) {
 		this.moves = new Move[0]; // erzeugt ein Move Array
+		this.t = t.getTypen();
 		this.reader(); // fuehrt die reader Methode aus 
-		int t = 1;
 		
 	}
 	
@@ -85,7 +88,12 @@ public class Movereader {
 		move = new Move(); // Neues Move Object
 		try {
 			move.setMove(this.att[0]); // Namen setzen
-			move.setTyp(this.att[1]); // Typen setzen
+			Typ t = new Typ();
+			for(int x = 0; x < this.t.length; x++) {
+				if(this.att[1].equals(this.t[x].getTyp())) {
+					t = this.t[x];
+				}
+			}
 			move.setStaerke(Integer.parseInt(this.att[2])); // Staerke setzen
 			move.setGenauigkeit(Integer.parseInt(this.att[3])); // Genauigkeit setzem
 			move.setAngriffspunkte(Integer.parseInt(this.att[4])); // AP setzen

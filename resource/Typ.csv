@@ -1,0 +1,4 @@
+Normal;Geist;Gestein/Stahl;null
+Feuer;null;Gestein/Feuer/Wasser/Drache;Pflanze/Kaefer/Stahl
+Wasser;null;Wasser/Pflanze/Drache;Boden/Gestein/Feuer
+Pflanze;null;Pflanze/Feuer/Flug/Gift/Kaefer/Stahl/Drache;Boden/Gestein/Wasser
