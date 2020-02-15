@@ -94,14 +94,14 @@ public class Gegnerreader {
 		try {
 			
 			for(int x = 0; x < this.p.length; x++) {
-				if(this.att[1].equals(p[x])) {
+				if(this.att[0].equals(p[x].getName())) {
 					pokemon = p[x];
 				}
 			}
 			
 			Item item = null;
 			for(int x = 0; x < i.length; x++) {
-				if(this.att[2].equals(i[x])) {
+				if(this.att[1].equals(i[x].getName())) {
 					item = i[x];
 				}
 			}
@@ -109,10 +109,10 @@ public class Gegnerreader {
 			
 			Move[] m = new Move[4];
 			Move[] po = pokemon.getPossible();
-			for(int x = 3; x < this.att.length; x++) {
-				for(int y = 0; y < po.length; x++) {
-					if(this.att[x].equals(po[y])) {
-						m[x-3] = po[y];
+			for(int x = 2; x < this.att.length; x++) {
+				for(int y = 0; y < po.length; y++) {
+					if(this.att[x].equals(po[y].getName())) {
+						m[x-2] = po[y];
 					}
 				}
 			}

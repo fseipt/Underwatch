@@ -63,7 +63,7 @@ public class Abilityreader {
 				this.addB(x); // feugt den Index zum Array an dem ein Beistrich liegt
 			}
 		}
-		this.att = new String[2]; // erstellt ein String array fuer die einzelnden
+		this.att = new String[3]; // erstellt ein String array fuer die einzelnden
 		for(int x = 0; x <= b.length+1; x++) {
 			if(x == 0) {
 				this.att[x] = s.substring(x, b[x]); // setzt Namen auf den ersten Index

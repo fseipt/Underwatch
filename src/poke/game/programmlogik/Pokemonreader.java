@@ -105,11 +105,11 @@ public class Pokemonreader {
 			pokemon.setBilder(this.att[10]); // Icon setzeen
 			Stats stats = new Stats(this.att[11]); // Stats erzeugen
 			pokemon.setStats(stats); // Stats setzen
-			Move[] m = new Move[this.att.length-11];
+			Move[] m = new Move[this.att.length-12];
 			for(int x = 12; x < this.att.length; x++) {
-				for(int y = 0; y < m .length; x++) {
+				for(int y = 0; y < m .length; y++) {
 					if(this.att[x].equals(this.m[y].getName())) {
-						m[x-11] = m[y];
+						m[x-12] = this.m[y];
 						break;
 					}
 				}

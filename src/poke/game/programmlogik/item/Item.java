@@ -53,4 +53,7 @@ public class Item {
 			this.bezeichnung = s;
 		}
 	}
+	public String getName() {
+		return this.name;
+	}
 }

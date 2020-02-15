@@ -30,7 +30,12 @@ public  class Typ {
 			}
 		}
 		v = new String[z.length+1];
-		for(int x = 0; x < z.length; x++) {
+		for(int x = 0; x < z.length+1; x++) {
+			if(z.length == 0) {
+				v[x] = zweiRes;
+				this.checkIfTyp(v[x]);
+				break;
+			}
 			if(x == 0) {
 				v[x] = zweiRes.substring(x, z[x]); // setzt Namen auf den ersten Index
 				this.checkIfTyp(v[x]);
@@ -59,9 +64,13 @@ public  class Typ {
 			}
 		}
 		v = new String[z.length+1];
-		for(int x = 0; x < z.length; x++) {
+		for(int x = 0; x < z.length+1; x++) {
+			if(z.length == 0) {
+				v[x] = zweiEff;
+				this.checkIfTyp(v[x]);
+				break;
+			}
 			if(x == 0) {
-				
 				v[x] = zweiEff.substring(x, z[x]); // setzt Namen auf den ersten Index
 				this.checkIfTyp(v[x]);
 			} 
@@ -98,7 +107,12 @@ public  class Typ {
 			}
 		}
 		v = new String[z.length+1];
-		for(int x = 0; x < z.length; x++) {
+		for(int x = 0; x < z.length+1; x++) {
+			if(z.length == 0) {
+				v[x] = imm;
+				this.checkIfTyp(v[x]);
+				break;
+			}
 			if(x == 0) {
 				v[x] = imm.substring(x, z[x]); // setzt Namen auf den ersten Index
 				this.checkIfTyp(v[x]);

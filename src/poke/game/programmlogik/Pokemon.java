@@ -79,30 +79,32 @@ public class Pokemon implements Allgemein{
 		this.stat = stats;
 	}
 	public void setItem(Item item) throws WrongArgumentException {
-		this.zcheckR = false;
-		for(int x = 0; x < Allgemein.typen.length; x++) { // ÄNDERN!!!
-			if(item.equals(Allgemein.typen[x])) { // ÄNDERN!!!
-				zcheckR = true;
-			}
-		}
-		if(zcheckR == true) {
-			this.item = item;
-		}
-		else {
-			throw new WrongArgumentException();
-		}
+		this.item = item;
+		
 	}
 	public void setMove(Move[] move) throws WrongArgumentException {
-		boolean t = true;
+		boolean t = false;
+		boolean t2 = true;
 		for(int x = 0; x < move.length; x++) {
-			for(int y = 0; y < this.possible.length; x++) {
-				if(!(move[x].equals(this.possible[y]))) {
-					t = false;
-					throw new WrongArgumentException();
+			t = false;
+			for(int y = 0; y < this.possible.length; y++) {
+				if(move[x] == null) {
+					t = true;
+					break;
+				} else {
+					if(move[x].equals(this.possible[y])) {
+						t = true;
+					}
 				}
 			}
-		} if(t == true) {
+			if(t == false) {
+				t2 = false;
+				break;
+			}
+		} if(t2 == true) {
 			this.move = move;
+		} else {
+			throw new WrongArgumentException();
 		}
 	}
 	public void setStatus(Status status) throws WrongArgumentException {
