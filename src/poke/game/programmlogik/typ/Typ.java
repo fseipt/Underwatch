@@ -16,7 +16,10 @@ public  class Typ {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public String[] getZweiRes() {
 		return zweiRes;
 	}
