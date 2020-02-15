@@ -82,6 +82,11 @@ public class Pokemon implements Allgemein{
 		this.item = item;
 		
 	}
+	/**
+	 * Setzt ein Movearray auf die Moves des Pokemnons
+	 * @param move
+	 * @throws WrongArgumentException
+	 */
 	public void setMove(Move[] move) throws WrongArgumentException {
 		boolean t = false;
 		boolean t2 = true;
