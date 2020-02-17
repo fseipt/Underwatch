@@ -9,6 +9,13 @@ import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
 import poke.game.view.tileMap.TileMap;
 
+/**
+ * Diese Klasse zeichent den Combatscreen
+ * 
+ * Fabis Aufgaben:
+ * 	.) Initialisier skills mit dem Moves
+ *  .) Initialisier ap mit den APs
+ */
 public class CombatState extends GameState {
 	private TileMap tileMap;
 	private Background bg;
@@ -18,11 +25,17 @@ public class CombatState extends GameState {
 	private String enemyName, ownName, message;
 	private int currentChoice, currentMenu;
 	private String[] options = {"FIGHT", "STATS", "POKEMON","RUN"};
-	private String[] skills;
+	private String[] skills; 
+	private int[] ap;
+	private String[] types;
 	private Sound select2;
 	
 	public CombatState(GameStateManager gsm) {
 		this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
+		this.ap = new int[] {20,15,5,40};
+		this.types = new String[] {"Fee","Drache","Gestein","Käfer"};
+		
+		
 		this.gsm = gsm;
 		this.currentMenu = 0;
 		this.font = new Font("Press Start 2P", 1, 10);
@@ -95,6 +108,9 @@ public class CombatState extends GameState {
 			case 0: 
 				drawSelection(g);
 				break;	
+			case 1:
+				drawSkills(g);
+				break;
 		}
 	}
 	
@@ -103,8 +119,30 @@ public class CombatState extends GameState {
 	 * für Skills
 	 */
 	public void drawSkills(Graphics2D g) {
+		g.setColor(Color.GRAY);
+		g.fillRoundRect(209,180, 110, 60, 10, 10);
+		g.setFont(new Font("Press Start 2P", 1, 14));
+		g.setColor(Color.white);
 		
+		g.drawString("AP",224,204);
+		g.drawString(this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
+		
+		g.drawString("Type",224,226);
+		g.drawString(types[currentChoice], 265, 226);
+		// FIGHT
+		g.setColor((currentChoice == 0) ? Color.red : Color.white);
+		g.drawString(skills[0], 20, 205);
+		// STATS
+		g.setColor((currentChoice == 1) ? Color.red : Color.white);
+		g.drawString(skills[1], 115, 205);
+		// POKEMON
+		g.setColor((currentChoice == 3) ? Color.red : Color.white);
+		g.drawString(skills[3],116, 227);
+		// RUN
+		g.setColor((currentChoice == 2) ? Color.red : Color.white);
+		g.drawString(skills[2], 20, 227); 
 	}
+	
 	/**
 	 * Diese Methode zeichnet das Auswahlmenü
 	 * zwischen FIGHT, STATS, POKEMON und RUN
@@ -139,7 +177,7 @@ public class CombatState extends GameState {
 	@Override
 	public void keyPressed(int k) {
 		if(k == KeyEvent.VK_ENTER) {
-			
+			if(currentChoice == 0 && currentMenu == 0) currentMenu = 1;
 		}
 		if(k == KeyEvent.VK_RIGHT) {
 			select2.play();
@@ -160,6 +198,9 @@ public class CombatState extends GameState {
 			select2.play();
 			if(currentChoice < 2) currentChoice+=2;
 			else currentChoice-=2;
+		}
+		if(k == KeyEvent.VK_ESCAPE) {
+			currentMenu = 0;
 		}
 	}
 	

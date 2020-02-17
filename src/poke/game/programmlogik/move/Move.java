@@ -7,6 +7,8 @@ import poke.game.programmlogik.typ.Typ;
 public class Move implements Allgemein {
 
 	private String name;
+
+
 	private String typ;
 	private int staerke;
 	private int genauigkeit;
@@ -79,5 +81,23 @@ public class Move implements Allgemein {
 	
 	public Typ getTyp() {
 		return null;
+	}
+	public int getStaerke() {
+		return staerke;
+	}
+
+
+	public int getGenauigkeit() {
+		return genauigkeit;
+	}
+
+
+	public int getAngriffspunkte() {
+		return angriffspunkte;
+	}
+
+
+	public Zusatz getZusatz() {
+		return zusatz;
 	}
 }

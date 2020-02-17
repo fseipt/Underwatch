@@ -38,7 +38,7 @@ public class Typreader {
 	 * liesst ein CSV-File aus und fuellt eine Move Array
 	 */
 	public void reader() {
-		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Typ.csv")))) {
+		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("res/Data/Typ.csv")))) {
 	      	  while(sc.hasNext()) {
 	      		 addEintrag(sc.nextLine()); // gibt die naechste Zeile an die Methode weiter
 	      	  }
