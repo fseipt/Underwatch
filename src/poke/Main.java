@@ -14,7 +14,7 @@ public class Main {
 		Typreader t =new Typreader();
 		Abilityreader a = new Abilityreader();
 		Movereader m = new Movereader(t);
-		Pokemonreader p = new Pokemonreader(m);
+		Pokemonreader p = new Pokemonreader(m,t,a);
 		Gegnerreader g = new Gegnerreader(p,i);
 		System.out.print("Bitte Funktioniere");
 	}

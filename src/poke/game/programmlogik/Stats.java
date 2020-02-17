@@ -12,11 +12,15 @@ public class Stats {
 	private int zb = 0, zp = 0;
 	private boolean zhelp = false;
 	
+	/**
+	 * Konstruktor mit Parameter, schaut ob der Status legitim ist und setzt ihn danach
+	 * @param s der Status als String
+	 */
 	public Stats(String s) {
 		for(int x = 0; x < s.length(); x++) {
-			if(s.charAt(x) == 44) {
-				zb++;
-				zhelp = true;
+			if(s.charAt(x) == 44) { // checkt ob an dem Index ein Beistrich ist
+				zb++; // erhoeht die Zaehlvariable
+				zhelp = true; // setzt die variable auf true
 			}
 			if(zhelp) {
 				switch(zb) {

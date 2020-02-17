@@ -88,4 +88,7 @@ public class Abilityreader {
 		}
 	}
 	
+	public Ability[] getAbilities() {
+		return this.abilities;
+	}
 }

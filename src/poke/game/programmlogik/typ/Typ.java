@@ -143,4 +143,29 @@ public  class Typ {
 			throw new WrongArgumentException();
 		}
 	}
+	
+	/**
+	 * Gibt den Multiplikator fuer den Typ zurueck 
+	 * @param t der Typ des Moves
+	 * @return
+	 */
+	public double getMulti(Typ t) {
+		double a = 0;
+		for(int x = 0; x < imm.length; x++) {
+			if(t.equals(imm[x])) {
+				a = 0;
+			}
+		}
+		for(int x = 0; x < zweiRes.length; x++) {
+			if(t.equals(zweiRes[x])) {
+				a = 0.5;
+			}
+		}
+		for(int x = 0; x < zweiEff.length; x++) {
+			if(t.equals(zweiEff[x])) {
+				a = 2;
+			}
+		}
+		return a;
+	}
 }

@@ -74,4 +74,8 @@ public class Ability {
 			this.bezeichnung = s;
 		}
 	}
+	
+	public String getAbility() {
+		return this.ability;
+	}
 }

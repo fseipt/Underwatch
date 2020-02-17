@@ -9,9 +9,14 @@ import poke.game.programmlogik.move.Move;
 
 public class Gegner extends Team{
 
-	private Pokemon[] gegner;
-	private int z;
+	private Pokemon[] gegner; // Pokemon Array | Das Team
+	private int z; // Zaehl Variable
 	
+	/**
+	 * Konstruktor mit Parameter | setzt das Team mit 6 Random Pokemon
+	 * @param p Gegnerreader Objekt
+	 * @throws WrongArgumentException
+	 */
 	public Gegner(Gegnerreader p) throws WrongArgumentException {
 		Pokemon[] team = new Pokemon[6];
 		for(int x = 0; x < team.length; x++) {
@@ -19,6 +24,11 @@ public class Gegner extends Team{
 		}
 		setTeam(team);
 	}
+	/**
+	 * Setzt das Team mit dem Parameter
+	 * @param p das Team
+	 * @throws WrongArgumentException
+	 */
 	@Override
 	public void setTeam(Pokemon[] p) throws WrongArgumentException {
 		if(p.length > 6 || p.length < 0) {
@@ -28,6 +38,10 @@ public class Gegner extends Team{
 		}
 	}
 
+	/**
+	 * Gibt alle 6 Icon von dem Team zurueck
+	 * @return die 6 Icons, als String Array
+	 */
 	@Override
 	public String[] getIcons() {
 		String[] array = new String[6];
@@ -36,20 +50,11 @@ public class Gegner extends Team{
 		}
 		return array;
 	}
-
-	public void setZusatz(Item item, Move[] move, Status status, Statusveraenderungen statusveraenderungen) {
-		try {
-			this.gegner[z].setItem(item);
-			this.gegner[z].setMove(move);
-			this.gegner[z].setStatus(status);
-			this.gegner[z].setStatusveraenderungen(statusveraenderungen);
-			this.z++;
-		} catch (WrongArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+	/**
+	 * Wenn ein Pokemon wechselt, wird der Platz im Team zwischen den zwei getauscht
+	 * @param p Das Pokemon das an erster Stelle kommt
+	 * @throws WrongArgumentException
+	 */
 	@SuppressWarnings("unused")
 	public void switchIn(Pokemon p) throws WrongArgumentException {
 		int z = 10;
@@ -66,7 +71,11 @@ public class Gegner extends Team{
 		}
 	}
 	
-	public Pokemon[] getSpieler() {
+	/**
+	 * gibt das ganze Team zurueck
+	 * @return das Team
+	 */
+	public Pokemon[] getGegner() {
 		return this.gegner;
 	}
 }
