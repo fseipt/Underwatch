@@ -25,7 +25,7 @@ public class CombatState extends GameState {
 		this.enemyName = "Enemy";
 		this.ownName = "Self";
 		
-		this.color = Color.black;
+		this.color = Color.white;
 		init();
 	}
 	
@@ -49,6 +49,8 @@ public class CombatState extends GameState {
 		g.setFont(font);
 		g.drawString(enemyName, 20, 28 );
 		g.drawString(ownName, 168, 133 );
+		g.drawRect(43, 34, 100, 5);
+		g.drawRect(170, 154, 100, 5);
 	}
 
 	@Override

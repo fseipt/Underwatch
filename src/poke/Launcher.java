@@ -22,9 +22,9 @@ import poke.game.view.gameState.GameStateManager;
  */
 public class Launcher extends JPanel implements Runnable, KeyListener{
 	// dimensions
-	public static final int WIDTH = 420;
+	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 3;
+	public static final int SCALE = 2;
 	
 	
 	// game thread
@@ -101,6 +101,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		running = true;
 		
 		gsm = new GameStateManager();
+		gsm.setState(GameStateManager.COMBAT);
 	}
 	
 	@Override
