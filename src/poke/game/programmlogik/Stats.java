@@ -25,69 +25,88 @@ public class Stats {
 			if(zhelp) {
 				switch(zb) {
 			
-				case 1: healthpoint = Integer.parseInt(s.substring(0,x));
+				case 1: healthpoint = Integer.parseInt(s.substring(0,x)); // Setzt den HP Teil des Parameters
 					break;
-				case 2: attack = Integer.parseInt(s.substring(zp,x));
+				case 2: attack = Integer.parseInt(s.substring(zp,x)); // Setzt den Angriff Teil des Parameters
 					break;
-				case 3: defense = Integer.parseInt(s.substring(zp,x));
+				case 3: defense = Integer.parseInt(s.substring(zp,x)); // Setzt den Verteidung Teil des Parameters
 					break;
-				case 4: spezialattack = Integer.parseInt(s.substring(zp,x));
+				case 4: spezialattack = Integer.parseInt(s.substring(zp,x)); // Setzt den Spezialangriff Teil des Parameters
 					break;
-				case 5: spezialdefense = Integer.parseInt(s.substring(zp,x));
+				case 5: spezialdefense = Integer.parseInt(s.substring(zp,x)); // Setzt den Speezialdefensive Teil des Parameters
 					break;
-				case 6: speed = Integer.parseInt(s.substring(x));
+				case 6: speed = Integer.parseInt(s.substring(x)); // Setzt den Speed Teil des Parameters
 					break;
 				}
 			}
 			if(s.charAt(x) == 44) {
-					zp = (x+1);
+					zp = (x+1); // erhoehen der Zaehlvariable
 			}
-			zhelp = false;
+			zhelp = false; // setzt die Variable auf false
 		}
 		for(int x = 0; x < this.stats.length; x++) {
 			switch(x) {
 			
-			case 0: this.stats[x] = (((2*this.healthpoint+94)*100)/100)+110;
+			case 0: this.stats[x] = (((2*this.healthpoint+94)*100)/100)+110; // Setzt den ausgerechneten hp Stat
 				break;
-			case 1: this.stats[x] = (((2*this.attack+94)*100)/100)+5;
+			case 1: this.stats[x] = (((2*this.attack+94)*100)/100)+5; // Setzt den ausgerechneten Angriff Stat
 				break;
-			case 2: this.stats[x] = (((2*this.defense+94)*100)/100)+5;
+			case 2: this.stats[x] = (((2*this.defense+94)*100)/100)+5; // Setzt den ausgerechneten Verteidungs Stat
 				break;
-			case 3: this.stats[x] = (((2*this.spezialattack+94)*100)/100)+5;
+			case 3: this.stats[x] = (((2*this.spezialattack+94)*100)/100)+5; // Setzt den ausgerechneten Spezialangriff Stat
 				break;
-			case 4: this.stats[x] = (((2*this.spezialdefense+94)*100)/100)+5;
+			case 4: this.stats[x] = (((2*this.spezialdefense+94)*100)/100)+5; // Setzt den ausgerechneten Spezailverteidiguns Stat
 				break;
-			case 5: this.stats[x] = (((2*this.speed+94)*100)/100)+5;
+			case 5: this.stats[x] = (((2*this.speed+94)*100)/100)+5; // Setzt den ausgerechneten Speed Stat
 				break;
-			case 6: this.stats[x] = 1;
+			case 6: this.stats[x] = 1; // Der Genauigkeits multiplikator
 				break;
-			case 7: this.stats[x] = 1;
+			case 7: this.stats[x] = 1; // Der Fluchtwertsmultiplikator
 				break;
-			case 8: this.stats[x] = 20;
+			case 8: this.stats[x] = 20; // Die Chance auf einen Crit
 			}
 		}
 	}
+	
+	/**
+	 * Gibt Alle Stats zurueck
+	 * @return 
+	 */
 	public int[] getStats() {
-		return this.stats;
+		return this.stats; // gibt die Stats als Array zurueck
 	}
+	/**
+	 * Multipliziert alle Stats mit der Veraenderung
+	 * @param a Die Veraenderung
+	 */
 	public void setStats(int[] a) {
-		for(int x = 0; x < this.stats.length; x++) {
-			this.stats[x] = this.stats[x] * a[x];
+		for(int x = 0; x < this.stats.length; x++) { 
+			this.stats[x] = this.stats[x] * a[x]; // Setzt die Stats mit Status veraenderungen
 		}
 	}
-	public void setA(int a) {
-		this.stats[1] = this.stats[1] * a;
+	public void setA(double a) {
+		this.stats[1] = (int) (this.stats[1] * a); // Setzt den Angriff
 	}
-	public void setD(int a) {
-		this.stats[2] = this.stats[2] * a;
+	public void setD(double a) {
+		this.stats[2] = (int) (this.stats[2] * a); // Setzt die Verteidigung
 	}
-	public void setSA(int a) {
-		this.stats[3] = this.stats[3] * a;
+	public void setSA(double a) {
+		this.stats[3] = (int) (this.stats[3] * a); // Setzt den Spezialangriff
 	}
-	public void setSD(int a) {
-		this.stats[4] = this.stats[4] * a;
+	public void setSD(double a) {
+		this.stats[4] = (int) (this.stats[4] * a); // Setzt die Spezialverteidung
 	}
-	public void setS(int a) {
-		this.stats[5] = this.stats[5] * a;
+	public void setS(double a) {
+		this.stats[5] = (int) (this.stats[5] * a); // Setzt den Speed
 	}
+	public void setG(double a) {
+		this.stats[5] = (int) (this.stats[6] * a); // Setzt die Genaugkeit
+	}
+	public void setF(double a) {
+		this.stats[5] = (int) (this.stats[7] * a); // Setzt den Fuchtwert
+	}
+	public void setC(double a) {
+		this.stats[5] = (int) (this.stats[8] * a); // Setzt die Crit-Chance
+	}
+	
 }

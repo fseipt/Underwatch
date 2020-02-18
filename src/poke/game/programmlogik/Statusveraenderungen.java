@@ -12,13 +12,22 @@ public class Statusveraenderungen {
 	private double critchance = 1;
 	private int[] multyplier;
 	
+	/**
+	 * Ein Konstruktor ohne Parameter
+	 */
 	public Statusveraenderungen() {
 		
 	}
+	/**
+	 * Ein Konstruktor mit Parameter der den uebergebenen String ueberprueft und dann 
+	 * die Statusveraenderungen setzt
+	 * @param s der String 
+	 * @throws WrongArgumentException
+	 */
 	public Statusveraenderungen(String s) throws WrongArgumentException {
-		int c = 0;
+		int c = 0; // deklarieren und initialisieren einer int Variable
 		for(int x = 0; x < s.length(); x++) {
-			if(s.charAt(x) == 58) {
+			if(s.charAt(x) == 58) { // checkt ob
 				c++;
 			}
 		}
