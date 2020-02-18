@@ -139,6 +139,7 @@ public class Pokemonreader {
 				}
 			}
 			pokemon.setPossible(m); // setzt alle Moves die das Pokemon erlernen kann
+			pokemon.setChance(100); // Setzt die Chance das ein Move trifft
 			this.addEintragA(this.pokemon); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());

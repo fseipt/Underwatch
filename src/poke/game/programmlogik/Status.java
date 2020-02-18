@@ -48,22 +48,22 @@ public class Status implements Allgemein{
 					
 				break;
 			case 4: p.setStatus(new Status("Freezed"));
-				
+					p.setChance(0);
 				break;
 			case 5: p.setStatus(new Status("Paralysed"));
-			
+					p.setChance(75);
 				break;
 			case 6: p.setStatus(new Status("Burned"));
 			
 				break;
 			case 7: p.setStatus(new Status("Sleep"));
-			
+					p.setChance(0);
 				break;
 			case 8: p.setStatus(new Status("Flinched"));
-			
+					p.setChance(0);
 				break;
 			case 9: p.setStatus(new Status("Attracted"));
-			
+					p.setChance(50);
 				break;
 			case 10: p.setStatus(new Status("Confused"));
 					 

@@ -76,4 +76,11 @@ public class Statusveraenderungen {
 			}
 		}
 	}
+	/**
+	 * gibt den Multiplier zurueck
+	 * @return
+	 */
+	public int[] getMultti() {
+		return this.multyplier; //gibt den Multiplier zurueck
+	}
 }
