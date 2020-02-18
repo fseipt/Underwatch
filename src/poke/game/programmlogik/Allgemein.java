@@ -8,7 +8,7 @@ public interface Allgemein {
 				      "Elektro","Psycho","Eis","Drache","Unlicht","Fee"};
 	
 	// Alle Stati
-	String[] statusse = {"Alive", "Dead", "Poisened", "Freezed", "Paralysed", "Burned", "Sleep", "Flinched", "Attracted", "Confused"};
+	String[] statusse = {"Alive", "Dead", "WPoisened", "HPoisened", "Freezed", "Paralysed", "Burned", "Sleep", "Flinched", "Attracted", "Confused"};
 	
 	// Alle Statusveraenderungen
 	String[] stausveraenderungen = {"Attack", "Defense", "Spezialattack", "Spezialdefense", "Speed", "Genauigkeit", "Fluchtwert", "Crit-Chance"}; 

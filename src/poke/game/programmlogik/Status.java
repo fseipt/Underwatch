@@ -27,5 +27,48 @@ public class Status implements Allgemein{
 			this.status = s; // setzt den Status
 		}
 	}
-	
+	public String getStatus() {
+		return this.status;
+	}
+	public Pokemon setStati(Pokemon p, Status s) throws WrongArgumentException {
+		int z = 0;
+		for(int x = 0; x < Allgemein.statusse.length; x++) {
+			if(s.getStatus().equals(Allgemein.statusse[x])) {
+				z = x;
+			}
+		}
+		switch(z) {
+			case 1: p.setStatus(new Status("Dead"));
+					
+				break;
+			case 2: p.setStatus(new Status("WPoisened")); 
+					
+				break;
+			case 3: p.setStatus(new Status("HPoisened"));
+					
+				break;
+			case 4: p.setStatus(new Status("Freezed"));
+				
+				break;
+			case 5: p.setStatus(new Status("Paralysed"));
+			
+				break;
+			case 6: p.setStatus(new Status("Burned"));
+			
+				break;
+			case 7: p.setStatus(new Status("Sleep"));
+			
+				break;
+			case 8: p.setStatus(new Status("Flinched"));
+			
+				break;
+			case 9: p.setStatus(new Status("Attracted"));
+			
+				break;
+			case 10: p.setStatus(new Status("Confused"));
+					 
+				break;
+		}
+		return p;
+	}
 }
