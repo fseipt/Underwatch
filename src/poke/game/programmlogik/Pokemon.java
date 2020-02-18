@@ -25,6 +25,7 @@ public class Pokemon implements Allgemein{
 	private Statusveraenderungen statusveraenderung;
 	private boolean zcheckR = false;
 	private Move[] possible;
+	private int chance;
 	
 	/**
 	 * Setzt den Namen
@@ -216,5 +217,26 @@ public class Pokemon implements Allgemein{
 	 */
 	public String getName() {
 		return this.name; // gibt den Namen zurueck
+	}
+	/**
+	 * setzt die Chance einen Move zu hitten
+	 * @throws WrongArgumentException 
+	 */
+	public void setChance(int x) throws WrongArgumentException {
+		if(x < 0 && x > 100) {
+			throw new WrongArgumentException();
+		}
+		this.chance = x;
+	}
+	/**
+	 * Gibt zurueck ob der Move trifft
+	 */
+	public boolean getChance() {
+		if(((int) Math.random() * 101) < this.chance) {
+			return false;
+		} else {
+			return true;
+		}
+		
 	}
 }

@@ -17,12 +17,17 @@ public class Gegner extends Team{
 	 * @param p Gegnerreader Objekt
 	 * @throws WrongArgumentException
 	 */
-	public Gegner(Gegnerreader p) throws WrongArgumentException {
+	public Gegner(Gegnerreader p) {
 		Pokemon[] team = new Pokemon[6];
 		for(int x = 0; x < team.length; x++) {
 			team[x] = p.random();
 		}
-		setTeam(team);
+		try {
+			setTeam(team);
+		} catch (WrongArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Setzt das Team mit dem Parameter

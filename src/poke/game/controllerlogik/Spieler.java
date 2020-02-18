@@ -20,7 +20,7 @@ public class Spieler extends Team{
 	 * Konstruktor ohne Parameter, setzt nur die Arrays auf die passende groesse
 	 * @throws WrongArgumentException
 	 */
-	public Spieler() throws WrongArgumentException {
+	public Spieler() {
 		building = new Pokemon[0]; // setzt das building Array auf die groesse 0
 		spieler = new Pokemon[6]; // setzt das Team auf die groesse, maximale groesse eines Teams
 	}
