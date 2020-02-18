@@ -12,6 +12,7 @@ import poke.game.programmlogik.ability.Abilityreader;
 import poke.game.programmlogik.item.Itemreader;
 import poke.game.programmlogik.move.Movereader;
 import poke.game.programmlogik.typ.Typreader;
+import poke.game.view.Frame;
 
 public class Controller {
 	
@@ -22,6 +23,7 @@ public class Controller {
 	private Pokemonreader p;
 	private Gegnerreader g;
 	private Team[] team = new Team[2];
+	private Frame f;
 	private Launcher l;
 	
 	
@@ -34,7 +36,8 @@ public class Controller {
 		this.g = new Gegnerreader(p,i);
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(g);
-		this.l = new Launcher(new JFrame("Underwatch"));
+		this.f = new Frame("Underwatch");
+		this.l = new Launcher(f);
 	}
 	
 	
