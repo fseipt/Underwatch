@@ -95,9 +95,10 @@ public class Movereader {
 				}
 			}
 			move.setStaerke(Integer.parseInt(this.att[2])); // Staerke setzen
-			move.setGenauigkeit(Integer.parseInt(this.att[3])); // Genauigkeit setzem
-			move.setAngriffspunkte(Integer.parseInt(this.att[4])); // AP setzen
-			Zusatz z = new Zusatz(this.att[5]);
+			move.setArt(Integer.parseInt(this.att[3])); // Setzt die Art
+			move.setGenauigkeit(Integer.parseInt(this.att[4])); // Genauigkeit setzem
+			move.setAngriffspunkte(Integer.parseInt(this.att[5])); // AP setzen
+			Zusatz z = new Zusatz(this.att[6]);
 			move.setZusatz(z); // Effekte Setzen
 			this.addEintragA(this.move); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {

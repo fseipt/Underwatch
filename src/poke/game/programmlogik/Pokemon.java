@@ -239,4 +239,7 @@ public class Pokemon implements Allgemein{
 		}
 		
 	}
+	public int[] getStats() {
+		return this.stat.getStats();
+	}
 }

@@ -129,6 +129,6 @@ public class Gegnerreader {
 
 	
 	public Pokemon random() {
-		 return pokemons[(int) (Math.random() * this.pokemons.length) - 1];
+		 return pokemons[(int) (Math.random() * this.pokemons.length)];
 	}
 }

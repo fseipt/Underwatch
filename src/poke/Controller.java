@@ -1,5 +1,7 @@
 package poke;
 
+import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
 
 import poke.game.controllerlogik.Gegner;
@@ -13,6 +15,11 @@ import poke.game.programmlogik.item.Itemreader;
 import poke.game.programmlogik.move.Movereader;
 import poke.game.programmlogik.typ.Typreader;
 import poke.game.view.Frame;
+import poke.game.view.gameState.GameStateManager;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.event.*;
 
 public class Controller {
 	
@@ -25,6 +32,7 @@ public class Controller {
 	private Team[] team = new Team[2];
 	private Frame f;
 	private Launcher l;
+	private GameStateManager gsm;
 	
 	
 	public Controller() {
@@ -37,7 +45,13 @@ public class Controller {
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(g);
 		this.f = new Frame("Underwatch");
-		this.l = new Launcher(f);
+	}
+	/**
+	 * 
+	 * @param e
+	 */
+	public void actionPerformed(ActionEvent e) { 
+		
 	}
 	
 	
