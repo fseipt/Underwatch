@@ -173,8 +173,8 @@ public class CombatState extends GameState {
 		g.drawString("Genauigkeit",84, 150);
 		g.drawString("Fluchtwert",84, 170);
 		
-		statLines[0] = new StatLine(stats);
-		statLines[0].draw(g);
+		// statLines[0] = new StatLine(stats);
+		// statLines[0].draw(g);
 	}
 	
 	/**

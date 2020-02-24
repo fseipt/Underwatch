@@ -14,13 +14,6 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>resource/Pokemon.csv</name>
-			<type>1</type>
-			<location>D:/OneDrive/OneDrive - tgm - Die Schule der Technik/Schule/ITP/3.Klasse/Semesterprojekt/Underwatch/Documents/Pokemon.csv</location>
-		</link>
-	</linkedResources>
 	<variableList>
 		<variable>
 			<name>copy_PARENT</name>
