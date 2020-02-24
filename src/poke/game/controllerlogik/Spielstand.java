@@ -35,8 +35,8 @@ public class Spielstand implements Serializable {
 		this.score++;
 	}
 
-	public Spielstand laden(int file) throws IOException {
-	    String name = "res/Spielstand/"+file+".obj";
+	public Spielstand laden(int file)  {
+	    String name = "res/Spielstand/"+file+".txt";
 	    Spielstand s = null;
 		try (ObjectInputStream inputStream = new ObjectInputStream(
 							new FileInputStream(name))) {
@@ -45,15 +45,22 @@ public class Spielstand implements Serializable {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		return s;
 	}
+	
 	public void speichern(int file) {
-		String name = "res/Spielstand/"+file+".obj";
+		String name = "res/Spielstand/"+file+".txt";
 		File temp;
 		try (ObjectOutputStream outputStream = new ObjectOutputStream(
 												new FileOutputStream(name))) {
-			outputStream.writeObject(outputStream);
+			outputStream.writeObject(new Spielstand(this.name, this.score, this.index, this.team));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
