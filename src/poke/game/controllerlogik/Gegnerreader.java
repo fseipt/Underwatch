@@ -51,7 +51,7 @@ public class Gegnerreader {
 	 * liesst ein CSV-File aus und fuellt eine Pokemon Array
 	 */
 	public void reader() {
-		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Gegner.csv")))) {
+		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("res/Data/Gegner.csv")))) {
 	      	  while(sc.hasNext()) {
 	      		 addEintrag(sc.nextLine()); // gibt die naechste Zeile an die Methode weiter
 	      	  }

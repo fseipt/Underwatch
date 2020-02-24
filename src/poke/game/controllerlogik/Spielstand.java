@@ -36,7 +36,7 @@ public class Spielstand implements Serializable {
 	}
 
 	public Spielstand laden(int file) throws IOException {
-	    String name = "res/Spielstand/"+file;
+	    String name = "res/Spielstand/"+file+".obj";
 	    Spielstand s = null;
 		try (ObjectInputStream inputStream = new ObjectInputStream(
 							new FileInputStream(name))) {
@@ -49,7 +49,7 @@ public class Spielstand implements Serializable {
 		return s;
 	}
 	public void speichern(int file) {
-		String name = "res/Spielstand/"+file;
+		String name = "res/Spielstand/"+file+".obj";
 		File temp;
 		try (ObjectOutputStream outputStream = new ObjectOutputStream(
 												new FileOutputStream(name))) {

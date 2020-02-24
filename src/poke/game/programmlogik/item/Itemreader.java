@@ -38,7 +38,7 @@ public class Itemreader {
 	 * liesst ein CSV-File aus und fuellt eine Move Array
 	 */
 	public void reader() {
-		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("C:\\Users\\Herr Seipt\\git\\Underwatch\\resource\\Item.csv")))) {
+		try(Scanner sc = new Scanner(new BufferedReader(new FileReader("res/Data/Item.csv")))) {
 	      	  while(sc.hasNext()) {
 	      		 addEintrag(sc.nextLine()); // gibt die naechste Zeile an die Methode weiter
 	      	  }
