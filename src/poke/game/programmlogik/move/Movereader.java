@@ -92,6 +92,7 @@ public class Movereader {
 			for(int x = 0; x < this.t.length; x++) {
 				if(this.att[1].equals(this.t[x].getTyp())) {
 					t = this.t[x];
+					break;
 				}
 			}
 			move.setStaerke(Integer.parseInt(this.att[2])); // Staerke setzen

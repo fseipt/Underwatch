@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import poke.game.controllerlogik.Gegner;
 import poke.game.controllerlogik.Gegnerreader;
 import poke.game.controllerlogik.Spieler;
+import poke.game.controllerlogik.Spielstand;
 import poke.game.controllerlogik.Team;
 import poke.game.programmlogik.Pokemonreader;
 import poke.game.programmlogik.WrongArgumentException;
@@ -19,9 +20,12 @@ import poke.game.view.gameState.GameStateManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.Serializable;
+
 import javax.swing.event.*;
 
-public class Controller {
+public class Controller implements Serializable{
 	
 	private Typreader t;
 	private Itemreader i;
@@ -33,6 +37,7 @@ public class Controller {
 	private Frame f;
 	private Launcher l;
 	private GameStateManager gsm;
+	private Spielstand s;
 	
 	
 	public Controller() {
@@ -45,6 +50,8 @@ public class Controller {
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(g);
 		this.f = new Frame("Underwatch");
+		this.s = new Spielstand("test",1,1,(Spieler) this.team[0]);
+		s.speichern(1);
 	}
 	/**
 	 * 
