@@ -19,28 +19,47 @@ import poke.game.view.tileMap.TileMap;
  * 	.) Initialisier skills mit dem Moves
  *  .) Initialisier ap mit den APs
  */
-public class CombatState extends GameState {
+public class CombatState extends GameState {	
+	private static final int ANGRIFF = 0;
+	private static final int VERTEIDIGUNG = 1;
+	private static final int SPANGRIFF = 2;
+	private static final int SPVERTEIDIGUNG = 3;
+	private static final int INITIATIVE = 4;
+	private static final int GENAUIGKEIT = 5;
+	private static final int FLUCHT = 6;
 	private TileMap tileMap;
 	private Background bg;
 	private Font font;
 	private Color color, health;
-	private int currentHp, maxHp, level;
-	private String enemyName, ownName, message;
 	private int currentChoice, currentMenu;
 	private String[] options = {"FIGHT", "STATS", "POKEMON","RUN"};
-	private String[] skills; 
-	private int[] ap;
-	private String[] types;
 	private Sound select2;
-	private BufferedImage male, female;
+	private BufferedImage male, female, magnet, magnetBack;
+	private StatLine[] statLines;
+	
+	
+	
+	
+	// FABISSSS DRECK
+	
+	private int currentHp, maxHp, level;
+	
+	private String enemyName, ownName, message;
+	
+	// SKills
+	private String[] skills; 
+	private String[] types;
+	private int[] ap;
+	//Stats
+	private int[] stats = {0,0,0,0,0,0,0};
 	
 	public CombatState(GameStateManager gsm) {
 		this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
 		this.ap = new int[] {20,15,5,40};
 		this.types = new String[] {"Fee","Drache","Gestein","Käfer"};
-		
-		
 		try {
+			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
+			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
 			this.female = ImageIO.read(getClass().getResourceAsStream("/female.gif"));
 			this.male = ImageIO.read(getClass().getResourceAsStream("/male.gif"));
 		}
@@ -76,9 +95,16 @@ public class CombatState extends GameState {
 	@Override
 	public void draw(Graphics2D g) {
 		bg.draw(g);
+		
+		g.drawImage(this.magnet,190,15,null);
+		g.drawImage(this.magnetBack, -10, 70, 150, 150, null);
 		// g.setColor(Color.white);
 		// g.fillRect(0, 0, 320, 240);
 		tileMap.draw(g);
+		
+		
+
+		
 		
 		// Draw Title
 		g.setColor(color);
@@ -88,8 +114,8 @@ public class CombatState extends GameState {
 		
 		
 		// Gender
-		g.drawImage(female,100,100,null);
-		g.drawImage(male,50,20,null);
+		g.drawImage(female,250,128,null); // self
+		g.drawImage(male,100,20,null);    // enemy
 		
 		// HP self
 		g.drawString(currentHp+"/"+maxHp,253,160);
@@ -119,8 +145,6 @@ public class CombatState extends GameState {
 		
 		
 		
-		
-		
 		switch(currentMenu) {
 			case 0: 
 				drawSelection(g);
@@ -129,6 +153,28 @@ public class CombatState extends GameState {
 				drawSkills(g);
 				break;
 		}
+		drawStats(g);
+	}
+	/**
+	 * Diese Methode zeichnet das Stats-MEnu
+	 */
+	public void drawStats(Graphics2D g) {
+		TileMap statMap = new TileMap(30);
+		statMap.loadTiles("/Tilesets/combat.gif");
+		statMap.loadMap("/Maps/stats.map");
+		statMap.setPosition(0, 0);
+		statMap.draw(g);
+		g.setFont(new Font("Press Start 2P", 1, 10));
+		g.drawString("Angriff",84, 50);
+		g.drawString("Verteidigung",84, 70);
+		g.drawString("Spz.Angriff",84, 90);
+		g.drawString("Spz.Verteidigung",84, 110);
+		g.drawString("Initiative",84, 130);
+		g.drawString("Genauigkeit",84, 150);
+		g.drawString("Fluchtwert",84, 170);
+		
+		statLines[0] = new StatLine(stats);
+		statLines[0].draw(g);
 	}
 	
 	/**
@@ -184,7 +230,9 @@ public class CombatState extends GameState {
 		g.setColor((currentChoice == 2) ? Color.red : Color.white);
 		g.drawString(options[2], 170, 227); 
 	}
-	
+	public void drawWerte(int index, int change) {
+		
+	}
 	
 	@Override
 	public void update() {

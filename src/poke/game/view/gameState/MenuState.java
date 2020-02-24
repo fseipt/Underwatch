@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
 
 public class MenuState extends GameState {
@@ -15,10 +16,11 @@ public class MenuState extends GameState {
 	private Color titleColor;
 	private Font titleFont;
 	private Font font;
-	
+	private Sound select2;
 	public MenuState(GameStateManager gsm) {
 		this.gsm = gsm;
 		try { // heyy
+			this.select2 = new Sound("res/Sound/MenuSelect.wav");
 			bg = new Background("/Backgrounds/menubg.gif",1);
 			bg.setVector(-0.1, 0);
 			titleColor = new Color(128,0,0);
@@ -73,10 +75,12 @@ public class MenuState extends GameState {
 	public void keyPressed(int k) {
 		if(k == KeyEvent.VK_ENTER) select();
 		if(k == KeyEvent.VK_UP) {
+			select2.play();
 			currentChoice--;
 			if(currentChoice == -1) currentChoice = options.length -1;
 		}
 		if(k == KeyEvent.VK_DOWN) {
+			select2.play();
 			currentChoice++;
 			if(currentChoice == options.length) currentChoice = 0;
 		}
