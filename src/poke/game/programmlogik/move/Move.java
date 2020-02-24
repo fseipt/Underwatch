@@ -11,6 +11,8 @@ public class Move implements Allgemein {
 
 	private String typ;
 	private int staerke;
+	private int art;
+	private String artS;
 	private int genauigkeit;
 	private int angriffspunkte;
 	private Zusatz zusatz;
@@ -44,6 +46,29 @@ public class Move implements Allgemein {
 		}
 		else {
 			throw new WrongArgumentException();
+		}
+	}
+	/**
+	 * Setzt die Art des Moves
+	 * @param a die Art als int
+	 * @throws WrongArgumentException
+	 */
+	public void setArt(int a) throws WrongArgumentException {
+		if(a < 0 || a > 2 ) {
+			throw new WrongArgumentException();
+		} else {
+			switch (a) {
+				case 0: 
+					this.art = a;
+					this.artS = "Status";
+					break;
+				case 1:
+					this.art = a;
+					this.artS = "Physisch";
+				case 2:
+					this.art = a;
+					this.artS = "Speziell";
+			}
 		}
 	}
 	public void setGenauigkeit(int g) throws WrongArgumentException {

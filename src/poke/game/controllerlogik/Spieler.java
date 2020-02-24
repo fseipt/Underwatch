@@ -1,5 +1,6 @@
 package poke.game.controllerlogik;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import poke.game.programmlogik.Pokemon;
@@ -9,7 +10,7 @@ import poke.game.programmlogik.WrongArgumentException;
 import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.move.Move;
 
-public class Spieler extends Team{
+public class Spieler extends Team implements Serializable{
 
 	private Pokemon[] spieler; // Das Team des Spielers
 	private Pokemon[] building; // Eine temporaere Variable, für diese Klasse

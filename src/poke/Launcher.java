@@ -101,7 +101,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		running = true;
 		
 		gsm = new GameStateManager();
-		gsm.setState(GameStateManager.COMBAT);
+		gsm.setState(GameStateManager.MENUSTATE);
 	}
 	
 	@Override

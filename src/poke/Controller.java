@@ -1,10 +1,13 @@
 package poke;
 
+import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
 
 import poke.game.controllerlogik.Gegner;
 import poke.game.controllerlogik.Gegnerreader;
 import poke.game.controllerlogik.Spieler;
+import poke.game.controllerlogik.Spielstand;
 import poke.game.controllerlogik.Team;
 import poke.game.programmlogik.Pokemonreader;
 import poke.game.programmlogik.WrongArgumentException;
@@ -13,8 +16,16 @@ import poke.game.programmlogik.item.Itemreader;
 import poke.game.programmlogik.move.Movereader;
 import poke.game.programmlogik.typ.Typreader;
 import poke.game.view.Frame;
+import poke.game.view.gameState.GameStateManager;
 
-public class Controller {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.Serializable;
+
+import javax.swing.event.*;
+
+public class Controller implements Serializable{
 	
 	private Typreader t;
 	private Itemreader i;
@@ -25,6 +36,8 @@ public class Controller {
 	private Team[] team = new Team[2];
 	private Frame f;
 	private Launcher l;
+	private GameStateManager gsm;
+	private Spielstand s;
 	
 	
 	public Controller() {
@@ -37,7 +50,15 @@ public class Controller {
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(g);
 		this.f = new Frame("Underwatch");
-		this.l = new Launcher(f);
+		this.s = new Spielstand("test",1,1,(Spieler) this.team[0]);
+		s.speichern(1);
+	}
+	/**
+	 * 
+	 * @param e
+	 */
+	public void actionPerformed(ActionEvent e) { 
+		
 	}
 	
 	
