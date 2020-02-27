@@ -67,7 +67,7 @@ public class Spielstand implements Serializable {
 	 * @return
 	 */
 	public Spielstand laden(int file)  {
-	    String name = "res/Spielstand/"+file+".txt";
+	    String name = "res/Spielstand/SP"+file+".txt";
 	    Spielstand s = null;
 		try (ObjectInputStream inputStream = new ObjectInputStream(
 							new FileInputStream(name))) {
@@ -95,7 +95,7 @@ public class Spielstand implements Serializable {
 			if(file > 3 || file < 0) {
 				throw new WrongArgumentException();
 			}
-			String name = "res/Spielstand/"+file+".txt";
+			String name = "res/Spielstand/SP"+file+".txt";
 			File temp;
 			try (ObjectOutputStream outputStream = new ObjectOutputStream(
 													new FileOutputStream(name))) {
@@ -121,11 +121,11 @@ public class Spielstand implements Serializable {
 			c[x] = 0;
 		}
 		try {
-			temp = File.createTempFile("1", ".txt");
+			temp = File.createTempFile("SP1", ".txt");
 		    f1 = temp.exists();
-		    temp = File.createTempFile("2", ".txt");
+		    temp = File.createTempFile("SP2", ".txt");
 		    f2 = temp.exists();
-		    temp = File.createTempFile("3", ".txt");
+		    temp = File.createTempFile("SP3", ".txt");
 		    f3 = temp.exists();
 		} catch (IOException e) {
 		   e.printStackTrace();

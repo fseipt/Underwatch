@@ -37,6 +37,8 @@ public class Controller implements Serializable{
 	private Frame f;
 	private Launcher l;
 	private GameStateManager gsm;
+	private Spielstand s;
+	private Spielstand[] sp;
 	
 	
 	public Controller() {
@@ -49,8 +51,10 @@ public class Controller implements Serializable{
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(g);
 		this.f = new Frame("Underwatch");
+		this.sp = new Spielstand[3];
+		this.s = new Spielstand("Neu",0,0,null);
+		this.spielstand();
 		System.out.println("Ja moin");
-		
 	}
 	/**
 	 * 
@@ -59,7 +63,18 @@ public class Controller implements Serializable{
 	public void actionPerformed(ActionEvent e) { 
 		
 	}
-	
+	public void spielstand() {
+		int[] i = this.s.checkStand();
+		for(int x = 0; x < i.length; x++) {
+			if(i[x] == 1) {
+				sp[x] = tempFull();
+				sp[x] = sp[x].laden(x+1);
+			}
+		}
+	}
+	public Spielstand tempFull() {
+		return new Spielstand("Test",0,0,null);
+	}
 	
 	
 	public static void main(String[] args)  {
