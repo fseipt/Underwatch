@@ -232,14 +232,26 @@ public class Pokemon implements Allgemein{
 	 * Gibt zurueck ob der Move trifft
 	 */
 	public boolean getChance() {
-		if(((int) Math.random() * 101) < this.chance) {
-			return false;
-		} else {
+		if((int) ((Math.random() * 101) + 1) -1 < this.chance) {
 			return true;
+		} else {
+			return false;
 		}
 		
 	}
+	/**
+	 * Gibt die ausgerechneten Stats in einem Array zurueck
+	 * @return
+	 */
 	public int[] getStats() {
 		return this.stat.getStats();
+	}
+	/**
+	 * Setzt den HP Stat
+	 * @param i die Hp
+	 * @throws WrongArgumentException 
+	 */
+	public void setHP(int i) throws WrongArgumentException {
+		this.stat.setHP(i);
 	}
 }

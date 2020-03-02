@@ -84,6 +84,13 @@ public class Stats {
 			this.stats[x] = this.stats[x] * a[x]; // Setzt die Stats mit Status veraenderungen
 		}
 	}
+	public void setHP(int i) throws WrongArgumentException {
+		if(i < this.stats[0]) {
+			this.stats[0] = i; // Setzt die HP
+		} else {
+			throw new WrongArgumentException();
+		}
+	}
 	public void setA(double a) {
 		this.stats[1] = (int) (this.stats[1] * a); // Setzt den Angriff
 	}
@@ -100,13 +107,13 @@ public class Stats {
 		this.stats[5] = (int) (this.stats[5] * a); // Setzt den Speed
 	}
 	public void setG(double a) {
-		this.stats[5] = (int) (this.stats[6] * a); // Setzt die Genaugkeit
+		this.stats[6] = (int) (this.stats[6] * a); // Setzt die Genaugkeit
 	}
 	public void setF(double a) {
-		this.stats[5] = (int) (this.stats[7] * a); // Setzt den Fuchtwert
+		this.stats[7] = (int) (this.stats[7] * a); // Setzt den Fuchtwert
 	}
 	public void setC(double a) {
-		this.stats[5] = (int) (this.stats[8] * a); // Setzt die Crit-Chance
+		this.stats[8] = (int) (this.stats[8] * a); // Setzt die Crit-Chance
 	}
 	
 }

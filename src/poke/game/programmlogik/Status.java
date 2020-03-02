@@ -39,7 +39,7 @@ public class Status implements Allgemein{
 		}
 		switch(z) {
 			case 1: p.setStatus(new Status("Dead"));
-					
+					p.setHP(0);
 				break;
 			case 2: p.setStatus(new Status("WPoisened")); 
 					
@@ -48,7 +48,7 @@ public class Status implements Allgemein{
 					
 				break;
 			case 4: p.setStatus(new Status("Freezed"));
-					p.setChance(0);
+					p.setChance(20);
 				break;
 			case 5: p.setStatus(new Status("Paralysed"));
 					p.setChance(75);

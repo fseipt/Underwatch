@@ -6,6 +6,7 @@ import poke.game.programmlogik.move.Move;
 public class Kampf {
 	private Pokemon spieler;
 	private Pokemon gegner;
+	private int turn;
 	
 	public Kampf(Pokemon s, Pokemon g) {
 		this.spieler = s;

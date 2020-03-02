@@ -141,5 +141,4 @@ public class Spielstand implements Serializable {
  		}
 		return c;
 	}
-	
 }
