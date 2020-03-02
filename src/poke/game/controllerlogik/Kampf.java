@@ -8,11 +8,19 @@ public class Kampf {
 	private Pokemon gegner;
 	private int turn;
 	
+	/**
+	 * default Konstruktor
+	 * @param s setzt das Spieler Pokemon
+	 * @param g setzt das Gegner Pokemon
+	 */
 	public Kampf(Pokemon s, Pokemon g) {
 		this.spieler = s;
 		this.gegner = g;
 	}
-	
+	/**
+	 * Checkt welche der Beiden Pokemon schneller ist
+	 * @return true/false
+	 */
 	public boolean turn() {
 		boolean x = false;
 		int s = 0;

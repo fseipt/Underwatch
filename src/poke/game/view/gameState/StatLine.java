@@ -9,7 +9,7 @@ public class StatLine {
 	private int[] stats;
 	private int stat;
 	private BufferedImage up,down,dot;
-	private StatPoint[][] sP = new StatPoint[7][5];
+	private StatPoint[][] sP = new StatPoint[7][6];
 	public StatLine(int[] stats) {
 		this.stats = stats;
 		try {
@@ -20,11 +20,11 @@ public class StatLine {
 		catch (Exception e) {
 			System.err.println("IRrrrgendwas ist schieef gelaufen bei den sttaaats");
 		}
-		int x = 185;
+		int x = 178;
 		int y = 42;
 		int ups = 0;
 		for(int u = 0; u < 7; u++) {
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 6; i++) {
 				
 				sP[u][i] = new StatPoint((stats[u] > 0 ? (stats[u] > i ? 1 : 0) : 
 											(stats[u] < 0 ? 
@@ -37,7 +37,7 @@ public class StatLine {
 				x+=15;
 			}
 			y+=20;
-		x = 185;
+		x = 178;
 		}
 	}
 	public void draw(Graphics2D g) {
