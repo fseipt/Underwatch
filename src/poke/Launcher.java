@@ -16,7 +16,7 @@ import poke.game.view.gameState.GameStateManager;
 /**
  * Diese Klasse führt das Spiel in Dauerschleife aus.
  * Damit ein Objekt dieser Klasse dem Frame geaddet werden
- * kann, erbt sie von Canvas
+ * kann, erbt sie von Canvasss
  * @author Amine Boutahar
  * @verion 21.01.2020
  */
@@ -24,7 +24,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	// dimensions
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	
 	
 	// game thread
@@ -101,7 +101,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		running = true;
 		
 		gsm = new GameStateManager();
-		gsm.setState(GameStateManager.MENUSTATE);
+		gsm.setState(GameStateManager.COMBAT);
 	}
 	
 	@Override

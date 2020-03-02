@@ -54,7 +54,7 @@ public class Controller implements Serializable{
 		this.sp = new Spielstand[3];
 		this.s = new Spielstand("Neu",0,0,null);
 		this.spielstand();
-		System.out.println("Ja moin");
+		// 	System.out.println("Ja moin");
 	}
 	/**
 	 * 

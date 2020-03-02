@@ -1,10 +1,10 @@
 package poke.game.view.tileMap;
 
 import java.awt.Graphics2D;
-
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+
 import poke.Launcher;
 
 public class Background {

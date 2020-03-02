@@ -27,6 +27,14 @@ public class CombatState extends GameState {
 	private static final int INITIATIVE = 4;
 	private static final int GENAUIGKEIT = 5;
 	private static final int FLUCHT = 6;
+	
+	private static final int MAIN = 0;
+	private static final int SKILLS = 1;
+	private static final int STATS = 2;
+	
+	
+	
+	
 	private TileMap tileMap;
 	private Background bg;
 	private Font font;
@@ -38,7 +46,7 @@ public class CombatState extends GameState {
 	private StatLine[] statLines;
 	
 	
-	
+	// private StatPoint sP = new StatPoint();
 	
 	// FABISSSS DRECK
 	
@@ -51,7 +59,10 @@ public class CombatState extends GameState {
 	private String[] types;
 	private int[] ap;
 	//Stats
-	private int[] stats = {0,0,0,0,0,0,0};
+	private int[] stats = {-5,2,3,0,-2,0,-1};
+	private StatLine s = new StatLine(stats);
+	
+	
 	
 	public CombatState(GameStateManager gsm) {
 		this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
@@ -142,9 +153,8 @@ public class CombatState extends GameState {
 		g.setFont(new Font("Press Start 2P", 1, 7));
 		g.drawString("HP", 30, 38);
 
-		
-		
-		
+	
+		//sP.draw(g);
 		switch(currentMenu) {
 			case 0: 
 				drawSelection(g);
@@ -152,8 +162,11 @@ public class CombatState extends GameState {
 			case 1:
 				drawSkills(g);
 				break;
+			case 2:
+				drawSelection(g);
+				drawStats(g);
+				break;
 		}
-		drawStats(g);
 	}
 	/**
 	 * Diese Methode zeichnet das Stats-MEnu
@@ -173,8 +186,9 @@ public class CombatState extends GameState {
 		g.drawString("Genauigkeit",84, 150);
 		g.drawString("Fluchtwert",84, 170);
 		
+		
+		s.draw(g);
 		// statLines[0] = new StatLine(stats);
-		// statLines[0].draw(g);
 	}
 	
 	/**
@@ -236,13 +250,17 @@ public class CombatState extends GameState {
 	
 	@Override
 	public void update() {
+		// sP.update();
+		s.update();
 		tileMap.setPosition(0,0);
 	}
 
 	@Override
 	public void keyPressed(int k) {
 		if(k == KeyEvent.VK_ENTER) {
-			if(currentChoice == 0 && currentMenu == 0) currentMenu = 1;
+			select2.play();
+			if(currentChoice == 0 && currentMenu == this.MAIN) currentMenu = this.SKILLS;
+			else if(currentChoice == 1 && currentMenu == this.MAIN) currentMenu = this.STATS;
 		}
 		if(k == KeyEvent.VK_RIGHT) {
 			select2.play();
@@ -269,7 +287,6 @@ public class CombatState extends GameState {
 		}
 	}
 	
-
 	@Override
 	public void keyReleased(int k) {
 		
