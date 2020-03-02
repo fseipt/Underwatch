@@ -43,10 +43,9 @@ public class CombatState extends GameState {
 	private String[] options = {"FIGHT", "STATS", "POKEMON","RUN"};
 	private Sound select2;
 	private BufferedImage male, female, magnet, magnetBack;
-	private StatLine[] statLines;
 	
 	
-	// private StatPoint sP = new StatPoint();
+	private StatPoint sP;
 	
 	// FABISSSS DRECK
 	
@@ -60,7 +59,7 @@ public class CombatState extends GameState {
 	private int[] ap;
 	//Stats
 	private int[] stats = {-5,2,3,0,-2,0,-1};
-	private StatLine s = new StatLine(stats);
+	private StatLine statLine = new StatLine(stats);
 	
 	
 	
@@ -96,6 +95,7 @@ public class CombatState extends GameState {
 	
 	@Override 
 	public void init() {
+		sP = new StatPoint(+1, 100,100);
 		tileMap = new TileMap(30);
 		tileMap.loadTiles("/Tilesets/combat.gif");
 		tileMap.loadMap("/Maps/combat.map");
@@ -105,6 +105,7 @@ public class CombatState extends GameState {
 
 	@Override
 	public void draw(Graphics2D g) {
+		
 		bg.draw(g);
 		
 		g.drawImage(this.magnet,190,15,null);
@@ -113,9 +114,8 @@ public class CombatState extends GameState {
 		// g.fillRect(0, 0, 320, 240);
 		tileMap.draw(g);
 		
-		
+		sP.draw(g);
 
-		
 		
 		// Draw Title
 		g.setColor(color);
@@ -154,7 +154,9 @@ public class CombatState extends GameState {
 		g.drawString("HP", 30, 38);
 
 	
-		//sP.draw(g);
+		
+		
+		
 		switch(currentMenu) {
 			case 0: 
 				drawSelection(g);
@@ -172,11 +174,13 @@ public class CombatState extends GameState {
 	 * Diese Methode zeichnet das Stats-MEnu
 	 */
 	public void drawStats(Graphics2D g) {
+		g.setColor(Color.white);
 		TileMap statMap = new TileMap(30);
 		statMap.loadTiles("/Tilesets/combat.gif");
 		statMap.loadMap("/Maps/stats.map");
 		statMap.setPosition(0, 0);
 		statMap.draw(g);
+		
 		g.setFont(new Font("Press Start 2P", 1, 10));
 		g.drawString("Angriff",84, 50);
 		g.drawString("Verteidigung",84, 70);
@@ -187,7 +191,7 @@ public class CombatState extends GameState {
 		g.drawString("Fluchtwert",84, 170);
 		
 		
-		s.draw(g);
+		statLine.draw(g);
 		// statLines[0] = new StatLine(stats);
 	}
 	
@@ -250,8 +254,8 @@ public class CombatState extends GameState {
 	
 	@Override
 	public void update() {
-		// sP.update();
-		s.update();
+		sP.update();
+		statLine.update();
 		tileMap.setPosition(0,0);
 	}
 

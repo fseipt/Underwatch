@@ -27,23 +27,21 @@ public class StatPoint {
 		// load sprites
 		try {
 			String s = "/Stats/";
-			s += (val < 0 ? "down2.gif" : (val > 0 ? "up2.gif" : "dot.gif"));
+			s += (val < 0 ? "down2.gif" : (val > 0 ? "up2.gif" : "Dot.gif"));
 			
 			this.spriteSheet = ImageIO.read(getClass().getResourceAsStream(s));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			
-			if(s == "/Stats/dot.gif") {
+			if(s.equals("/Stats/Dot.gif")) {
 				BufferedImage[] bi = new BufferedImage[1];
 				bi[0] = spriteSheet;
 				sprites.add(bi);
-			}
+			} 
 			else {
+				BufferedImage[] bi = new BufferedImage[numFrames];
 				for (int i = 0; i < 2; i++) {
-					BufferedImage[] bi = new BufferedImage[numFrames];
-						for(int j = 0; j < numFrames; j++ ) {
-							bi[j] = spriteSheet.getSubimage(i*width, 0, width, height);
-						}
+					bi[i] = spriteSheet.getSubimage(i*width, 0, width, height);
 					sprites.add(bi); 
 				}
 			}
@@ -52,16 +50,14 @@ public class StatPoint {
 		animation = new Animation();
 		animation.setFrames(sprites.get(0));
 		animation.setDelay(150);
-		
 	}
 	
 	public void draw(Graphics2D g) {
 		g.drawImage(animation.getImage(), x, y, null);
 	}
-public void update() {
-		
+	
+	public void update() {
 		animation.update();
-		
 	}
 }
 

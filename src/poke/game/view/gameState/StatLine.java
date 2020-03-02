@@ -20,8 +20,6 @@ public class StatLine {
 		catch (Exception e) {
 			System.err.println("IRrrrgendwas ist schieef gelaufen bei den sttaaats");
 		}
-	}
-	public void draw(Graphics2D g) {
 		int x = 185;
 		int y = 42;
 		int ups = 0;
@@ -32,7 +30,6 @@ public class StatLine {
 											(stats[u] < 0 ? 
 											(stats[u] < i*(-1) ? -1 : 0) 
 											: 0)) , x,y);
-				
 			/*	g.drawImage((stats[u] > 0 ? (stats[u] > i ? up : dot) : 
 							(stats[u] < 0 ? 
 							(stats[u] < i*(-1) ? down : dot) 
@@ -42,11 +39,13 @@ public class StatLine {
 			y+=20;
 		x = 185;
 		}
+	}
+	public void draw(Graphics2D g) {
 		for (int i = 0; i < sP.length; i++) {
 			for (int j = 0; j < sP[i].length; j++) {
 				sP[i][j].draw(g);
 			}
-		}
+		} 
 	}
 	
 	public void update() {
