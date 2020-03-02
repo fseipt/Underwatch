@@ -19,6 +19,8 @@ public class StatPoint {
 	private int height = 9;
 	private Animation animation;
 	private int x,y;
+
+	private BufferedImage spriteSheet; // Sheets braucht man für animationen
 	public StatPoint(int val, int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -27,7 +29,7 @@ public class StatPoint {
 			String s = "/Stats/";
 			s += (val < 0 ? "down2.gif" : (val > 0 ? "up2.gif" : "dot.gif"));
 			
-			BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream(s));
+			this.spriteSheet = ImageIO.read(getClass().getResourceAsStream(s));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			
