@@ -47,4 +47,7 @@ public class Kampf {
 		}
 		return hp;
 	}
+	public boolean turn(Move s, Move g) {
+		return false;
+	}
 }

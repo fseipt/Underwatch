@@ -95,12 +95,14 @@ public class Movereader {
 					break;
 				}
 			}
+			move.setTyp(t); // Typ setzen
 			move.setStaerke(Integer.parseInt(this.att[2])); // Staerke setzen
 			move.setArt(Integer.parseInt(this.att[3])); // Setzt die Art
 			move.setGenauigkeit(Integer.parseInt(this.att[4])); // Genauigkeit setzem
 			move.setAngriffspunkte(Integer.parseInt(this.att[5])); // AP setzen
 			Zusatz z = new Zusatz(this.att[6]);
 			move.setZusatz(z); // Effekte Setzen
+			move.setPrio(Integer.parseInt(this.att[7]));
 			this.addEintragA(this.move); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
