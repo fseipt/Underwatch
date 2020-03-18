@@ -252,7 +252,7 @@ public class CombatState extends GameState {
 			this.hpFac = 1;
 		}
 		else {
-			this.hpFac -= (1-dmgP/this.currentHp) /2000 ;
+			this.hpFac -= (1-dmgP/this.currentHp) /3000 ;
 		}
 		this.currentHp = currentHp*hpFac;
 	}
