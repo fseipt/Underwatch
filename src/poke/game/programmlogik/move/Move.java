@@ -177,4 +177,11 @@ public class Move implements Allgemein {
 			this.prioritaet = i;
 		}
 	}
+	/**
+	 * Gibt dir prioritaet zurueck
+	 * @return die prioritaet
+	 */
+	public int getPrioritaet() {
+		return this.prioritaet;
+	}
 }

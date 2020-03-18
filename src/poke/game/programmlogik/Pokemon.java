@@ -17,7 +17,7 @@ public class Pokemon implements Allgemein{
 	private int happiness;
 	private Ability ability;
 	private String[] bilder = new String[3];
-	private int zahl2;
+	private int zahl2 = 0;
 	private Stats stat;
 	private Item item;
 	private Move[] move = new Move[4];
@@ -110,7 +110,7 @@ public class Pokemon implements Allgemein{
 	 * @param bilder ein Bild
 	 */
 	public void setBilder(String bilder) {
-		this.bilder[zahl2] = bilder; // setzt das Vild
+		this.bilder[zahl2] = bilder; // setzt das Bild
 		this.zahl2++; // erhoet diie Zaehlvariable um 1
 	}
 	

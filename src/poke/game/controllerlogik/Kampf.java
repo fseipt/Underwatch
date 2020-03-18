@@ -17,6 +17,40 @@ public class Kampf {
 		this.spieler = s;
 		this.gegner = g;
 	}
+	
+	public int angriff(Move m, int z) {
+		int hp = 0;
+		if(z == 0) {
+			
+		}
+		if(z == 1) {
+			
+		} if(z == 2) {
+			
+		}
+		return hp;
+	}
+	/**
+	 * Checkt welches Pokemon zuerst Angreifft
+	 * @param s Der Move des Spielers
+	 * @param g Der Move des Gegners
+	 * @return
+	 */
+	public boolean turn(Move s, Move g) {
+		int sp = s.getPrioritaet();
+		int ge = g.getPrioritaet();
+		if(sp > ge) {
+			return true;
+		}
+		if(sp == ge) {
+			return this.turn();
+		}
+		if(sp < ge) {
+			return false;
+		}
+		return false;
+	}
+
 	/**
 	 * Checkt welche der Beiden Pokemon schneller ist
 	 * @return true/false
@@ -35,19 +69,5 @@ public class Kampf {
 		return x;
  	}
 	
-	public int angriff(Move m, int z) {
-		int hp = 0;
-		if(z == 0) {
-			
-		}
-		if(z == 1) {
-			
-		} if(z == 2) {
-			
-		}
-		return hp;
-	}
-	public boolean turn(Move s, Move g) {
-		return false;
-	}
+	
 }
