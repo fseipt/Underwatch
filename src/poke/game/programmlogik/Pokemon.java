@@ -160,7 +160,13 @@ public class Pokemon implements Allgemein{
 			throw new WrongArgumentException();
 		}
 	}
-	
+	/**
+	 * gibt die Moves dies das Pokemon hat zurueck
+	 * @return die Moves
+	 */
+	public Move[] getMoves() {
+		return this.move;
+	}
 	/**
 	 * Setzt den Status
 	 * @param status der Status

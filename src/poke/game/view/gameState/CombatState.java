@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import poke.Controller;
+import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.move.Move;
 import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
 import poke.game.view.tileMap.TileMap;
@@ -47,26 +50,40 @@ public class CombatState extends GameState {
 	
 	private StatPoint sP;
 	
+	
+	
 	// FABISSSS DRECK
-	
 	private int currentHp, maxHp, level;
-	
+	private int currentHpE, maxHpE, levelE;
 	private String enemyName, ownName, message;
-	
 	// SKills
 	private String[] skills; 
 	private String[] types;
 	private int[] ap;
 	//Stats
-	private int[] stats = {-5,2,3,0,-2,0,-1};
+	private int[] stats = {-6,2,3,0,-2,0,-1};
 	private StatLine statLine = new StatLine(stats);
 	
 	
 	
-	public CombatState(GameStateManager gsm) {
+	public CombatState(GameStateManager gsm, Controller c) {
+		
+		
+		this.currentHp = gsm.getSpieler().getSpieler()[0].
+		
+		//this.skills = c.getTeam()[0]
+		
+		
+		
+		
 		this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
 		this.ap = new int[] {20,15,5,40};
 		this.types = new String[] {"Fee","Drache","Gestein","Käfer"};
+		
+		
+		
+		
+		
 		try {
 			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
 			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
@@ -74,6 +91,8 @@ public class CombatState extends GameState {
 			this.male = ImageIO.read(getClass().getResourceAsStream("/male.gif"));
 		}
 		catch(Exception e) { System.err.println("Die geschlechter gehen nicht!!"); }
+		
+		
 		
 		
 		this.gsm = gsm;
@@ -286,7 +305,7 @@ public class CombatState extends GameState {
 			if(currentChoice < 2) currentChoice+=2;
 			else currentChoice-=2;
 		}
-		if(k == KeyEvent.VK_ESCAPE) {
+		if(k == KeyEvent.VK_X) {
 			currentMenu = 0;
 		}
 	}
