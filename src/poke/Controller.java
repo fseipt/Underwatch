@@ -56,6 +56,11 @@ public class Controller implements Serializable{
 		this.team[1] = new Gegner(gegner);
 		
 		this.spieler = new Spieler();
+		try {
+			this.spieler.setTeam(poke.getPokemon());
+		} catch (WrongArgumentException e) {
+			throw new RuntimeException("Spieler ding hat verkackt");
+		}
 		
 		this.frame = new Frame("Underwatch", this);
 		

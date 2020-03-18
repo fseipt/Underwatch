@@ -1,5 +1,6 @@
 package poke.game.view.gameState;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -9,7 +10,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import poke.Controller;
-import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.move.Move;
 import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
@@ -53,10 +53,13 @@ public class CombatState extends GameState {
 	
 	
 	// FABISSSS DRECK
-	private int currentHp, maxHp, level;
-	private int currentHpE, maxHpE, levelE;
+	private double currentHp, maxHp, hpFac, dmg, dmgP;
+	private int level;
+	private double currentHpE, maxHpE;
+	private int levelE;
 	private String enemyName, ownName, message;
 	// SKills
+	private Move[] moves;
 	private String[] skills; 
 	private String[] types;
 	private int[] ap;
@@ -67,12 +70,21 @@ public class CombatState extends GameState {
 	
 	
 	public CombatState(GameStateManager gsm, Controller c) {
+		moves = c.getSpieler().getSpieler()[0].getMoves();
 		
 		
-		this.currentHp = gsm.getSpieler().getSpieler()[0].
+		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
+		/*this.moves = c.getSpieler().getSpieler()[0].getMoves();
 		
-		//this.skills = c.getTeam()[0]
+		this.skills = new String[] {moves[0].getName(), moves[1].getName(),
+									moves[2].getName(), moves[3].getName()};
+		this.ap = new int[] {moves[0].getAngriffspunkte(),moves[1].getAngriffspunkte()
+							,moves[2].getAngriffspunkte(),moves[3].getAngriffspunkte()};
 		
+		this.types = new String[] {moves[0].getTyp().getTyp(),moves[1].getTyp().getTyp(),
+								   moves[2].getTyp().getTyp(),moves[3].getTyp().getTyp()};
+		
+		*/
 		
 		
 		
@@ -101,6 +113,8 @@ public class CombatState extends GameState {
 		this.enemyName = "Enemy";
 		this.ownName = "Self";
 		this.health = Color.green;
+		this.dmg = 0;
+		this.hpFac = 1;
 		this.currentHp = 100;
 		this.maxHp = 100;
 		this.level = 100;
@@ -114,14 +128,20 @@ public class CombatState extends GameState {
 	
 	@Override 
 	public void init() {
-		sP = new StatPoint(+1, 100,100);
 		tileMap = new TileMap(30);
 		tileMap.loadTiles("/Tilesets/combat.gif");
 		tileMap.loadMap("/Maps/combat.map");
 		tileMap.setPosition(0, 0);
 		bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
 	}
-
+	@Override
+	public void update() {
+		statLine.update();
+		tileMap.setPosition(0,0);
+		damageH();
+		healH();
+		
+	}
 	@Override
 	public void draw(Graphics2D g) {
 		
@@ -133,7 +153,6 @@ public class CombatState extends GameState {
 		// g.fillRect(0, 0, 320, 240);
 		tileMap.draw(g);
 		
-		sP.draw(g);
 
 		
 		// Draw Title
@@ -148,23 +167,15 @@ public class CombatState extends GameState {
 		g.drawImage(male,100,20,null);    // enemy
 		
 		// HP self
-		g.drawString(currentHp+"/"+maxHp,253,160);
+		g.drawString((int)currentHp+"/"+(int)maxHp,253,160);
 		// Level self
 		g.drawString("Lv"+level,264,137);
 	
 		// level enemy
 		g.drawString("Lv"+level,114,29);
 		
-		// Healths
-		g.setColor(health);
-		g.fillRect(43, 33, 100, 5);
-		g.fillRect(193, 141, 100, 5);
 		
-		// Healthbar
-		g.setColor(color);
-		g.drawRect(43, 33, 100, 5);
-		g.drawRect(193, 141, 100, 5);
-		
+		drawHealth(g);
 		// Self "HP"
 		g.setFont(new Font("Press Start 2P", 1, 7));
 		g.drawString("HP", 180, 146);
@@ -190,7 +201,82 @@ public class CombatState extends GameState {
 		}
 	}
 	/**
+	 * Dieser Methode wird der Schaden einer
+	 * ausgeführten Attacke übergeben
+	 * @param dmg Schaden
+	 */
+	public void hpChange(double dmg) {
+		this.dmg = -dmg;
+		this.dmgP = this.currentHp + dmg;
+		if(dmgP == 0) dmgP--;
+	}
+	/**
+	 * Diese Methode wird jede Sekunde ausgeführ
+	 * und sorgt dafür, dass die HP Anzeige in 
+	 * einer Animation sich decreased
+	 */
+	public void damageH() {
+		
+		if(dmgP == 0 || dmg < 0) return;
+		if(currentHp <= 0) {
+			this.hpFac = 0;
+			this.dmg = 0;
+			this.dmgP = 0;
+		}
+		
+		// Wenn schon alles abgezogen wurde
+		if(dmgP >= this.currentHp ) {
+			this.currentHp = dmgP;
+			dmgP = 0;
+			this.hpFac = 1;
+		}
+		else {
+			this.hpFac -= (1-dmgP/this.currentHp)/1000;
+		}
+		this.currentHp = currentHp*hpFac;
+		
+	}
+	public void healH() {
+		if(this.currentHp == this.maxHp || dmg > 0 || dmgP == 0) return;
+		if(dmgP > this.maxHp) dmgP = this.maxHp;
+		if(currentHp <= 0) {
+			this.hpFac = 0;
+			this.dmg = 0;
+			this.dmgP = 0;
+		}
+		
+		// Wenn schon alles abgezogen wurde
+		if(dmgP <= this.currentHp ) {
+			this.currentHp = dmgP;
+			dmgP = 0;
+			this.hpFac = 1;
+		}
+		else {
+			this.hpFac -= (1-dmgP/this.currentHp) /2000 ;
+		}
+		this.currentHp = currentHp*hpFac;
+	}
+	public void drawHealth(Graphics2D g) {
+		
+		double hpProz = (currentHp/maxHp) *100;
+		
+		this.health = (hpProz >= 50 ? Color.green : 
+					  (hpProz >= 20 ? Color.yellow : Color.RED));
+	
+		if(this.currentHp >= 1 && hpProz > 0 && hpProz < 1) hpProz = 2;
+		// Healths
+		g.setColor(health);
+		g.fillRect(43, 33, (int) hpProz, 5);
+		g.fillRect(193, 141, (int) hpProz, 5);
+				
+		// Healthbar
+		g.setColor(color);
+		g.drawRect(43, 33, 100, 5);
+		g.drawRect(193, 141, 100, 5);
+	}
+	/**
 	 * Diese Methode zeichnet das Stats-MEnu
+	 * @param g graphics ding
 	 */
 	public void drawStats(Graphics2D g) {
 		g.setColor(Color.white);
@@ -271,42 +357,61 @@ public class CombatState extends GameState {
 		
 	}
 	
-	@Override
-	public void update() {
-		sP.update();
-		statLine.update();
-		tileMap.setPosition(0,0);
-	}
+
 
 	@Override
 	public void keyPressed(int k) {
-		if(k == KeyEvent.VK_ENTER) {
-			select2.play();
-			if(currentChoice == 0 && currentMenu == this.MAIN) currentMenu = this.SKILLS;
-			else if(currentChoice == 1 && currentMenu == this.MAIN) currentMenu = this.STATS;
-		}
-		if(k == KeyEvent.VK_RIGHT) {
-			select2.play();
-			if(currentChoice%2 == 0) currentChoice++;
-			else currentChoice--;
-		}
-		if(k == KeyEvent.VK_LEFT) {
-			select2.play();
-			if(currentChoice%2 == 0) currentChoice++;
-			else currentChoice--;
-		}
-		if(k == KeyEvent.VK_DOWN) {
-			select2.play();
-			if(currentChoice < 2) currentChoice+=2;
-			else currentChoice-=2;
-		}
-		if(k == KeyEvent.VK_UP) {
-			select2.play();
-			if(currentChoice < 2) currentChoice+=2;
-			else currentChoice-=2;
-		}
-		if(k == KeyEvent.VK_X) {
-			currentMenu = 0;
+		switch(k) {
+			case KeyEvent.VK_ENTER:
+				select2.play();
+				if(currentChoice == 0 && currentMenu == this.MAIN) currentMenu = this.SKILLS;
+				else if(currentChoice == 1 && currentMenu == this.MAIN) currentMenu = this.STATS;
+				break;
+					
+			case KeyEvent.VK_RIGHT:
+				select2.play();
+				if(currentChoice%2 == 0) currentChoice++;
+				else currentChoice--;
+				break;
+					
+			case KeyEvent.VK_LEFT:
+				select2.play();
+				if(currentChoice%2 == 0) currentChoice++;
+				else currentChoice--;
+				break;
+			
+			case KeyEvent.VK_DOWN:
+				select2.play();
+				if(currentChoice < 2) currentChoice+=2;
+				else currentChoice-=2;
+				break;
+					
+			case KeyEvent.VK_UP:
+				select2.play();
+				if(currentChoice < 2) currentChoice+=2;
+				else currentChoice-=2;
+				break;
+					
+			case KeyEvent.VK_X:
+				currentMenu = 0;
+				break;
+					
+			case KeyEvent.VK_H:
+				this.currentHp--;
+				break;
+			
+			case KeyEvent.VK_J:
+				this.currentHp++;
+				break;
+			case KeyEvent.VK_G:
+				hpChange(-30);
+				break;
+			case KeyEvent.VK_V:
+				hpChange(70);
+				break;
+			case KeyEvent.VK_F:
+				this.currentHp = this.maxHp;
+				break;
 		}
 	}
 	

@@ -19,11 +19,7 @@ public class GameStateManager {
 	public static final int NEWGAME = 1;
 	public static final int COMBAT = 4;
 	
-	private Team[] team = new Team[2];
-	private Spieler spieler;
 	public GameStateManager(Controller c) {
-		this.team = c.getTeam();
-		this.spieler = c.getSpieler();
 		
 		
 		this.gameStates =  new ArrayList<GameState>();
@@ -34,12 +30,6 @@ public class GameStateManager {
 		this.gameStates.add(new MenuState(this)); // 0
 		this.gameStates.add(new CombatState(this, c)); // 4
 		
-	}
-	public Spieler getSpieler() {
-		return spieler;
-	}
-	public Team[] getTeam() {
-		return team;
 	}
 	public void setState(int state) {
 		currentState = state;
