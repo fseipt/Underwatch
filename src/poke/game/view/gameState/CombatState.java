@@ -52,7 +52,11 @@ public class CombatState extends GameState {
 	private StatLine statLine = new StatLine(stats);
 	
 	
-	
+	/**
+	 * Das ist ein Konstruktor
+	 * @param gsm der GameStateManager
+	 * @param c der Controller
+	 */
 	public CombatState(GameStateManager gsm, Controller c) {
 		init();
 		this.gsm = gsm;
@@ -142,6 +146,10 @@ public class CombatState extends GameState {
 		healH();
 		
 	}
+	/**
+	 * Diese Methode zeichnet den ganzen Screen
+	 * @param g Das Graphics ding
+	 */
 	@Override
 	public void draw(Graphics2D g) {
 		
@@ -267,6 +275,10 @@ public class CombatState extends GameState {
 		}
 		this.currentHp = currentHp*hpFac;
 	}
+	/**
+	 * Diese Methode zeichnet die Healthbar
+	 * @param g das Graphics ding
+	 */
 	public void drawHealth(Graphics2D g) {
 		
 		double hpProz = (currentHp/maxHp) *100;
