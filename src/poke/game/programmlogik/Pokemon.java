@@ -31,6 +31,22 @@ public class Pokemon implements Allgemein{
 	public Pokemon() {
 		
 	}
+	/**
+	 * Konstruktor mit Parametern
+	 * @param name der Name
+	 * @param t die Typen
+	 * @param form die form
+	 * @param gender das Geschlecht
+	 * @param weight das Gewicht
+	 * @param happiness die Gluecklichkeit
+	 * @param ab die Faehigkeit
+	 * @param fb das vordere Bild
+	 * @param bb das hintere Bild
+	 * @param i das Icon
+	 * @param stats die Stats
+	 * @param m Die Moves
+	 * @throws WrongArgumentException
+	 */
 	public Pokemon(String name, Typ[] t, int form, int gender, int weight, int happiness, Ability ab,String fb, String bb, String i,Stats stats, Move[] m ) throws WrongArgumentException {
 		this.setName(name);
 		this.setTyp(t);
