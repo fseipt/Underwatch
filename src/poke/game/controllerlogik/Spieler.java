@@ -128,4 +128,8 @@ public class Spieler extends Team implements Serializable{
 	public Pokemon[] getBuilding() {
 		return this.building;
 	}
+	@Override
+	public Pokemon getFirst() {
+		return spieler[0];
+	}
 }

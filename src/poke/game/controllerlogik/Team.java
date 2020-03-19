@@ -19,6 +19,6 @@ public abstract class Team {
 	 */
 	public abstract String[] getIcons();
 	
-	
+	public abstract Pokemon getFirst();
 	
 }

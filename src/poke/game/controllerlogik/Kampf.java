@@ -1,11 +1,15 @@
 package poke.game.controllerlogik;
 
 import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.WrongArgumentException;
 import poke.game.programmlogik.move.Move;
 
 public class Kampf {
 	private Pokemon spieler;
 	private Pokemon gegner;
+	private Spieler s;
+	private Gegner g;
+	private boolean spielerTurn, gegnerTurn;
 	private int turn;
 	
 	/**
@@ -13,9 +17,11 @@ public class Kampf {
 	 * @param s setzt das Spieler Pokemon
 	 * @param g setzt das Gegner Pokemon
 	 */
-	public Kampf(Pokemon s, Pokemon g) {
-		this.spieler = s;
-		this.gegner = g;
+	public Kampf(Spieler s, Gegner g) {
+		this.spieler = s.getFirst();
+		this.gegner = g.getFirst();
+		this.s = s;
+		this.g = g;
 	}
 	
 	public int angriff(Move m, int z) {
@@ -68,6 +74,35 @@ public class Kampf {
 		}
 		return x;
  	}
-	
+	public void increase() {
+		if(gegnerTurn == true && spielerTurn == true) {
+			turn++;
+			spielerTurn = false;
+			gegnerTurn = false;
+		}
+	}
+	public int getTurn() {
+		return turn;
+	}
+	public void switchG(Pokemon p) {
+		try {
+			g.switchIn(p);
+			gegnerTurn = true;
+		} catch (WrongArgumentException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Fehler: ");
+			e.printStackTrace();
+		}
+	}
+	public void switchS(Pokemon p) {
+		try {
+			s.switchIn(p);
+			spielerTurn = true;
+		} catch (WrongArgumentException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Fehler: ");
+			e.printStackTrace();
+		}
+	}
 	
 }

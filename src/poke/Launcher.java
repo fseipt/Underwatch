@@ -1,6 +1,5 @@
 
 package poke;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -33,18 +32,16 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	private int FPS = 60;
 	private long targetTime = 1000/FPS;
 	
-	private JFrame window;
-	
 	// image
 	private BufferedImage image;
 	private Graphics2D g;
 	
 	// game state manager
 	private GameStateManager gsm;
+	private Controller c;
 	
-	
-	public Launcher(JFrame window) {
-		this.window = window;
+	public Launcher(Controller c) {
+		this.c = c;
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 		setFocusable(true);
 		requestFocus(); 
@@ -100,7 +97,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		g = (Graphics2D) image.getGraphics();
 		running = true;
 		
-		gsm = new GameStateManager();
+		gsm = new GameStateManager(c);
 		gsm.setState(GameStateManager.COMBAT);
 	}
 	
@@ -111,10 +108,9 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
-	public static void main(String[] args) {
+	/* public static void main(String[] args) {
 		JFrame window = new JFrame("Underwatch");
 		window.setContentPane(new Launcher(window));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,7 +118,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		window.pack();
 		window.setVisible(true);
 		window.setBackground(Color.white);
-	}
+	} */
 }
 
 

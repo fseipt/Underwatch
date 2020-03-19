@@ -67,9 +67,11 @@ public class Move implements Allgemein {
 				case 1:
 					this.art = a;
 					this.artS = "Physisch";
+					break;
 				case 2:
 					this.art = a;
 					this.artS = "Speziell";
+					break;
 			}
 		}
 	}

@@ -60,7 +60,6 @@ public class Gegner extends Team{
 	 * @param p Das Pokemon das an erster Stelle kommt
 	 * @throws WrongArgumentException
 	 */
-	@SuppressWarnings("unused")
 	public void switchIn(Pokemon p) throws WrongArgumentException {
 		int z = 10;
 		for(int x = 0; x < this.gegner.length; x++) {
@@ -82,5 +81,9 @@ public class Gegner extends Team{
 	 */
 	public Pokemon[] getGegner() {
 		return this.gegner;
+	}
+	@Override
+	public Pokemon getFirst() {
+		return gegner[0];
 	}
 }
