@@ -55,8 +55,10 @@ public class Controller implements Serializable{
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(gegner);
 		this.spieler = new Spieler();
+		Pokemon[] p2 = new Pokemon[1];
+		p2[0] = gegner.random();
 		try {
-			this.spieler.setTeam(poke.getPokemon());
+			this.spieler.setTeam(p2);
 		} catch (WrongArgumentException e) {
 			throw new RuntimeException("Spieler ding hat verkackt");
 		}
