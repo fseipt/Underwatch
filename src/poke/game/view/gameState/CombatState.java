@@ -1,19 +1,13 @@
 package poke.game.view.gameState;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
-
 import poke.Controller;
 import poke.game.programmlogik.move.Move;
 import poke.game.sound.Sound;
-import poke.game.view.tileMap.Background;
-import poke.game.view.tileMap.TileMap;
+import poke.game.view.tileMap.*;
 
 /**
  * Diese Klasse zeichent den Combatscreen
