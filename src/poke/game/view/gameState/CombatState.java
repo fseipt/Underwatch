@@ -1,19 +1,13 @@
 package poke.game.view.gameState;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
-
 import poke.Controller;
 import poke.game.programmlogik.move.Move;
 import poke.game.sound.Sound;
-import poke.game.view.tileMap.Background;
-import poke.game.view.tileMap.TileMap;
+import poke.game.view.tileMap.*;
 
 /**
  * Diese Klasse zeichent den Combatscreen
@@ -23,13 +17,8 @@ import poke.game.view.tileMap.TileMap;
  *  .) Initialisier ap mit den APs
  */
 public class CombatState extends GameState {	
-	private static final int ANGRIFF = 0;
-	private static final int VERTEIDIGUNG = 1;
-	private static final int SPANGRIFF = 2;
-	private static final int SPVERTEIDIGUNG = 3;
-	private static final int INITIATIVE = 4;
-	private static final int GENAUIGKEIT = 5;
-	private static final int FLUCHT = 6;
+
+	
 	
 	private static final int MAIN = 0;
 	private static final int SKILLS = 1;
@@ -47,11 +36,6 @@ public class CombatState extends GameState {
 	private Sound select2;
 	private BufferedImage male, female, magnet, magnetBack;
 	
-	
-	private StatPoint sP;
-	
-	
-	
 	// FABISSSS DRECK
 	private double currentHp, maxHp, hpFac, dmg, dmgP;
 	private int level;
@@ -62,7 +46,7 @@ public class CombatState extends GameState {
 	private Move[] moves;
 	private String[] skills; 
 	private String[] types;
-	private int[] ap;
+	private int[] apMax, ap;
 	//Stats
 	private int[] stats = {-6,2,3,0,-2,0,-1};
 	private StatLine statLine = new StatLine(stats);
@@ -70,32 +54,17 @@ public class CombatState extends GameState {
 	
 	
 	public CombatState(GameStateManager gsm, Controller c) {
-		moves = c.getSpieler().getSpieler()[0].getMoves();
-		
-		System.out.println(c.getSpieler().getSpieler()[0].getMoves()[0].getName());
-		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
-		/*this.moves = c.getSpieler().getSpieler()[0].getMoves();
-		
-		this.skills = new String[] {moves[0].getName(), moves[1].getName(),
-									moves[2].getName(), moves[3].getName()};
-		this.ap = new int[] {moves[0].getAngriffspunkte(),moves[1].getAngriffspunkte()
-							,moves[2].getAngriffspunkte(),moves[3].getAngriffspunkte()};
-		
-		this.types = new String[] {moves[0].getTyp().getTyp(),moves[1].getTyp().getTyp(),
-								   moves[2].getTyp().getTyp(),moves[3].getTyp().getTyp()};
-		
-		*/
-		
-		
-		
-		this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
-		this.ap = new int[] {20,15,5,40};
-		this.types = new String[] {"Fee","Drache","Gestein","Käfer"};
-		
-		
-		
-		
-		
+		init();
+		this.gsm = gsm;
+		this.currentMenu = 0;
+		this.health = Color.green;
+		this.font = new Font("Press Start 2P", 1, 10);
+		this.dmg = 0;
+		this.hpFac = 1;
+		this.message = "What should\n "+ownName+" do?";
+		this.color = Color.white;
+		this.currentChoice = 1;
+		this.select2 = new Sound("res/Sound/MenuSelect.wav");
 		try {
 			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
 			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
@@ -104,26 +73,57 @@ public class CombatState extends GameState {
 		}
 		catch(Exception e) { System.err.println("Die geschlechter gehen nicht!!"); }
 		
-		
-		
-		
-		this.gsm = gsm;
-		this.currentMenu = 0;
-		this.font = new Font("Press Start 2P", 1, 10);
-		this.enemyName = "Enemy";
+
+	
+		/* ------ SELF ------ */
+		// Name
 		this.ownName = "Self";
-		this.health = Color.green;
-		this.dmg = 0;
-		this.hpFac = 1;
+		
+		// Hp
 		this.currentHp = 100;
 		this.maxHp = 100;
-		this.level = 100;
-		this.color = Color.white;
-		this.message = "What should\n "+ownName+" do?";
-		init();
-		this.currentChoice = 1;
-		this.select2 = new Sound("res/Sound/MenuSelect.wav");
 		
+		// Lvl
+		this.level = 100;
+		
+		// Moves
+		moves = c.getSpieler().getSpieler()[0].getMoves();
+		
+		
+		//System.out.println(c.getSpieler().getSpieler()[0].getMoves()[2].getName());
+		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
+		// this.moves = c.getSpieler().getSpieler()[0].getMoves();
+		this.moves = c.getGegner().random().getMoves();
+		
+		// Skills
+		this.skills = new String[4];
+		for (int i = 0; i < this.moves.length; i++) {
+			if(this.moves[i] != null) this.skills[i] = this.moves[i].getName();
+			else this.skills[i] = "-";
+		}
+		// Aps
+		this.apMax = new int[4];
+		this.ap = new int[4];
+		for (int i = 0; i < this.moves.length; i++) {
+			if(this.moves[i] != null) {
+				this.ap[i] = this.moves[i].getAngriffspunkte();
+				this.apMax[i] = this.moves[i].getAngriffspunkte();
+			}
+			else {
+				this.apMax[i] = 0;
+				this.ap[i] = 0;
+			}
+		}
+		// Typen
+		this.types = new String[4];
+		for (int i = 0; i < this.moves.length; i++) {
+			if(this.moves[i] != null) this.types[i] = this.moves[i].getTyp().getTyp();
+			else this.types[i] = "-";
+		} 
+		
+		/* ------ ENEMY ------ */
+		this.enemyName = "Enemy";
+	
 	}
 	
 	@Override 
@@ -216,7 +216,6 @@ public class CombatState extends GameState {
 	 * einer Animation sich decreased
 	 */
 	public void damageH() {
-		
 		if(dmgP == 0 || dmg < 0) return;
 		if(currentHp <= 0) {
 			this.hpFac = 0;
@@ -237,13 +236,25 @@ public class CombatState extends GameState {
 		
 	}
 	public void healH() {
+		if(this.currentHp > this.maxHp) {
+			this.currentHp = this.maxHp;
+			this.hpFac = 1;
+			this.dmg = 0;
+			this.dmgP = 0;
+			return;
+		}
 		if(this.currentHp == this.maxHp || dmg > 0 || dmgP == 0) return;
+		
+		
 		if(dmgP > this.maxHp) dmgP = this.maxHp;
+		
+		
 		if(currentHp <= 0) {
 			this.hpFac = 0;
 			this.dmg = 0;
 			this.dmgP = 0;
 		}
+		
 		
 		// Wenn schon alles abgezogen wurde
 		if(dmgP <= this.currentHp ) {
@@ -287,13 +298,13 @@ public class CombatState extends GameState {
 		statMap.draw(g);
 		
 		g.setFont(new Font("Press Start 2P", 1, 10));
-		g.drawString("Angriff",84, 50);
-		g.drawString("Verteidigung",84, 70);
-		g.drawString("Spz.Angriff",84, 90);
-		g.drawString("Spz.Verteidigung",84, 110);
-		g.drawString("Initiative",84, 130);
-		g.drawString("Genauigkeit",84, 150);
-		g.drawString("Fluchtwert",84, 170);
+		g.drawString(Stats.ANG.getText(),84, 50);
+		g.drawString(Stats.VERT.getText(),84, 70);
+		g.drawString(Stats.SPANG.getText(),84, 90);
+		g.drawString(Stats.SPVERT.getText(),84, 110);
+		g.drawString(Stats.INIT.getText(),84, 130);
+		g.drawString(Stats.GENAU.getText(),84, 150);
+		g.drawString(Stats.FLUCHT.getText(),84, 170);
 		
 		
 		statLine.draw(g);
@@ -305,28 +316,24 @@ public class CombatState extends GameState {
 	 * für Skills
 	 */
 	public void drawSkills(Graphics2D g) {
-		g.setColor(Color.GRAY);
-		g.fillRoundRect(209,180, 110, 60, 10, 10);
-		g.setFont(new Font("Press Start 2P", 1, 14));
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(209,180, 110, 60);
+		g.setFont(new Font("Press Start 2P", 1, 11));
 		g.setColor(Color.white);
 		
 		g.drawString("AP",224,204);
-		g.drawString(this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
-		
+		g.drawString(this.apMax[currentChoice] == 0 ? "-" : this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
 		g.drawString("Type",224,226);
 		g.drawString(types[currentChoice], 265, 226);
-		// FIGHT
-		g.setColor((currentChoice == 0) ? Color.red : Color.white);
-		g.drawString(skills[0], 20, 205);
-		// STATS
-		g.setColor((currentChoice == 1) ? Color.red : Color.white);
-		g.drawString(skills[1], 115, 205);
-		// POKEMON
-		g.setColor((currentChoice == 3) ? Color.red : Color.white);
-		g.drawString(skills[3],116, 227);
-		// RUN
-		g.setColor((currentChoice == 2) ? Color.red : Color.white);
-		g.drawString(skills[2], 20, 227); 
+		
+		int xs;
+		int ys;
+		for (int i = 0; i < skills.length; i++) {
+			xs = (i%2 == 0) ? 20 : 115;
+			ys = (i <= 1) ? 205 : 227;
+			g.setColor((currentChoice == i) ? Color.red : Color.white);
+			g.drawString(this.skills[i], xs, ys);
+		}
 	}
 	
 	/**
@@ -337,21 +344,17 @@ public class CombatState extends GameState {
 	public void drawSelection(Graphics2D g) {
 		g.setFont(new Font("Press Start 2P", 1, 10));
 		g.drawString(message, 20, 210);
-		g.setFont(new Font("Press Start 2P", 1, 14));
-		g.setColor(Color.GRAY);
-		g.fillRoundRect(159,180, 160, 60, 10, 10);
-		// FIGHT
-		g.setColor((currentChoice == 0) ? Color.red : Color.white);
-		g.drawString(options[0], 170, 205);
-		// STATS
-		g.setColor((currentChoice == 1) ? Color.red : Color.white);
-		g.drawString(options[1], 255, 205);
-		// POKEMON
-		g.setColor((currentChoice == 3) ? Color.red : Color.white);
-		g.drawString(options[3],256, 227);
-		// RUN
-		g.setColor((currentChoice == 2) ? Color.red : Color.white);
-		g.drawString(options[2], 170, 227); 
+		g.setFont(new Font("Press Start 2P", 1, 13));
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(160,180, 160, 60);
+		int xo;
+		int yo;
+		for (int i = 0; i < options.length; i++) {
+			xo = (i%2 == 0) ? 170 : 255;
+			yo = (i <= 1) ? 205 : 227;
+			g.setColor((currentChoice == i) ? Color.red : Color.white);
+			g.drawString(this.options[i], xo, yo);
+		}
 	}
 	public void drawWerte(int index, int change) {
 		
