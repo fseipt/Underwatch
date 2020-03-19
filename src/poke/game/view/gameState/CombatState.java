@@ -23,13 +23,8 @@ import poke.game.view.tileMap.TileMap;
  *  .) Initialisier ap mit den APs
  */
 public class CombatState extends GameState {	
-	private static final int ANGRIFF = 0;
-	private static final int VERTEIDIGUNG = 1;
-	private static final int SPANGRIFF = 2;
-	private static final int SPVERTEIDIGUNG = 3;
-	private static final int INITIATIVE = 4;
-	private static final int GENAUIGKEIT = 5;
-	private static final int FLUCHT = 6;
+
+	
 	
 	private static final int MAIN = 0;
 	private static final int SKILLS = 1;
@@ -62,7 +57,7 @@ public class CombatState extends GameState {
 	private Move[] moves;
 	private String[] skills; 
 	private String[] types;
-	private int[] ap;
+	private int[] apMax, ap;
 	//Stats
 	private int[] stats = {-6,2,3,0,-2,0,-1};
 	private StatLine statLine = new StatLine(stats);
@@ -82,24 +77,26 @@ public class CombatState extends GameState {
 			if(this.moves[i] != null) this.skills[i] = this.moves[i].getName();
 			else this.skills[i] = "-";
 		}
-	/*	
-		this.ap = new int[] {moves[0].getAngriffspunkte(),moves[1].getAngriffspunkte()
-							,moves[2].getAngriffspunkte(),moves[3].getAngriffspunkte()};
 		
-		this.types = new String[] {moves[0].getTyp().getTyp(),moves[1].getTyp().getTyp(),
-								   moves[2].getTyp().getTyp(),moves[3].getTyp().getTyp()};
+		this.apMax = new int[4];
+		this.ap = new int[4];
+		for (int i = 0; i < this.moves.length; i++) {
+			if(this.moves[i] != null) {
+				this.ap[i] = this.moves[i].getAngriffspunkte();
+				this.apMax[i] = this.moves[i].getAngriffspunkte();
+			}
+			else {
+				this.apMax[i] = 0;
+				this.ap[i] = 0;
+			}
+		}
+		System.out.println(this.moves[0].getTyp().getTyp());
 		
-		*/
-		
-		
-		
-		//this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
-		this.ap = new int[] {20,15,5,40};
-		this.types = new String[] {"Fee","Drache","Gestein","Käfer"};
-		
-		
-		
-		
+		this.types = new String[4];
+		for (int i = 0; i < this.moves.length; i++) {
+			if(this.moves[i] != null) this.types[i] = this.moves[i].getTyp().getTyp();
+			else this.types[i] = "-";
+		} 
 		
 		try {
 			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
@@ -303,13 +300,13 @@ public class CombatState extends GameState {
 		statMap.draw(g);
 		
 		g.setFont(new Font("Press Start 2P", 1, 10));
-		g.drawString("Angriff",84, 50);
-		g.drawString("Verteidigung",84, 70);
-		g.drawString("Spz.Angriff",84, 90);
-		g.drawString("Spz.Verteidigung",84, 110);
-		g.drawString("Initiative",84, 130);
-		g.drawString("Genauigkeit",84, 150);
-		g.drawString("Fluchtwert",84, 170);
+		g.drawString(Stats.ANG.getText(),84, 50);
+		g.drawString(Stats.VERT.getText(),84, 70);
+		g.drawString(Stats.SPANG.getText(),84, 90);
+		g.drawString(Stats.SPVERT.getText(),84, 110);
+		g.drawString(Stats.INIT.getText(),84, 130);
+		g.drawString(Stats.GENAU.getText(),84, 150);
+		g.drawString(Stats.FLUCHT.getText(),84, 170);
 		
 		
 		statLine.draw(g);
@@ -327,7 +324,7 @@ public class CombatState extends GameState {
 		g.setColor(Color.white);
 		
 		g.drawString("AP",224,204);
-		g.drawString(this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
+		g.drawString(this.apMax[currentChoice] == 0 ? "-" : this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
 		g.drawString("Type",224,226);
 		g.drawString(types[currentChoice], 265, 226);
 		

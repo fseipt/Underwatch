@@ -135,7 +135,7 @@ public class Move implements Allgemein {
 	 * @return der Typ
 	 */
 	public Typ getTyp() {
-		return null;
+		return this.typ;
 	}
 	/**
 	 * Gibt die Staerke des Moves zurueck 
