@@ -36,11 +36,6 @@ public class CombatState extends GameState {
 	private Sound select2;
 	private BufferedImage male, female, magnet, magnetBack;
 	
-	
-	private StatPoint sP;
-	
-	
-	
 	// FABISSSS DRECK
 	private double currentHp, maxHp, hpFac, dmg, dmgP;
 	private int level;
@@ -59,19 +54,54 @@ public class CombatState extends GameState {
 	
 	
 	public CombatState(GameStateManager gsm, Controller c) {
+		init();
+		this.gsm = gsm;
+		this.currentMenu = 0;
+		this.health = Color.green;
+		this.font = new Font("Press Start 2P", 1, 10);
+		this.dmg = 0;
+		this.hpFac = 1;
+		this.message = "What should\n "+ownName+" do?";
+		this.color = Color.white;
+		this.currentChoice = 1;
+		this.select2 = new Sound("res/Sound/MenuSelect.wav");
+		try {
+			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
+			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
+			this.female = ImageIO.read(getClass().getResourceAsStream("/female.gif"));
+			this.male = ImageIO.read(getClass().getResourceAsStream("/male.gif"));
+		}
+		catch(Exception e) { System.err.println("Die geschlechter gehen nicht!!"); }
+		
+
+	
+		/* ------ SELF ------ */
+		// Name
+		this.ownName = "Self";
+		
+		// Hp
+		this.currentHp = 100;
+		this.maxHp = 100;
+		
+		// Lvl
+		this.level = 100;
+		
+		// Moves
 		moves = c.getSpieler().getSpieler()[0].getMoves();
 		
 		
 		//System.out.println(c.getSpieler().getSpieler()[0].getMoves()[2].getName());
 		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
-		this.moves = c.getSpieler().getSpieler()[0].getMoves();
+		// this.moves = c.getSpieler().getSpieler()[0].getMoves();
+		this.moves = c.getGegner().random().getMoves();
 		
+		// Skills
 		this.skills = new String[4];
 		for (int i = 0; i < this.moves.length; i++) {
 			if(this.moves[i] != null) this.skills[i] = this.moves[i].getName();
 			else this.skills[i] = "-";
 		}
-		
+		// Aps
 		this.apMax = new int[4];
 		this.ap = new int[4];
 		for (int i = 0; i < this.moves.length; i++) {
@@ -84,42 +114,16 @@ public class CombatState extends GameState {
 				this.ap[i] = 0;
 			}
 		}
-		System.out.println(this.moves[0].getTyp().getTyp());
-		
+		// Typen
 		this.types = new String[4];
 		for (int i = 0; i < this.moves.length; i++) {
 			if(this.moves[i] != null) this.types[i] = this.moves[i].getTyp().getTyp();
 			else this.types[i] = "-";
 		} 
 		
-		try {
-			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
-			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
-			this.female = ImageIO.read(getClass().getResourceAsStream("/female.gif"));
-			this.male = ImageIO.read(getClass().getResourceAsStream("/male.gif"));
-		}
-		catch(Exception e) { System.err.println("Die geschlechter gehen nicht!!"); }
-		
-		
-		
-		
-		this.gsm = gsm;
-		this.currentMenu = 0;
-		this.font = new Font("Press Start 2P", 1, 10);
+		/* ------ ENEMY ------ */
 		this.enemyName = "Enemy";
-		this.ownName = "Self";
-		this.health = Color.green;
-		this.dmg = 0;
-		this.hpFac = 1;
-		this.currentHp = 100;
-		this.maxHp = 100;
-		this.level = 100;
-		this.color = Color.white;
-		this.message = "What should\n "+ownName+" do?";
-		init();
-		this.currentChoice = 1;
-		this.select2 = new Sound("res/Sound/MenuSelect.wav");
-		
+	
 	}
 	
 	@Override 
