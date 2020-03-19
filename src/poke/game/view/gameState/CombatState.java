@@ -72,7 +72,7 @@ public class CombatState extends GameState {
 	public CombatState(GameStateManager gsm, Controller c) {
 		moves = c.getSpieler().getSpieler()[0].getMoves();
 		
-		
+		System.out.println(c.getSpieler().getSpieler()[0].getMoves()[2].getName());
 		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
 		/*this.moves = c.getSpieler().getSpieler()[0].getMoves();
 		

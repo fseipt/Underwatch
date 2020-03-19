@@ -56,6 +56,7 @@ public class Controller implements Serializable{
 		this.team[1] = new Gegner(gegner);
 		
 		this.spieler = new Spieler();
+		
 		try {
 			this.spieler.setTeam(poke.getPokemon());
 		} catch (WrongArgumentException e) {
