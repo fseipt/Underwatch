@@ -72,12 +72,17 @@ public class CombatState extends GameState {
 	public CombatState(GameStateManager gsm, Controller c) {
 		moves = c.getSpieler().getSpieler()[0].getMoves();
 		
-		System.out.println(c.getSpieler().getSpieler()[0].getMoves()[1].getName());
-		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
-		/*this.moves = c.getSpieler().getSpieler()[0].getMoves();
 		
-		this.skills = new String[] {moves[0].getName(), moves[1].getName(),
-									moves[2].getName(), moves[3].getName()};
+		//System.out.println(c.getSpieler().getSpieler()[0].getMoves()[2].getName());
+		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
+		this.moves = c.getSpieler().getSpieler()[0].getMoves();
+		
+		this.skills = new String[4];
+		for (int i = 0; i < this.moves.length; i++) {
+			if(this.moves[i] != null) this.skills[i] = this.moves[i].getName();
+			else this.skills[i] = "-";
+		}
+	/*	
 		this.ap = new int[] {moves[0].getAngriffspunkte(),moves[1].getAngriffspunkte()
 							,moves[2].getAngriffspunkte(),moves[3].getAngriffspunkte()};
 		
@@ -88,7 +93,7 @@ public class CombatState extends GameState {
 		
 		
 		
-		this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
+		//this.skills = new String[] {"Skill 1", "Skill 2", "Skill 3", "Skill 4"};
 		this.ap = new int[] {20,15,5,40};
 		this.types = new String[] {"Fee","Drache","Gestein","Käfer"};
 		
@@ -216,13 +221,6 @@ public class CombatState extends GameState {
 	 * einer Animation sich decreased
 	 */
 	public void damageH() {
-		if(this.currentHp >= this.maxHp) {
-			this.currentHp = this.maxHp;
-			this.hpFac = 0;
-			this.dmg = 0;
-			this.dmgP = 0;
-			return;
-		}
 		if(dmgP == 0 || dmg < 0) return;
 		if(currentHp <= 0) {
 			this.hpFac = 0;
@@ -243,6 +241,13 @@ public class CombatState extends GameState {
 		
 	}
 	public void healH() {
+		if(this.currentHp > this.maxHp) {
+			this.currentHp = this.maxHp;
+			this.hpFac = 1;
+			this.dmg = 0;
+			this.dmgP = 0;
+			return;
+		}
 		if(this.currentHp == this.maxHp || dmg > 0 || dmgP == 0) return;
 		
 		
@@ -316,28 +321,24 @@ public class CombatState extends GameState {
 	 * für Skills
 	 */
 	public void drawSkills(Graphics2D g) {
-		g.setColor(Color.GRAY);
-		g.fillRoundRect(209,180, 110, 60, 10, 10);
-		g.setFont(new Font("Press Start 2P", 1, 14));
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(209,180, 110, 60);
+		g.setFont(new Font("Press Start 2P", 1, 11));
 		g.setColor(Color.white);
 		
 		g.drawString("AP",224,204);
 		g.drawString(this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
-		
 		g.drawString("Type",224,226);
 		g.drawString(types[currentChoice], 265, 226);
-		// FIGHT
-		g.setColor((currentChoice == 0) ? Color.red : Color.white);
-		g.drawString(skills[0], 20, 205);
-		// STATS
-		g.setColor((currentChoice == 1) ? Color.red : Color.white);
-		g.drawString(skills[1], 115, 205);
-		// POKEMON
-		g.setColor((currentChoice == 3) ? Color.red : Color.white);
-		g.drawString(skills[3],116, 227);
-		// RUN
-		g.setColor((currentChoice == 2) ? Color.red : Color.white);
-		g.drawString(skills[2], 20, 227); 
+		
+		int xs;
+		int ys;
+		for (int i = 0; i < skills.length; i++) {
+			xs = (i%2 == 0) ? 20 : 115;
+			ys = (i <= 1) ? 205 : 227;
+			g.setColor((currentChoice == i) ? Color.red : Color.white);
+			g.drawString(this.skills[i], xs, ys);
+		}
 	}
 	
 	/**
@@ -348,21 +349,17 @@ public class CombatState extends GameState {
 	public void drawSelection(Graphics2D g) {
 		g.setFont(new Font("Press Start 2P", 1, 10));
 		g.drawString(message, 20, 210);
-		g.setFont(new Font("Press Start 2P", 1, 14));
-		g.setColor(Color.GRAY);
-		g.fillRoundRect(159,180, 160, 60, 10, 10);
-		// FIGHT
-		g.setColor((currentChoice == 0) ? Color.red : Color.white);
-		g.drawString(options[0], 170, 205);
-		// STATS
-		g.setColor((currentChoice == 1) ? Color.red : Color.white);
-		g.drawString(options[1], 255, 205);
-		// POKEMON
-		g.setColor((currentChoice == 3) ? Color.red : Color.white);
-		g.drawString(options[3],256, 227);
-		// RUN
-		g.setColor((currentChoice == 2) ? Color.red : Color.white);
-		g.drawString(options[2], 170, 227); 
+		g.setFont(new Font("Press Start 2P", 1, 13));
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(160,180, 160, 60);
+		int xo;
+		int yo;
+		for (int i = 0; i < options.length; i++) {
+			xo = (i%2 == 0) ? 170 : 255;
+			yo = (i <= 1) ? 205 : 227;
+			g.setColor((currentChoice == i) ? Color.red : Color.white);
+			g.drawString(this.options[i], xo, yo);
+		}
 	}
 	public void drawWerte(int index, int change) {
 		

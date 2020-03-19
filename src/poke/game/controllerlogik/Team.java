@@ -1,9 +1,11 @@
 package poke.game.controllerlogik;
 
+import java.io.Serializable;
+
 import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.WrongArgumentException;
 
-public abstract class Team {
+public abstract class Team implements Serializable {
 
 
 	/**

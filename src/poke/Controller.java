@@ -1,6 +1,5 @@
 package poke;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 
@@ -15,6 +14,7 @@ import poke.game.programmlogik.ability.Abilityreader;
 import poke.game.programmlogik.item.Itemreader;
 import poke.game.programmlogik.move.Movereader;
 import poke.game.programmlogik.typ.Typreader;
+import poke.game.view.Frame;
 import poke.game.view.gameState.GameStateManager;
 
 public class Controller implements Serializable{
@@ -52,7 +52,7 @@ public class Controller implements Serializable{
 			throw new RuntimeException("Spieler ding hat verkackt");
 		}
 		
-		this.frame = new Frame("Underwatch");
+		this.frame = new Frame("Underwatch", this);
 		
 		this.spielstaende = new Spielstand[3];
 		this.spielstand = new Spielstand("Neu",0,0,null);
