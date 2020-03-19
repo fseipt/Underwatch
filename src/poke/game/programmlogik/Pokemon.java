@@ -19,6 +19,7 @@ public class Pokemon implements Allgemein{
 	private String[] bilder = new String[3];
 	private int zahl2 = 0;
 	private Stats stat;
+	private String basis;
 	private Item item;
 	private Move[] move = new Move[4];
 	private Status status;
@@ -27,6 +28,23 @@ public class Pokemon implements Allgemein{
 	private Move[] possible;
 	private int chance;
 	
+	public Pokemon() {
+		
+	}
+	public Pokemon(String name, Typ[] t, int form, int gender, int weight, int happiness, Ability ab,String fb, String bb, String i,Stats stats, Move[] m ) throws WrongArgumentException {
+		this.setName(name);
+		this.setTyp(t);
+		this.setForm(form);
+		this.setGender(gender);
+		this.setWeight(weight);
+		this.setHappiness(happiness);
+		this.setAbility(ab);
+		this.setBilder(fb);
+		this.setBilder(bb);
+		this.setBilder(i);
+		this.setStats(stats);
+		this.setPossible(m);
+	}
 	/**
 	 * Setzt den Namen
 	 * @param name der Name
@@ -42,7 +60,9 @@ public class Pokemon implements Allgemein{
 	public void setTyp(Typ[] typ) {
 		this.typ = typ;
 	}
-	
+	public Typ[] getTyp() {
+		return this.typ;
+	}
 	/**
 	 * Setzt die Form des Pokeemons
 	 * @param form die Form
@@ -50,7 +70,9 @@ public class Pokemon implements Allgemein{
 	public void setForm(int form) {
 		this.form = form;
 	}
-	
+	public int getForm() {
+		return this.form;
+	}
 	/**
 	 * Setzt das Geschlecht des Pokemons
 	 * @param gender das Geschlecht als int
@@ -70,7 +92,18 @@ public class Pokemon implements Allgemein{
 			throw new WrongArgumentException();
 		}
 	}
+	public int getGender() {
+			switch(this.gender) {
+				case "Male": return 1; 
+				case "Female": return 2;
+				case "Genderless": return 3;
+		}
+		return 3;
+	}
 	
+	public String getGenderS() {
+		return this.gender;
+	}
 	/**
 	 * Setzt das Gewicht des Pokemons
 	 * @param weight Das Gewicht
@@ -83,7 +116,9 @@ public class Pokemon implements Allgemein{
 			throw new WrongArgumentException();
 		}
 	}
-	
+	public int getWeight() {
+		return this.weight;
+	}
 	/**
 	 * Setzt die Gluecklichkeit des Pokemons
 	 * @param happiness Die Gluecklichkeit
@@ -97,6 +132,9 @@ public class Pokemon implements Allgemein{
 		}
 	}
 	
+	public int getHappiness() {
+		return this.happiness;
+	}
 	/**
 	 * Setzt die Faehigkeit
 	 * @param ability die Faehigkeit
@@ -104,7 +142,9 @@ public class Pokemon implements Allgemein{
 	public void setAbility(Ability ability) {
 		this.ability = ability; // setzt die Faehigkeit
 	}
-	
+	public Ability getAbility() {
+		return this.ability;
+	}
 	/**
 	 * Setzt alle Bilder
 	 * @param bilder ein Bild
@@ -120,6 +160,12 @@ public class Pokemon implements Allgemein{
 	 */
 	public void setStats(Stats stats) {
 		this.stat = stats; //setzt die Stats
+	}
+	public void setBasis(String b) {
+		this.basis = b;
+	}
+	public String getBasis() {
+		return this.basis;
 	}
 	/**
 	 * Setzt das Item des Pokemon

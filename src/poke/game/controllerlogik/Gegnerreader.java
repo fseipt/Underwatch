@@ -17,6 +17,7 @@ import poke.game.programmlogik.ability.Ability;
 import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.item.Itemreader;
 import poke.game.programmlogik.move.Move;
+import poke.game.programmlogik.typ.Typ;
 
 public class Gegnerreader {
 	
@@ -92,12 +93,23 @@ public class Gegnerreader {
 				this.att[x] = s.substring((b[x-1]+1)); // setzt Zusatz effekt zum letzten Index
 			}
 		}
-		pokemon = new Pokemon(); // Neues Move Object
 		try {
 			
 			for(int x = 0; x < this.p.length; x++) {
 				if(this.att[0].equals(p[x].getName())) { // ueberprüft ob der Name vom "Gegnerpokemon" mit einem bestehenden Pokemon uebereinstimmt
-					pokemon = p[x]; // setzt das Pokemon Objekt mit dem Pokemon, dass den selben Namen hat
+					pokemon = new Pokemon(); // setzt das Pokemon Objekt mit dem Pokemon, dass den selben Namen hat
+					String name = p[x].getName();
+					Typ[] t = p[x].getTyp();
+					int form = p[x].getForm();
+					int gender = p[x].getGender();
+					int weight = p[x].getWeight();
+					int happiness = p[x].getHappiness();
+					Ability a = p[x].getAbility();
+					String fb = p[x].getVBild();
+					String bb = p[x].getBBild();
+					String i = p[x].getIcon();
+					Stats stats = new Stats(p[x].getBasis());
+					pokemon = new Pokemon(name, t, form, gender, weight, happiness, a, fb, bb, i, stats, p[x].getPossible());
 				}
 			}
 			
