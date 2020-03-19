@@ -12,6 +12,7 @@ import poke.game.programmlogik.move.Move;
 
 public class Spieler extends Team implements Serializable{
 
+	
 	private Pokemon[] spieler; // Das Team des Spielers
 	private Pokemon[] building; // Eine temporaere Variable, für diese Klasse
 	private Pokemon p; // ein Pokemon

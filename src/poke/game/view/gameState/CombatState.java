@@ -72,7 +72,7 @@ public class CombatState extends GameState {
 	public CombatState(GameStateManager gsm, Controller c) {
 		moves = c.getSpieler().getSpieler()[0].getMoves();
 		
-		System.out.println(c.getSpieler().getSpieler()[0].getMoves()[2].getName());
+		System.out.println(c.getSpieler().getSpieler()[0].getMoves()[1].getName());
 		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
 		/*this.moves = c.getSpieler().getSpieler()[0].getMoves();
 		
@@ -216,7 +216,13 @@ public class CombatState extends GameState {
 	 * einer Animation sich decreased
 	 */
 	public void damageH() {
-		
+		if(this.currentHp >= this.maxHp) {
+			this.currentHp = this.maxHp;
+			this.hpFac = 0;
+			this.dmg = 0;
+			this.dmgP = 0;
+			return;
+		}
 		if(dmgP == 0 || dmg < 0) return;
 		if(currentHp <= 0) {
 			this.hpFac = 0;
@@ -238,12 +244,17 @@ public class CombatState extends GameState {
 	}
 	public void healH() {
 		if(this.currentHp == this.maxHp || dmg > 0 || dmgP == 0) return;
+		
+		
 		if(dmgP > this.maxHp) dmgP = this.maxHp;
+		
+		
 		if(currentHp <= 0) {
 			this.hpFac = 0;
 			this.dmg = 0;
 			this.dmgP = 0;
 		}
+		
 		
 		// Wenn schon alles abgezogen wurde
 		if(dmgP <= this.currentHp ) {
