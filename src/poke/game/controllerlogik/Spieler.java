@@ -10,8 +10,9 @@ import poke.game.programmlogik.WrongArgumentException;
 import poke.game.programmlogik.item.Item;
 import poke.game.programmlogik.move.Move;
 
-public class Spieler extends Team implements Serializable{
+public class Spieler extends Team implements Serializable {
 
+	private static final long serialVersionUID = -5173021698010366589L;
 	private Pokemon[] spieler; // Das Team des Spielers
 	private Pokemon[] building; // Eine temporaere Variable, für diese Klasse
 	private Pokemon p; // ein Pokemon
