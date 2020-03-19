@@ -50,6 +50,7 @@ public class Controller implements Serializable{
 		this.g = new Gegnerreader(p,i);
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(g);
+		System.out.print("HI");
 		this.f = new Frame("Underwatch");
 		this.sp = new Spielstand[3];
 		this.s = new Spielstand("Neu",0,0,null);
