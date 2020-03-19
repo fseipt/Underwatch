@@ -8,6 +8,7 @@ import poke.game.controllerlogik.Gegnerreader;
 import poke.game.controllerlogik.Spieler;
 import poke.game.controllerlogik.Spielstand;
 import poke.game.controllerlogik.Team;
+import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.Pokemonreader;
 import poke.game.programmlogik.WrongArgumentException;
 import poke.game.programmlogik.ability.Abilityreader;
