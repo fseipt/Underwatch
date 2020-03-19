@@ -11,10 +11,6 @@ import poke.game.view.tileMap.*;
 
 /**
  * Diese Klasse zeichent den Combatscreen
- * 
- * Fabis Aufgaben:
- * 	.) Initialisier skills mit dem Moves
- *  .) Initialisier ap mit den APs
  */
 public class CombatState extends GameState {	
 
@@ -33,7 +29,7 @@ public class CombatState extends GameState {
 	private Color color, health;
 	private int currentChoice, currentMenu;
 	private String[] options = {"FIGHT", "STATS", "POKEMON","RUN"};
-	private Sound select2;
+	private Sound select2, heal;
 	private BufferedImage male, female, magnet, magnetBack;
 	
 	// FABISSSS DRECK
@@ -69,6 +65,7 @@ public class CombatState extends GameState {
 		this.color = Color.white;
 		this.currentChoice = 1;
 		this.select2 = new Sound("res/Sound/MenuSelect.wav");
+		this.heal = new Sound("res/Sound/heal.wav");
 		try {
 			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
 			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
@@ -215,6 +212,7 @@ public class CombatState extends GameState {
 	 */
 	public void hpChange(double dmg) {
 		this.dmg = -dmg;
+		if(dmg > 0) heal.play();
 		this.dmgP = this.currentHp + dmg;
 		if(dmgP == 0) dmgP--;
 	}
@@ -243,6 +241,9 @@ public class CombatState extends GameState {
 		this.currentHp = currentHp*hpFac;
 		
 	}
+	/**
+	 * 
+	 */
 	public void healH() {
 		if(this.currentHp > this.maxHp) {
 			this.currentHp = this.maxHp;
