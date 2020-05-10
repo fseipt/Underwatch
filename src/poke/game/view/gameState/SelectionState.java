@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import poke.Controller;
-import poke.game.programmlogik.*;
+import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.typ.Typen;
+import poke.game.view.Entries.UnderlingEntry;
 import poke.game.view.tileMap.Background;
 /**
  * Diese Klasse zeichent den Combatscreen
@@ -48,18 +50,19 @@ public class SelectionState extends GameState {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
+	
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 400, 400);
-		int x = 100;
-		int y = 10;
-	for(Typen t: Typen.values()) {
-		g.drawImage(t.getImage(), x, y, null);
-		y+=20;
-		if(y == 210) {
-			x = 200;
-			y = 10;
-		}
-	}
+		UnderlingEntry e = new UnderlingEntry(null,100,1);
+		UnderlingEntry e2 = new UnderlingEntry(null,50,1);
+		UnderlingEntry e3 = new UnderlingEntry(null,100,2);
+		UnderlingEntry e4 = new UnderlingEntry(null,150,1);
+		UnderlingEntry e1 = new UnderlingEntry(null,200,1);
+		e.draw(g);
+		e1.draw(g);
+		e2.draw(g);
+		e3.draw(g);
+		e4.draw(g);
 		
 	}
 	@Override

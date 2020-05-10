@@ -68,6 +68,8 @@ public class TypesState extends GameState {
 			y = 10;
 		}
 	}
+	
+	
 		
 	}
 	@Override
