@@ -1,15 +1,14 @@
-package poke.game.view.gameState;
+package poke.game.view.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import poke.GraphicElement;
 import poke.game.view.tileMap.Animation;
 
-import poke.game.view.tileMap.Animation;
-
-public class StatPoint {
+public class StatPoint implements GraphicElement{
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	

@@ -1,27 +1,31 @@
 package poke.game.view.gameState;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
 import poke.Controller;
+import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.move.Move;
+import poke.game.programmlogik.typ.Typen;
 import poke.game.sound.Sound;
-import poke.game.view.tileMap.*;
+import poke.game.view.Graphics.StatLine;
+import poke.game.view.Graphics.Stats;
+import poke.game.view.tileMap.Background;
+import poke.game.view.tileMap.TileMap;
 
 /**
  * Diese Klasse zeichent den Combatscreen
  */
-public class CombatState extends GameState {	
-
-	
-	
+public class CombatState extends GameState {		
 	private static final int MAIN = 0;
 	private static final int SKILLS = 1;
-	private static final int STATS = 2;
-	
-	
-	
+	private static final int STATS = 2;		
 	
 	private TileMap tileMap;
 	private Background bg;
@@ -55,6 +59,7 @@ public class CombatState extends GameState {
 	 */
 	public CombatState(GameStateManager gsm, Controller c) {
 		init();
+		Pokemon own = c.getSpieler().getSpieler()[0];
 		this.gsm = gsm;
 		this.currentMenu = 0;
 		this.health = Color.green;
@@ -67,18 +72,19 @@ public class CombatState extends GameState {
 		this.select2 = new Sound("res/Sound/MenuSelect.wav");
 		this.heal = new Sound("res/Sound/heal.wav");
 		try {
-			this.magnet = ImageIO.read(getClass().getResourceAsStream("/magnet.gif"));
-			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/magnetBack.gif"));
-			this.female = ImageIO.read(getClass().getResourceAsStream("/female.gif"));
-			this.male = ImageIO.read(getClass().getResourceAsStream("/male.gif"));
+			this.magnet = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+own.getVBild()+".gif"));
+			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+own.getBBild()+".gif"));
+			this.female = ImageIO.read(getClass().getResourceAsStream("/Graphics/female.gif"));
+			this.male = ImageIO.read(getClass().getResourceAsStream("/Graphics/male.gif"));
 		}
-		catch(Exception e) { System.err.println("Die geschlechter gehen nicht!!"); }
+		catch(Exception e) { System.err.println("Die Bilder gehen nicht!!"); }
 		
 
 	
 		/* ------ SELF ------ */
+
 		// Name
-		this.ownName = "Self";
+		this.ownName = own.getName();
 		
 		// Hp
 		this.currentHp = 100;
@@ -86,47 +92,41 @@ public class CombatState extends GameState {
 		
 		// Lvl
 		this.level = 100;
-		
+	
 		// Moves
-		moves = c.getSpieler().getSpieler()[0].getMoves();
+		this.moves = own.getMoves();
 		
-		
-		//System.out.println(c.getSpieler().getSpieler()[0].getMoves()[2].getName());
-		// WARUM WERDEN NUR 2 MOVES ERKANNT OBWOHL 4 IM CSV FILE SIND
-		// this.moves = c.getSpieler().getSpieler()[0].getMoves();
-		this.moves = c.getGegner().random().getMoves();
-		
-		// Skills
-		this.skills = new String[4];
-		for (int i = 0; i < this.moves.length; i++) {
-			if(this.moves[i] != null) this.skills[i] = this.moves[i].getName();
-			else this.skills[i] = "-";
-		}
 		// Aps
 		this.apMax = new int[4];
 		this.ap = new int[4];
-		for (int i = 0; i < this.moves.length; i++) {
-			if(this.moves[i] != null) {
-				this.ap[i] = this.moves[i].getAngriffspunkte();
-				this.apMax[i] = this.moves[i].getAngriffspunkte();
-			}
-			else {
-				this.apMax[i] = 0;
-				this.ap[i] = 0;
-			}
-		}
+		// Skills
+		this.skills = new String[4];
 		// Typen
 		this.types = new String[4];
 		for (int i = 0; i < this.moves.length; i++) {
-			if(this.moves[i] != null) this.types[i] = this.moves[i].getTyp().getTyp();
-			else this.types[i] = "-";
-		} 
+			if(this.moves[i] != null)  {
+				this.skills[i] = this.moves[i].getName();
+				this.ap[i] = this.moves[i].getAngriffspunkte();
+				this.apMax[i] = this.moves[i].getAngriffspunkte();
+				this.types[i] = this.moves[i].getTyp().getTyp();
+				
+			}
+			else {
+				this.skills[i] = "-";
+				this.apMax[i] = 0;
+				this.ap[i] = 0;
+				this.types[i] = "-";
+			}
+		}
 		
 		/* ------ ENEMY ------ */
 		this.enemyName = "Enemy";
 	
 	}
-	
+	/**
+	 * Diese Methode initialisiert notwendige 
+	 * Ressourcen
+	 */
 	@Override 
 	public void init() {
 		tileMap = new TileMap(30);
@@ -135,6 +135,11 @@ public class CombatState extends GameState {
 		tileMap.setPosition(0, 0);
 		bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
 	}
+	/**
+	 * Diese Methode wird öfters pro Sekunde
+	 * ausgeführt une aktualisiert bestimmte 
+	 * Elemente
+	 */
 	@Override
 	public void update() {
 		statLine.update();
@@ -238,7 +243,8 @@ public class CombatState extends GameState {
 		else {
 			this.hpFac -= (1-dmgP/this.currentHp)/1000;
 		}
-		this.currentHp = currentHp*hpFac;
+		if(currentHp*hpFac < dmgP) this.currentHp = dmgP;
+		else this.currentHp = currentHp*hpFac;
 		
 	}
 	/**
@@ -259,7 +265,7 @@ public class CombatState extends GameState {
 		
 		
 		if(currentHp <= 0) {
-			this.hpFac = 0;
+			this.hpFac = 1; 
 			this.dmg = 0;
 			this.dmgP = 0;
 		}
@@ -337,7 +343,8 @@ public class CombatState extends GameState {
 		g.drawString("AP",224,204);
 		g.drawString(this.apMax[currentChoice] == 0 ? "-" : this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
 		g.drawString("Type",224,226);
-		g.drawString(types[currentChoice], 265, 226);
+		
+		g.drawImage(Typen.valueOf(types[currentChoice]).getImage(),260,214,null);
 		
 		int xs;
 		int ys;
@@ -420,13 +427,16 @@ public class CombatState extends GameState {
 				this.currentHp++;
 				break;
 			case KeyEvent.VK_G:
-				hpChange(-30);
+				hpChange(-50);
 				break;
 			case KeyEvent.VK_V:
 				hpChange(70);
 				break;
 			case KeyEvent.VK_F:
 				this.currentHp = this.maxHp;
+				break;
+			case KeyEvent.VK_ESCAPE:
+				this.gsm.setState(0);
 				break;
 		}
 	}

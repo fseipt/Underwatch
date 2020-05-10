@@ -1,4 +1,4 @@
-package poke.game.view.gameState;
+package poke.game.view.Graphics;
 
 public enum Stats {
 	ANG("Angriff",0),

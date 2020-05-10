@@ -1,11 +1,13 @@
-package poke.game.view.gameState;
+package poke.game.view.Graphics;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class StatLine {
+import poke.GraphicElement;
+
+public class StatLine implements GraphicElement{
 	private int[] stats;
 	private int stat;
 	private BufferedImage up,down,dot;

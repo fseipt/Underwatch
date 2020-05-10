@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import poke.Controller;
-import poke.game.controllerlogik.Spieler;
-import poke.game.controllerlogik.Team;
 
 /**
  * Diese Klasse hat alle Spiel-Screens
@@ -17,8 +15,9 @@ public class GameStateManager {
 	private int currentState = 0;
 	public static final int MENUSTATE = 0;
 	public static final int NEWGAME = 1;
+	public static final int SELECTION = 3;
 	public static final int COMBAT = 4;
-	
+	public static final int ALLTYPES = 5;
 	public GameStateManager(Controller c) {
 		
 		
@@ -27,8 +26,9 @@ public class GameStateManager {
 		this.gameStates.add(new MenuState(this)); // 0
 		this.gameStates.add(new MenuState(this)); // 0
 		this.gameStates.add(new MenuState(this)); // 0
-		this.gameStates.add(new MenuState(this)); // 0
+		this.gameStates.add(new SelectionState(this, c)); // 3
 		this.gameStates.add(new CombatState(this, c)); // 4
+		this.gameStates.add(new TypesState(this, c)); // 4
 		
 	}
 	public void setState(int state) {
