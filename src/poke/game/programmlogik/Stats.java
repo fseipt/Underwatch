@@ -68,6 +68,8 @@ public class Stats {
 			case 8: this.stats[x] = 20; // Die Chance auf einen Crit
 			}
 		}
+		this.setStatsAmine();
+		this.settotal();
 	}
 	
 	/**
