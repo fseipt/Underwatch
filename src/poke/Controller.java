@@ -1,6 +1,11 @@
 package poke;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 import poke.game.controllerlogik.Gegner;
@@ -55,6 +60,17 @@ public class Controller implements Serializable{
 			throw new RuntimeException("Spieler ding hat verkackt");
 		}
 		
+		// Schrift
+		try {
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/Fonts/8-bit fortress.ttf")));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.frame = new Frame("Underwatch", this);
 		
 		this.spielstaende = new Spielstand[3];

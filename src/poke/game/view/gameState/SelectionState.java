@@ -18,6 +18,7 @@ public class SelectionState extends GameState {
 	private Background bg;
 	private ArrayList<Pokemon> underlings;
 	private Pokemon testPokemon;
+	UnderlingEntry e1,e2,e3,e4,e;
 	/**
 	 * Das ist ein Konstruktor
 	 * @param gsm der GameStateManager
@@ -26,7 +27,12 @@ public class SelectionState extends GameState {
 	public SelectionState(GameStateManager gsm, Controller c) {
 		this.gsm = gsm;
 		init();
-		
+		testPokemon = c.getSpieler().getSpieler()[0];
+		 e = new UnderlingEntry(testPokemon,130);
+		 e2 = new UnderlingEntry(testPokemon,70);
+		e3 = new UnderlingEntry(testPokemon,190);
+		e4 = new UnderlingEntry(testPokemon,260);
+		e1 = new UnderlingEntry(testPokemon,320);
 	
 	}
 	/**
@@ -52,12 +58,7 @@ public class SelectionState extends GameState {
 	public void draw(Graphics2D g) {
 	
 		g.setColor(Color.white);
-		g.fillRect(0, 0, 400, 400);
-		UnderlingEntry e = new UnderlingEntry(null,100,1);
-		UnderlingEntry e2 = new UnderlingEntry(null,50,1);
-		UnderlingEntry e3 = new UnderlingEntry(null,100,2);
-		UnderlingEntry e4 = new UnderlingEntry(null,150,1);
-		UnderlingEntry e1 = new UnderlingEntry(null,200,1);
+		g.fillRect(0, 0, 320, 240);
 		e.draw(g);
 		e1.draw(g);
 		e2.draw(g);

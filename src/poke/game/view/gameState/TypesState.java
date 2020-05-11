@@ -60,14 +60,19 @@ public class TypesState extends GameState {
 		g.fillRect(0, 0, 400, 400);
 		int x = 100;
 		int y = 10;
-	for(Typen t: Typen.values()) {
-		g.drawImage(t.getImage(), x, y, null);
-		y+=20;
-		if(y == 210) {
-			x = 200;
-			y = 10;
+		for(Typen t: Typen.values()) {
+			try {
+				g.drawImage(ImageIO.read(getClass().getResourceAsStream("/Graphics/types/"+t.getText()+".gif")), x, y, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			y+=20;
+			if(y == 210) {
+				x = 200;
+				y = 10;
+			}
 		}
-	}
 	
 	
 		

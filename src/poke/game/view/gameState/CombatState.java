@@ -15,7 +15,7 @@ import poke.game.programmlogik.move.Move;
 import poke.game.programmlogik.typ.Typen;
 import poke.game.sound.Sound;
 import poke.game.view.Graphics.StatLine;
-import poke.game.view.Graphics.Stats;
+import poke.game.view.Graphics.StatsEnum;
 import poke.game.view.tileMap.Background;
 import poke.game.view.tileMap.TileMap;
 
@@ -35,7 +35,7 @@ public class CombatState extends GameState {
 	private String[] options = {"FIGHT", "STATS", "POKEMON","RUN"};
 	private Sound select2, heal;
 	private BufferedImage male, female, magnet, magnetBack;
-	
+	private BufferedImage[] typeIcons;
 	// FABISSSS DRECK
 	private double currentHp, maxHp, hpFac, dmg, dmgP;
 	private int level;
@@ -76,10 +76,13 @@ public class CombatState extends GameState {
 			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+own.getBBild()+".gif"));
 			this.female = ImageIO.read(getClass().getResourceAsStream("/Graphics/female.gif"));
 			this.male = ImageIO.read(getClass().getResourceAsStream("/Graphics/male.gif"));
+			
+			this.typeIcons = new BufferedImage[18];
+			for(Typen t: Typen.values())  typeIcons[t.ordinal()] = t.getImage();
 		}
 		catch(Exception e) { System.err.println("Die Bilder gehen nicht!!"); }
 		
-
+		
 	
 		/* ------ SELF ------ */
 
@@ -317,13 +320,13 @@ public class CombatState extends GameState {
 		statMap.draw(g);
 		
 		g.setFont(new Font("Press Start 2P", 1, 10));
-		g.drawString(Stats.ANG.getText(),84, 50);
-		g.drawString(Stats.VERT.getText(),84, 70);
-		g.drawString(Stats.SPANG.getText(),84, 90);
-		g.drawString(Stats.SPVERT.getText(),84, 110);
-		g.drawString(Stats.INIT.getText(),84, 130);
-		g.drawString(Stats.GENAU.getText(),84, 150);
-		g.drawString(Stats.FLUCHT.getText(),84, 170);
+		g.drawString(StatsEnum.ANG.getText(),84, 50);
+		g.drawString(StatsEnum.VERT.getText(),84, 70);
+		g.drawString(StatsEnum.SPANG.getText(),84, 90);
+		g.drawString(StatsEnum.SPVERT.getText(),84, 110);
+		g.drawString(StatsEnum.INIT.getText(),84, 130);
+		g.drawString(StatsEnum.GENAU.getText(),84, 150);
+		g.drawString(StatsEnum.FLUCHT.getText(),84, 170);
 		
 		
 		statLine.draw(g);
@@ -344,7 +347,8 @@ public class CombatState extends GameState {
 		g.drawString(this.apMax[currentChoice] == 0 ? "-" : this.ap[currentChoice]+"/"+this.ap[currentChoice],265,204);
 		g.drawString("Type",224,226);
 		
-		g.drawImage(Typen.valueOf(types[currentChoice]).getImage(),260,214,null);
+
+		g.drawImage(this.typeIcons[Typen.valueOf(this.types[currentChoice]).ordinal()],260,214,null);
 		
 		int xs;
 		int ys;

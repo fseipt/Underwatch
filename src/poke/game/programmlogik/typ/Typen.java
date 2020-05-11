@@ -32,7 +32,7 @@ public enum Typen {
 		this.alsText = alsText;
 	}
 	
-	public String getText(int index) {
+	public String getText() {
 		return alsText;
 	}
 	public BufferedImage getImage() {
