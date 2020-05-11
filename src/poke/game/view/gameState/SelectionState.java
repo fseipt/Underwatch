@@ -3,11 +3,14 @@ package poke.game.view.gameState;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import poke.Controller;
 import poke.game.programmlogik.Pokemon;
-import poke.game.programmlogik.typ.Typen;
 import poke.game.view.Entries.UnderlingEntry;
 import poke.game.view.tileMap.Background;
 /**
@@ -18,7 +21,8 @@ public class SelectionState extends GameState {
 	private Background bg;
 	private ArrayList<Pokemon> underlings;
 	private Pokemon testPokemon;
-	UnderlingEntry e1,e2,e3,e4,e;
+	private UnderlingEntry e1,e2,e3,e4,e;
+	private BufferedImage add,searchbar, background;
 	/**
 	 * Das ist ein Konstruktor
 	 * @param gsm der GameStateManager
@@ -27,9 +31,10 @@ public class SelectionState extends GameState {
 	public SelectionState(GameStateManager gsm, Controller c) {
 		this.gsm = gsm;
 		init();
+	
 		testPokemon = c.getSpieler().getSpieler()[0];
-		 e = new UnderlingEntry(testPokemon,130);
-		 e2 = new UnderlingEntry(testPokemon,70);
+		e = new UnderlingEntry(testPokemon,130);
+		e2 = new UnderlingEntry(testPokemon,70);
 		e3 = new UnderlingEntry(testPokemon,190);
 		e4 = new UnderlingEntry(testPokemon,260);
 		e1 = new UnderlingEntry(testPokemon,320);
@@ -41,6 +46,14 @@ public class SelectionState extends GameState {
 	 */
 	@Override 
 	public void init() {
+		try {
+			this.add =  ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/add.gif"));
+			this.searchbar = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/searchbar.gif"));
+			this.background = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/background.gif"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Diese Methode wird öfters pro Sekunde
@@ -59,6 +72,9 @@ public class SelectionState extends GameState {
 	
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 320, 240);
+		//g.drawImage(background,0,0,null);
+		g.drawImage(add,150,10,null);
+		g.drawImage(searchbar,5,10,null);
 		e.draw(g);
 		e1.draw(g);
 		e2.draw(g);

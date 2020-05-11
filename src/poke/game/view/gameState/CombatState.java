@@ -72,8 +72,8 @@ public class CombatState extends GameState {
 		this.select2 = new Sound("res/Sound/MenuSelect.wav");
 		this.heal = new Sound("res/Sound/heal.wav");
 		try {
-			this.magnet = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+own.getVBild()+".gif"));
-			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+own.getBBild()+".gif"));
+			this.magnet = ImageIO.read(getClass().getResourceAsStream("/Underlings/002.gif"));
+			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/Underlings/002B.gif"));
 			this.female = ImageIO.read(getClass().getResourceAsStream("/Graphics/female.gif"));
 			this.male = ImageIO.read(getClass().getResourceAsStream("/Graphics/male.gif"));
 			
@@ -161,7 +161,7 @@ public class CombatState extends GameState {
 		bg.draw(g);
 		
 		g.drawImage(this.magnet,190,15,null);
-		g.drawImage(this.magnetBack, -10, 70, 150, 150, null);
+		g.drawImage(this.magnetBack, -10, 70,160,160, null);
 		// g.setColor(Color.white);
 		// g.fillRect(0, 0, 320, 240);
 		tileMap.draw(g);
