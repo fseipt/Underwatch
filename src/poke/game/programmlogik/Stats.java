@@ -8,6 +8,8 @@ public class Stats {
 	private int spezialattack;
 	private int spezialdefense;
 	private int speed;
+	private int total;
+	private int[] statsAmine = new int[6];
 	private int[] stats = new int[9];
 	private int zb = 0, zp = 0;
 	private boolean zhelp = false;
@@ -116,4 +118,41 @@ public class Stats {
 		this.stats[8] = (int) (this.stats[8] * a); // Setzt die Crit-Chance
 	}
 	
+	
+	/**
+	 * Setzt die Basis stats in ein Array
+	 */
+	public void setStatsAmine() {
+		this.statsAmine[0] = this.healthpoint;
+		this.statsAmine[1] = this.attack;
+		this.statsAmine[2] = this.defense;
+		this.statsAmine[3] = this.spezialattack;
+		this.statsAmine[4] = this.spezialdefense;
+		this.statsAmine[5] = this.defense;
+	}
+	
+	/**
+	 * gibt das Basisstats-Array zurück
+	 * @return das Basisstats-Array
+	 */
+	public int[] getStatsAmine() {
+		return this.statsAmine;
+	}
+	
+	/**
+	 * Setzt den gesamten-"Basewert" eines Underlings
+	 */
+	public void settotal() {
+		for(int x = 0; x < this.statsAmine.length; x++) {
+			this.total += this.statsAmine[x];
+		}
+	}
+	
+	/**
+	 * Gibt den gesamten-"Basewert" eines Underlings zurück
+	 * @return den gesamten-"Basewert"
+	 */
+	public int getTotal() {
+		return this.total;
+	}
 }
