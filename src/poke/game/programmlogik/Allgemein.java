@@ -3,9 +3,9 @@ package poke.game.programmlogik;
 public interface Allgemein {
 	
 	// Alle Typen
-	String[] typen = {"Normal","Kampf","Flug","Gift","Boden","Gestein",
-					  "Kaefer","Geist","Stahl","Feuer","Wasser","Pflanze",
-				      "Elektro","Psycho","Eis","Drache","Unlicht","Fee"};
+	String[] typen = {"Normal","Feuer","Wasser","Pflanze","Kampf","Boden",
+					  "Gestein","Gift","Elektro","Flug","Unlicht","Psycho",
+				      "Geist","Kaefer","Eis","Stahl" ,"Drache","Fee"};
 	
 	// Alle Stati
 	String[] statusse = {"Alive", "Dead", "WPoisened", "HPoisened", "Freezed", "Paralysed", "Burned", "Sleep", "Flinched", "Attracted", "Confused"};

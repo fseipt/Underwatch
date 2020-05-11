@@ -101,7 +101,7 @@ public class Pokemonreader {
 			pokemon.setName(this.att[0]); // Namen setzen
 		 
 			Typ[] t = new Typ[2]; // erzeugt ein Typ array
-			for(int x = 1; x < 2; x++) {
+			for(int x = 1; x < 3; x++) {
 				for(int y = 0; y < typ.length; y++) {
 					if(this.att[x].equals(Allgemein.typen[y])) { // checkt ob der Typ existiret
 						t[x-1] = typ[y]; // setzt den Typ in das gerade erstellte Typ array
