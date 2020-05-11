@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 import poke.GraphicElement;
 import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.typ.Typen;
-import poke.game.view.Graphics.Stats;
 import poke.game.view.Graphics.StatsEnum;
 
 public class UnderlingEntry implements GraphicElement {

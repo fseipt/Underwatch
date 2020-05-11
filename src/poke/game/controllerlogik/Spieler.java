@@ -15,6 +15,8 @@ public class Spieler extends Team implements Serializable {
 	private static final long serialVersionUID = -5173021698010366589L;
 	private Pokemon[] spieler; // Das Team des Spielers
 	private Pokemon[] building; // Eine temporaere Variable, für diese Klasse
+	private Move[] moves;
+	private Item item;
 	private Pokemon p; // ein Pokemon
 	private int z; // zaehl Variable
 	
@@ -132,5 +134,41 @@ public class Spieler extends Team implements Serializable {
 	@Override
 	public Pokemon getFirst() {
 		return spieler[0];
+	}
+	public void setMoves() {
+		this.moves = new Move[4]; 
+	}
+	public boolean checkMove(Move m) {
+		for(int x = 0; x < this.moves.length; x++) {
+			if(this.moves[x].equals(m)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	public boolean setMove(Move m) {
+		boolean check = true;
+		check = this.checkMove(m);
+		for(int x = 0; x < this.moves.length && check == true; x++) {
+			if(this.moves[x] == null) {
+				this.moves[x ]= m;
+				break;
+			}
+		}
+		return check;
+	}
+	/**
+	 * gibt die Moves zurück
+	 * @return
+	 */
+	public Move[] getMoves() {
+		return this.moves;
+	}
+	/**
+	 * gibt das Item zurück
+	 * @return
+	 */
+	public Item getItems() {
+		return this.item;
 	}
 }
