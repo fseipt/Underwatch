@@ -30,7 +30,7 @@ public class UnderlingEntry implements GraphicElement {
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
 			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
-			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/icon2.gif"));
+			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/icon3.gif"));
 			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBg.gif"));
 			this.typen[0] = Typen.valueOf(p.getTyp()[0].getTyp()).getImage();
 			if(p.getTyp()[1] != null) this.typen[1] = Typen.valueOf(p.getTyp()[1].getTyp()).getImage();
