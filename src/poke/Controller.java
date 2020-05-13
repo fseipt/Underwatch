@@ -3,10 +3,15 @@ package poke;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import poke.game.controllerlogik.Gegner;
 import poke.game.controllerlogik.Gegnerreader;
@@ -76,7 +81,10 @@ public class Controller implements Serializable{
 		this.spielstaende = new Spielstand[3];
 		this.spielstand = new Spielstand("Neu",0,0,null);
 		this.spielstand();
-		System.out.println("Ja moin");
+		
+		
+		
+		
 	}
 	public Spieler getSpieler() {
 		return spieler;
