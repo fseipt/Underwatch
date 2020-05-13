@@ -314,6 +314,14 @@ public class Pokemon implements Allgemein{
 	public int[] getStats() {
 		return this.stat.getStats();
 	}
+	
+	/**
+	 * Gibt das Stats Objekt zurueck
+	 * @return das Stats Objekt
+	 */
+	public Stats getStat() {
+		return this.stat;
+	}
 	/**
 	 * Setzt den HP Stat
 	 * @param i die Hp

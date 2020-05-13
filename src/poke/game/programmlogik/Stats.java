@@ -157,4 +157,28 @@ public class Stats {
 	public int getTotal() {
 		return this.total;
 	}
+	
+	public int getHP() {
+		return this.healthpoint;
+	}
+	
+	public int getATT() {
+		return this.attack;
+	}
+	
+	public int getDEF() {
+		return this.defense;
+	}
+	
+	public int getSATT() {
+		return this.defense;
+	}
+	
+	public int getSDEF() {
+		return this.spezialdefense;
+	}
+	
+	public int getSPE() {
+		return this.speed;
+	}
 }
