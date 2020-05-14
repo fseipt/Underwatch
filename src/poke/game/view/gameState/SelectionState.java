@@ -45,9 +45,8 @@ public class SelectionState extends GameState {
 		testPokemon = c.getSpieler().getSpieler()[0];
 		
 		this.yEnt = 70;
-		for(int i = 0; i < 6; i++) {
-			e.add(new UnderlingEntry(testPokemon, yEnt));
-			yEnt+=60;
+		for(int i = 0; i < 8; i++) {
+			e.add(new UnderlingEntry(testPokemon, 10));
 		}
 		
 		
@@ -61,16 +60,14 @@ public class SelectionState extends GameState {
 			current[0] = null;
 			for(int i = 0; i<e.size();i++) current[i] = e.get(i);
 		}
+		
 		else {
 			this.scrollDownAble = true;
 			this.scrollUpAble = true;
 		}
 		
 		
-		for(int i = 0;i < current.length; i++) {
-			if(i+stelle < 0 || i+stelle > 4 ) continue;
-			else current[i] = e.get(i+stelle);
-		}
+		for(int i = 0;i < current.length; i++)  current[i] = e.get(i+stelle); 
 		
 		init();
 		try {
@@ -96,10 +93,9 @@ public class SelectionState extends GameState {
 	public void init() {
 		this.stelle = 0;
 		for(int i = 0;i < current.length; i++) {
-			if(i+stelle < 0 || i+stelle > 4) continue;
-			else current[i] = e.get(i+stelle);
+			 current[i] = e.get(i);
 		}
-		yEnt = 70;
+		yEnt = 10;
 		for(UnderlingEntry en: e) {
 			en.move(yEnt);
 			yEnt += 60;
@@ -112,11 +108,19 @@ public class SelectionState extends GameState {
 	 */
 	@Override
 	public void update() {
-		if(current[0] == null) this.scrollDownAble = false;
-		if(this.stelle > -3 || this.stelle < 3) {
+		if(current[0] == null)  this.scrollDownAble = false;
+		
+		if(this.stelle < e.size()*-1) this.scrollUpAble = false;
+	
+		else if(this.stelle > e.size()) this.scrollDownAble = false;
+
+		else if(this.stelle < e.size() && this.stelle >= 0) {
+			this.scrollUpAble = true;
+			this.scrollDownAble = true;
 			for(int i = 0;i < current.length; i++) {
-				if(i+stelle < 0 || i+stelle > 4) continue;
-				else current[i] = e.get(i+stelle);
+				
+				if((stelle+i) < 8) current[i] = e.get(stelle+i);
+				else current[i] = null;
 			}
 		}
 		for(UnderlingEntry en: current) if(en != null) en.update();
@@ -150,28 +154,39 @@ public class SelectionState extends GameState {
 				this.gsm.setState(0);
 				break;
 			case KeyEvent.VK_DOWN:
-				if(scrollDownAble) {
+				if(this.stelle < 0) {
+					this.scrollDownAble = false;
+					blocked.play();
+				}
+				else if(!scrollDownAble) blocked.play();
+				else {
 					this.stelle--;
 					update();
 					// for(UnderlingEntry en: current) if(en != null) en.scroll(-1);
 					
-					for(int i = 0; i < current.length; i++) current[i].moveToStelle(i);
+					for(int i = 0; i < current.length; i++) if(current[i] != null) current[i].moveToStelle(i);
 					// for(UnderlingEntry en: e) en.move();
 					scroll.play();
 				}
-				else blocked.play();
 				break;
 				
+				
 			case KeyEvent.VK_UP:
-				if(scrollUpAble) {
+				if(this.stelle >= e.size()-4) {
+					this.scrollUpAble = false;
+					blocked.play();
+				}
+				
+				else if(!scrollUpAble) blocked.play();
+				
+				else {
 					this.stelle++;
 					update();
 					
 					// for(UnderlingEntry en: current) if(en != null) en.scroll(1);
-					for(int i = 0; i < current.length; i++) current[i].moveToStelle(i);
+					for(int i = 0; i < current.length; i++) if(current[i] != null) current[i].moveToStelle(i);
 					scroll.play();
 				}
-				else blocked.play();
 				break;
 		}
 	}

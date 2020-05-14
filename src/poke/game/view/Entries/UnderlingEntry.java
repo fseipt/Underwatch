@@ -29,9 +29,11 @@ public class UnderlingEntry implements GraphicElement {
 	private int scroll, scrollZ, scrollDir, stelle;
 	private boolean scrolling;
 	private ArrayList<Integer> possible;
+	private int speed;
 	
 	
 	public UnderlingEntry(Pokemon p, int y) {
+		this.speed = 0;
 		this.stelle = 0;
 		this.possible = new ArrayList<>();
 		
@@ -72,6 +74,10 @@ public class UnderlingEntry implements GraphicElement {
 	 * 10, 70, 130, 190, 250, 310
 	 */
 	public void moveToStelle(int stelle) {
+		
+		if(this.scrolling && this.speed < 2) speed++;
+		if(this.speed > 2) return;
+		
 		this.scrollFac = 1;
 		int y = possible.get(stelle);
 		// System.out.println(possible.get(stelle));
@@ -154,7 +160,7 @@ public class UnderlingEntry implements GraphicElement {
 			int ikk = 0;
 			for (int i : possible) if (i <= yO) ikk = i;
 			this.scrollZ = ikk;
-			
+			this.speed = 0;
 			return;
 		}
 		
@@ -165,6 +171,7 @@ public class UnderlingEntry implements GraphicElement {
 			this.scroll = 0; // Nichts wird abgezogen
 			this.scrollZ = 0;
 			this.yO = y;
+			this.speed = 0;
 			return;
 		}
 		
