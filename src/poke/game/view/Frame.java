@@ -3,14 +3,12 @@ package poke.game.view;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
 import poke.Controller;
 import poke.Launcher;
 
-public class Frame extends JFrame{
+public class Frame extends JFrame {
 
 	public Frame(String name, Controller c) {
 		JFrame window = new JFrame(name);

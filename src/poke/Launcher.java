@@ -70,14 +70,14 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 			drawToScreen(); 
 			
 			elapsed = System.nanoTime() -start;
-			wait = targetTime - elapsed / 1000000;
-			if(wait < 0) wait = 5;
+			wait = targetTime - elapsed / 100000;
+			if(wait < 0) wait = 1;
 			try {
 				Thread.sleep(wait);
 			}
 			catch(Exception e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 	}
 	
@@ -89,6 +89,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 		Graphics g2 = getGraphics();
 		g2.drawImage(image,0,0, WIDTH*SCALE,HEIGHT*SCALE,null);
 		g2.dispose();
+		
 	}
 	
 	

@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
@@ -17,7 +20,9 @@ public class MenuState extends GameState {
 	private Font titleFont;
 	private Font font;
 	private Sound select2;
+	private BufferedImage logo;
 	public MenuState(GameStateManager gsm) {
+		
 		this.gsm = gsm;
 		try { // heyy
 			this.select2 = new Sound("res/Sound/MenuSelect.wav");
@@ -26,6 +31,7 @@ public class MenuState extends GameState {
 			titleColor = new Color(128,0,0);
 			titleFont = new Font("Press Start 2P", 1,28);
 			font = new Font("Press Start 2P", 1, 12);
+			this.logo = ImageIO.read(getClass().getResourceAsStream("/Graphics/FullLogo.gif"));
 		}
  		catch(Exception e) {
  			e.printStackTrace();
@@ -43,7 +49,9 @@ public class MenuState extends GameState {
 		// Draw Title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Underwatch", 80, 70 );
+		
+		g.drawImage(logo,30,10, null);
+		// g.drawString("Underwatch", 80, 70 );
 		
 		// draw menun options
 		g.setFont(font);

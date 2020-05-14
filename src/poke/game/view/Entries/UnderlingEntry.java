@@ -45,8 +45,18 @@ public class UnderlingEntry implements GraphicElement {
 	}
 	
 	
+	public void setY(int y) {
+		this.y = y;
+	}
+	public void scroll() {
+		
+	}
+	
+	public void scrollUpdate() {
+		
+	}
 	@Override
-	public void draw(Graphics2D g) { //f
+	public void draw(Graphics2D g) { 
 		g.setColor(Color.black);
 		g.drawImage(bg,0,y-23,null);
 			
@@ -55,8 +65,6 @@ public class UnderlingEntry implements GraphicElement {
 		g.drawImage(icon,9,y+2,null);
 		g.setFont(new Font("Press Start 2P", 1, 8));
 		
-		
-	
 		
 		g.setFont(new Font("8-bit fortress",0, 7));
 		int xS = 171;

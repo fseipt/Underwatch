@@ -243,45 +243,67 @@ public class CombatState extends GameState {
 			dmgP = 0;
 			this.hpFac = 1;
 		}
+		
+		
+		/* Da wird der aktuelle Faktor berechnet
+		 * Je n‰her das Zieldamage an der akutellen
+		 * HP ist, desto kleiner (langsameer) ist der Faktor
+		 * 
+		 * Der Faktor ist standardm‰ﬂig 1
+		 * und wird bei z.B 80% damageprozess mit 0,2 und NICHT 0,8
+		 * subtrahiert und mit 10000 . 
+		 */
 		else {
-			this.hpFac -= (1-dmgP/this.currentHp)/1000;
+			this.hpFac -= (1-dmgP/this.currentHp)/10000;
 		}
 		if(currentHp*hpFac < dmgP) this.currentHp = dmgP;
 		else this.currentHp = currentHp*hpFac;
 		
 	}
 	/**
-	 * 
+	 * Diese Methode wird bei jedem update() ausgef¸hrt
+	 * und l‰sst, falls gehealt wird, die healthbar aufladen
 	 */
 	public void healH() {
+		// Wenn die HP schon das Maximum erreicht
 		if(this.currentHp > this.maxHp) {
 			this.currentHp = this.maxHp;
-			this.hpFac = 1;
-			this.dmg = 0;
+			this.hpFac = 1; // 1 => keine ƒnderungen
+			this.dmg = 0; // Nichts wird abgezogen
 			this.dmgP = 0;
 			return;
 		}
+		// Wenn nichts zu tun ist bzw. HP schon voll ist
 		if(this.currentHp == this.maxHp || dmg > 0 || dmgP == 0) return;
 		
-		
+		// Wenn der zu erreichende HP Wert grˆﬂer als das Maximum
+		// Ist wird er auf die MaxHp gesetzt.
 		if(dmgP > this.maxHp) dmgP = this.maxHp;
 		
-		
+		// Wenn jmd Tot ist, Kann nicht mehr geheilt werden
 		if(currentHp <= 0) {
 			this.hpFac = 1; 
 			this.dmg = 0;
 			this.dmgP = 0;
 		}
 		
-		
-		// Wenn schon alles abgezogen wurde
+		// Wenn fertig geheilt wurde
 		if(dmgP <= this.currentHp ) {
 			this.currentHp = dmgP;
 			dmgP = 0;
 			this.hpFac = 1;
 		}
+		
+		/* Da wird der aktuelle Faktor berechnet
+		 * Je n‰her das Zielhiel an der akutellen
+		 * HP ist, desto kleiner (langsameer) ist der Faktor
+		 * 
+		 * Der Faktor ist standardm‰ﬂig 1
+		 * und wird bei z.B 80% healprozess mit 0,2 und NICHT 0,8
+		 * subtrahiert und mit 10000 . 
+		 */
 		else {
-			this.hpFac -= (1-dmgP/this.currentHp) /3000 ;
+			this.hpFac -= (1-dmgP/this.currentHp) /10000 ;
 		}
 		this.currentHp = currentHp*hpFac;
 	}
