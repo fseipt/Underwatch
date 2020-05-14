@@ -23,22 +23,59 @@ public class SelectionState extends GameState {
 	private Background bg;
 	private ArrayList<Pokemon> underlings;
 	private Pokemon testPokemon;
-	private UnderlingEntry e1,e2,e3,e4,e;
+	private ArrayList<UnderlingEntry> e;
+	private UnderlingEntry[] current;
 	private BufferedImage add,searchbar, background;
 	private int yEnt;
-	private Sound scroll;
+	private Sound scroll, blocked;
+	private int stelle;
+	private boolean scrollUpAble, scrollDownAble;
 	/**
 	 * Das ist ein Konstruktor
 	 * @param gsm der GameStateManager
 	 * @param c der Controller
 	 */
 	public SelectionState(GameStateManager gsm, Controller c) {
-		this.scroll = new Sound("res/Sound/scroll.wav");
+	
+		this.e = new ArrayList<>();
+	
+		
+		
 		this.gsm = gsm;
-		this.yEnt = 0;
 		testPokemon = c.getSpieler().getSpieler()[0];
+		
+		this.yEnt = 70;
+		for(int i = 0; i < 6; i++) {
+			e.add(new UnderlingEntry(testPokemon, yEnt));
+			yEnt+=60;
+		}
+		
+		
+		this.current = new UnderlingEntry[6];
+		this.stelle = 0;
+		
+		// Wenn man sowieso NICHT runter oder raufscrollen kann
+		if(e.size() < 4) {
+			this.scrollUpAble = false;
+			this.scrollDownAble = false;
+			current[0] = null;
+			for(int i = 0; i<e.size();i++) current[i] = e.get(i);
+		}
+		else {
+			this.scrollDownAble = true;
+			this.scrollUpAble = true;
+		}
+		
+		
+		for(int i = 0;i < current.length; i++) {
+			if(i+stelle < 0 || i+stelle > 4 ) continue;
+			else current[i] = e.get(i+stelle);
+		}
+		
 		init();
 		try {
+			this.scroll = new Sound("res/Sound/scroll.wav");
+			this.blocked = new Sound("res/Sound/blocked.wav");
 			this.add =  ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/add.gif"));
 			this.searchbar = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/searchbar.gif"));
 			this.background = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/background.gif"));
@@ -57,14 +94,16 @@ public class SelectionState extends GameState {
 	 */
 	@Override 
 	public void init() {
-		this.yEnt = 0;
-		
-		e = new UnderlingEntry(testPokemon,70);
-		e2 = new UnderlingEntry(testPokemon,130);
-		e3 = new UnderlingEntry(testPokemon,190);
-		e4 = new UnderlingEntry(testPokemon,260);
-		e1 = new UnderlingEntry(testPokemon,320);
-	
+		this.stelle = 0;
+		for(int i = 0;i < current.length; i++) {
+			if(i+stelle < 0 || i+stelle > 4) continue;
+			else current[i] = e.get(i+stelle);
+		}
+		yEnt = 70;
+		for(UnderlingEntry en: e) {
+			en.move(yEnt);
+			yEnt += 60;
+		}
 	}
 	/**
 	 * Diese Methode wird öfters pro Sekunde
@@ -73,7 +112,14 @@ public class SelectionState extends GameState {
 	 */
 	@Override
 	public void update() {
-		e.update();
+		if(current[0] == null) this.scrollDownAble = false;
+		if(this.stelle > -3 || this.stelle < 3) {
+			for(int i = 0;i < current.length; i++) {
+				if(i+stelle < 0 || i+stelle > 4) continue;
+				else current[i] = e.get(i+stelle);
+			}
+		}
+		for(UnderlingEntry en: current) if(en != null) en.update();
 	}
 	/**
 	 * Diese Methode zeichnet den ganzen Screen
@@ -86,13 +132,7 @@ public class SelectionState extends GameState {
 		g.fillRect(0, 0, 320, 240);
 		
 		
-		e.draw(g);
-		// e2.draw(g);
-		// e1.draw(g);
-		// e2.draw(g);
-		// e3.draw(g);
-		// e4.draw(g);
-		
+		for(UnderlingEntry en: current) if(en != null) en.draw(g);
 
 		
 		g.drawImage(background,0,0,null);
@@ -110,12 +150,28 @@ public class SelectionState extends GameState {
 				this.gsm.setState(0);
 				break;
 			case KeyEvent.VK_DOWN:
-				this.e.scroll(-1);
-				scroll.play();
+				if(scrollDownAble) {
+					this.stelle--;
+					update();
+					// for(UnderlingEntry en: current) if(en != null) en.scroll(-1);
+					
+					for(int i = 0; i < current.length; i++) current[i].moveToStelle(i);
+					// for(UnderlingEntry en: e) en.move();
+					scroll.play();
+				}
+				else blocked.play();
 				break;
+				
 			case KeyEvent.VK_UP:
-				this.e.scroll(1);
-				scroll.play();
+				if(scrollUpAble) {
+					this.stelle++;
+					update();
+					
+					// for(UnderlingEntry en: current) if(en != null) en.scroll(1);
+					for(int i = 0; i < current.length; i++) current[i].moveToStelle(i);
+					scroll.play();
+				}
+				else blocked.play();
 				break;
 		}
 	}

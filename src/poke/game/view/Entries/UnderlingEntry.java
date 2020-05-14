@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 import javax.imageio.ImageIO;
 
@@ -20,12 +23,20 @@ import poke.game.view.Graphics.StatsEnum;
 public class UnderlingEntry implements GraphicElement {
 	private Pokemon p;
 	private BufferedImage rahmen, bg,icon, typen[];
-	private int y,i;
+	private int y,yO;
 	private String[] stats;
 	private double scrollFac, yD;
-	private int scroll, scrollZ, scrollDir;
+	private int scroll, scrollZ, scrollDir, stelle;
+	private boolean scrolling;
+	private ArrayList<Integer> possible;
+	
 	
 	public UnderlingEntry(Pokemon p, int y) {
+		this.stelle = 0;
+		this.possible = new ArrayList<>();
+		
+		for(int i = 10; i <= 310; i+=60) possible.add(i);
+		
 		this.scroll = 0;
 		this.scrollFac = 1;
 		this.scrollZ = 0;
@@ -35,6 +46,7 @@ public class UnderlingEntry implements GraphicElement {
 		this.p = p;
 		this.y = y;
 		this.yD = y;
+		this.yO = y;
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
 			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
@@ -56,32 +68,105 @@ public class UnderlingEntry implements GraphicElement {
 	public void setY(int y) {
 		this.y = y;
 	}
+	/*
+	 * 10, 70, 130, 190, 250, 310
+	 */
+	public void moveToStelle(int stelle) {
+		this.scrollFac = 1;
+		int y = possible.get(stelle);
+		// System.out.println(possible.get(stelle));
+		
+		// int y = possible.get(stelle);
+		if(this.y < y) {
+			this.scrollDir = -1;
+			this.scroll = this.y + y;
+		}
+		else if(this.y > y) {
+			this.scrollDir = 1;
+			this.scroll = this.y - y;
+		}
+		
+		
+		
+		this.scrollZ = y;
+		this.scrolling = true;
+		if(this.stelle < 5) this.stelle++;
+		else this.stelle = 0;
+	}
+	
+	
+	public void move(int y) {
+		if(this.y < y) {
+			this.scrollDir = -1;
+			this.scroll = this.y + y;
+		}
+		else if(this.y > y) {
+			this.scrollDir = 1;
+			this.scroll = this.y - y;
+		}
+		
+		this.scrollFac = 1;
+		
+		this.scrollZ = y;
+		this.scrolling = true;
+		if(this.stelle < 5) this.stelle++;
+		else this.stelle = 0;
+	}
 	
 	public void scroll(int dir) {
-		this.scrollFac = 1;
-		this.scroll = 60;
-		if(dir == -1) this.scrollZ = this.y + this.scroll;
-		else if(dir == 1) this.scrollZ = this.y - this.scroll; 
-		this.scrollDir = dir;
+		if(this.scrollDir != dir) {
+			this.scrollDir = dir;
+			this.scrollFac = 1;
+			if(dir == -1) this.scrollZ = this.y + this.scroll;
+			else if(dir == 1) this.scrollZ = this.y - this.scroll; 
+		}
+		if(this.scrolling) {
+			this.scrollZ = this.scrollZ +(dir <0 ? +60 : -60 );
+		}
+		else {
+			this.scrolling = true;
+			this.scroll = 60;
+			this.scrollFac = 1;	
+			if(dir == -1) this.scrollZ = this.yO + this.scroll;
+			else if(dir == 1) this.scrollZ = this.yO - this.scroll; 
+			this.scrollDir = dir;
+		}
 	}
 	
 	public void scrollRunterUpdate() {
 		if(this.scrollDir != -1) return;
 		
-		/* ----- Voraussetzungen ------ */
 		
+	
+		/* ----- Voraussetzungen ------ */
+		if(this.scrollZ >= 310) this.scrollZ = 310;
+		// if(this.scrollZ > 250) 
 		
 		// Wenn schon das Maximum erreicht wurde
 		if(this.yD >= this.scrollZ && this.scroll > 0) {
-			this.yD = this.scrollZ;
+			// this.yD = this.scrollZ;
 			this.scrollFac = 1; // 1 => keine Änderungen
 			this.scroll = 0; // Nichts wird abgezogen
 			this.scrollZ = 0;
+			this.scrolling = false;
+			if(possible.contains(this.yO)) this.yO = y;
+			
+			int ikk = 0;
+			for (int i : possible) if (i <= yO) ikk = i;
+			this.scrollZ = ikk;
+			
 			return;
 		}
 		
 		// Wenn nichts zu tun ist bzw. HP schon voll ist
-		if(this.yD == this.scrollZ || scroll == 0) return;
+		if(this.yD == this.scrollZ || scroll == 0) {
+			this.scrolling = false;
+			this.scrollFac = 1; // 1 => keine Änderungen
+			this.scroll = 0; // Nichts wird abgezogen
+			this.scrollZ = 0;
+			this.yO = y;
+			return;
+		}
 		
 		// Wenn der zu erreichende HP Wert größer als das Maximum
 		// Ist, wird er auf die MaxHp gesetzt.
@@ -122,7 +207,7 @@ public class UnderlingEntry implements GraphicElement {
 	public void scrollRaufUpdate() {
 		if(this.scrollDir != 1) return;
 		/* ----- Voraussetzungen ------ */
-		
+		if(this.scrollZ <= 10) this.scrollZ = 10;
 		
 		// Wenn schon das Maximum erreicht wurde
 		if(this.yD <= this.scrollZ && this.scroll > 0) {
@@ -130,11 +215,20 @@ public class UnderlingEntry implements GraphicElement {
 			this.scrollFac = 1; // 1 => keine Änderungen
 			this.scroll = 0; // Nichts wird abgezogen
 			this.scrollZ = 0;
+			this.scrolling = false;
+			this.yO = y;
 			return;
 		}
 		
 		// Wenn nichts zu tun ist bzw. HP schon voll ist
-		if(this.yD == this.scrollZ || scroll == 0) return;
+		if(this.yD == this.scrollZ || scroll == 0) {
+			this.scrolling = false;
+			this.scrollFac = 1; // 1 => keine Änderungen
+			this.scroll = 0; // Nichts wird abgezogen
+			this.scrollZ = 0;
+			this.yO = y;
+			return;
+		}
 		
 		
 		/* ----- Eigentliche Animation ------ */
