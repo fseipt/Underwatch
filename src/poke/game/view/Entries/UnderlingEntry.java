@@ -1,14 +1,9 @@
 package poke.game.view.Entries;
 
 import java.awt.Color;
-
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -18,15 +13,28 @@ import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.typ.Typen;
 import poke.game.view.Graphics.StatsEnum;
 
+/**
+ * Diese Methoede erzeugt ein Underling Entry GraphicElement
+ * @author Amine Boutahar
+ */
 public class UnderlingEntry implements GraphicElement {
 	private Pokemon p;
 	private BufferedImage rahmen, bg,icon, typen[];
 	private int y,i;
 	private String[] stats;
+	private double scrollFac, yD;
+	private int scroll, scrollZ, scrollDir;
+	
 	public UnderlingEntry(Pokemon p, int y) {
+		this.scroll = 0;
+		this.scrollFac = 1;
+		this.scrollZ = 0;
+		this.scrollDir = 0;
+		
 		this.typen = new BufferedImage[2];
 		this.p = p;
 		this.y = y;
+		this.yD = y;
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
 			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
@@ -48,15 +56,106 @@ public class UnderlingEntry implements GraphicElement {
 	public void setY(int y) {
 		this.y = y;
 	}
-	public void scroll() {
-		
+	
+	public void scroll(int dir) {
+		this.scrollFac = 1;
+		this.scroll = 60;
+		if(dir == -1) this.scrollZ = this.y + this.scroll;
+		else if(dir == 1) this.scrollZ = this.y - this.scroll; 
+		this.scrollDir = dir;
 	}
 	
-	public void scrollUpdate() {
+	public void scrollRunterUpdate() {
+		if(this.scrollDir != -1) return;
 		
+		/* ----- Voraussetzungen ------ */
+		
+		
+		// Wenn schon das Maximum erreicht wurde
+		if(this.yD >= this.scrollZ && this.scroll > 0) {
+			this.yD = this.scrollZ;
+			this.scrollFac = 1; // 1 => keine Änderungen
+			this.scroll = 0; // Nichts wird abgezogen
+			this.scrollZ = 0;
+			return;
+		}
+		
+		// Wenn nichts zu tun ist bzw. HP schon voll ist
+		if(this.yD == this.scrollZ || scroll == 0) return;
+		
+		// Wenn der zu erreichende HP Wert größer als das Maximum
+		// Ist, wird er auf die MaxHp gesetzt.
+		//if(dmgP > this.maxHp) dmgP = this.maxHp;
+		
+		// Wenn jmd Tot ist, Kann nicht mehr geheilt werden
+		/*if(currentHp <= 0) {
+			this.hpFac = 1; 
+			this.dmg = 0;
+			this.dmgP = 0;
+		}*/
+		/*
+		// Wenn fertig geheilt wurde
+		if(this.scrollZ <= this.y ) {
+			this.y = scrollZ;
+			this.scrollFac = 1;
+			this.scrollZ = 0;
+			this.scroll = 0;
+		} */
+		
+		
+		/* ----- Eigentliche Animation ------ */
+		
+		
+		
+		/* Da wird der aktuelle Faktor berechnet.
+		 * Je näher das Scrollziel an der akutellen
+		 * Y-Koordinate ist, desto kleiner (langsameer) ist der Faktor.
+		 * 
+		 * Der Faktor ist standardmäßig 1
+		 * und wird bei z.B 80% healprozess mit 0,2 und NICHT 0,8
+		 * subtrahiert und mit 10000 . 
+		 */
+		this.scrollFac -= (1-this.scrollZ/this.yD) /3000 ;
+		this.yD =  this.yD*this.scrollFac;
 	}
+	
+	public void scrollRaufUpdate() {
+		if(this.scrollDir != 1) return;
+		/* ----- Voraussetzungen ------ */
+		
+		
+		// Wenn schon das Maximum erreicht wurde
+		if(this.yD <= this.scrollZ && this.scroll > 0) {
+			this.yD = this.scrollZ;
+			this.scrollFac = 1; // 1 => keine Änderungen
+			this.scroll = 0; // Nichts wird abgezogen
+			this.scrollZ = 0;
+			return;
+		}
+		
+		// Wenn nichts zu tun ist bzw. HP schon voll ist
+		if(this.yD == this.scrollZ || scroll == 0) return;
+		
+		
+		/* ----- Eigentliche Animation ------ */
+		
+		
+		
+		/* Da wird der aktuelle Faktor berechnet.
+		 * Je näher das Scrollziel an der akutellen
+		 * Y-Koordinate ist, desto kleiner (langsameer) ist der Faktor.
+		 * 
+		 * Der Faktor ist standardmäßig 1
+		 * und wird bei z.B 80% healprozess mit 0,2 und NICHT 0,8
+		 * subtrahiert und mit 10000 . 
+		 */
+		else this.scrollFac -= (1-this.scrollZ/this.yD) /3000 ;
+		this.yD =  this.yD*this.scrollFac;
+	}
+	
 	@Override
 	public void draw(Graphics2D g) { 
+		this.y = (int) yD;
 		g.setColor(Color.black);
 		g.drawImage(bg,0,y-23,null);
 			
@@ -96,6 +195,8 @@ public class UnderlingEntry implements GraphicElement {
 	
 	@Override
 	public void update() {
-		
+		scrollRunterUpdate();
+		scrollRaufUpdate();
 	}
+	
 }

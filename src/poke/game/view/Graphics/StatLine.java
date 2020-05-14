@@ -57,5 +57,6 @@ public class StatLine implements GraphicElement{
 			}
 		}
 	}
+	
 
 }

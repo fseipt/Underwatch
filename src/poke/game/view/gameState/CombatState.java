@@ -265,6 +265,9 @@ public class CombatState extends GameState {
 	 * und lässt, falls gehealt wird, die healthbar aufladen
 	 */
 	public void healH() {
+		
+		/* ----- Voraussetzungen ------ */
+		
 		// Wenn die HP schon das Maximum erreicht
 		if(this.currentHp > this.maxHp) {
 			this.currentHp = this.maxHp;
@@ -293,6 +296,11 @@ public class CombatState extends GameState {
 			dmgP = 0;
 			this.hpFac = 1;
 		}
+		
+		
+		/* ----- Eigentliche Animation ------ */
+		
+		
 		
 		/* Da wird der aktuelle Faktor berechnet
 		 * Je näher das Zielhiel an der akutellen
