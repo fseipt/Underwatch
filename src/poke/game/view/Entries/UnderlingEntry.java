@@ -24,15 +24,17 @@ public class UnderlingEntry implements GraphicElement {
 	private Pokemon p;
 	private BufferedImage rahmen, bg,icon, typen[];
 	private int y,yO;
+	
 	private String[] stats;
 	private double scrollFac, yD;
 	private int scroll, scrollZ, scrollDir, stelle;
 	private boolean scrolling;
 	private ArrayList<Integer> possible;
-	private int speed;
+	private int speed, speedFac;
 	
 	
 	public UnderlingEntry(Pokemon p, int y) {
+		this.speedFac = 1;
 		this.speed = 0;
 		this.stelle = 0;
 		this.possible = new ArrayList<>();
@@ -69,74 +71,48 @@ public class UnderlingEntry implements GraphicElement {
 	
 	public void setY(int y) {
 		this.y = y;
+		this.yD = y;
 	}
 	/*
-	 * 10, 70, 130, 190, 250, 310
+	 * 0=10,  NICHT SICHTBAR
+	 * 1=70,
+	 * 2= 130
+	 * 3= 190
+	 * 4= 250 
+	 * 5 = 310  NICHT SICHTBAR
 	 */
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	
 	public void moveToStelle(int stelle) {
+	
+		int zStelle = possible.get(stelle);
 		
-		if(this.scrolling && this.speed < 2) speed++;
-		if(this.speed > 2) return;
+		speed++;	
 		
-		this.scrollFac = 1;
-		int y = possible.get(stelle);
+		
+		
+		
 		// System.out.println(possible.get(stelle));
 		
 		// int y = possible.get(stelle);
-		if(this.y < y) {
+		if(this.y < zStelle) {
 			this.scrollDir = -1;
-			this.scroll = this.y + y;
+			this.scroll = this.y + zStelle;
 		}
-		else if(this.y > y) {
+		else if(this.y > zStelle) {
 			this.scrollDir = 1;
-			this.scroll = this.y - y;
+			this.scroll = this.y - zStelle;
 		}
 		
 		
 		
-		this.scrollZ = y;
+		this.scrollZ = zStelle;
 		this.scrolling = true;
 		if(this.stelle < 5) this.stelle++;
 		else this.stelle = 0;
-	}
-	
-	
-	public void move(int y) {
-		if(this.y < y) {
-			this.scrollDir = -1;
-			this.scroll = this.y + y;
-		}
-		else if(this.y > y) {
-			this.scrollDir = 1;
-			this.scroll = this.y - y;
-		}
-		
-		this.scrollFac = 1;
-		
-		this.scrollZ = y;
-		this.scrolling = true;
-		if(this.stelle < 5) this.stelle++;
-		else this.stelle = 0;
-	}
-	
-	public void scroll(int dir) {
-		if(this.scrollDir != dir) {
-			this.scrollDir = dir;
-			this.scrollFac = 1;
-			if(dir == -1) this.scrollZ = this.y + this.scroll;
-			else if(dir == 1) this.scrollZ = this.y - this.scroll; 
-		}
-		if(this.scrolling) {
-			this.scrollZ = this.scrollZ +(dir <0 ? +60 : -60 );
-		}
-		else {
-			this.scrolling = true;
-			this.scroll = 60;
-			this.scrollFac = 1;	
-			if(dir == -1) this.scrollZ = this.yO + this.scroll;
-			else if(dir == 1) this.scrollZ = this.yO - this.scroll; 
-			this.scrollDir = dir;
-		}
 	}
 	
 	public void scrollRunterUpdate() {
@@ -150,64 +126,22 @@ public class UnderlingEntry implements GraphicElement {
 		
 		// Wenn schon das Maximum erreicht wurde
 		if(this.yD >= this.scrollZ && this.scroll > 0) {
-			// this.yD = this.scrollZ;
+			this.yD = this.scrollZ;
+			this.yO = this.scrollZ;
 			this.scrollFac = 1; // 1 => keine Änderungen
 			this.scroll = 0; // Nichts wird abgezogen
-			this.scrollZ = 0;
 			this.scrolling = false;
-			if(possible.contains(this.yO)) this.yO = y;
-			
-			int ikk = 0;
-			for (int i : possible) if (i <= yO) ikk = i;
-			this.scrollZ = ikk;
-			this.speed = 0;
 			return;
 		}
 		
 		// Wenn nichts zu tun ist bzw. HP schon voll ist
 		if(this.yD == this.scrollZ || scroll == 0) {
 			this.scrolling = false;
-			this.scrollFac = 1; // 1 => keine Änderungen
-			this.scroll = 0; // Nichts wird abgezogen
-			this.scrollZ = 0;
-			this.yO = y;
-			this.speed = 0;
 			return;
 		}
+	
 		
-		// Wenn der zu erreichende HP Wert größer als das Maximum
-		// Ist, wird er auf die MaxHp gesetzt.
-		//if(dmgP > this.maxHp) dmgP = this.maxHp;
-		
-		// Wenn jmd Tot ist, Kann nicht mehr geheilt werden
-		/*if(currentHp <= 0) {
-			this.hpFac = 1; 
-			this.dmg = 0;
-			this.dmgP = 0;
-		}*/
-		/*
-		// Wenn fertig geheilt wurde
-		if(this.scrollZ <= this.y ) {
-			this.y = scrollZ;
-			this.scrollFac = 1;
-			this.scrollZ = 0;
-			this.scroll = 0;
-		} */
-		
-		
-		/* ----- Eigentliche Animation ------ */
-		
-		
-		
-		/* Da wird der aktuelle Faktor berechnet.
-		 * Je näher das Scrollziel an der akutellen
-		 * Y-Koordinate ist, desto kleiner (langsameer) ist der Faktor.
-		 * 
-		 * Der Faktor ist standardmäßig 1
-		 * und wird bei z.B 80% healprozess mit 0,2 und NICHT 0,8
-		 * subtrahiert und mit 10000 . 
-		 */
-		this.scrollFac -= (1-this.scrollZ/this.yD) /3000 ;
+		this.scrollFac -= (1-this.scrollZ/this.yD) /(4000/speedFac) ;
 		this.yD =  this.yD*this.scrollFac;
 	}
 	
@@ -219,38 +153,20 @@ public class UnderlingEntry implements GraphicElement {
 		// Wenn schon das Maximum erreicht wurde
 		if(this.yD <= this.scrollZ && this.scroll > 0) {
 			this.yD = this.scrollZ;
+			this.yO = this.scrollZ;
 			this.scrollFac = 1; // 1 => keine Änderungen
 			this.scroll = 0; // Nichts wird abgezogen
-			this.scrollZ = 0;
 			this.scrolling = false;
-			this.yO = y;
 			return;
 		}
 		
-		// Wenn nichts zu tun ist bzw. HP schon voll ist
+		
 		if(this.yD == this.scrollZ || scroll == 0) {
 			this.scrolling = false;
-			this.scrollFac = 1; // 1 => keine Änderungen
-			this.scroll = 0; // Nichts wird abgezogen
-			this.scrollZ = 0;
-			this.yO = y;
 			return;
 		}
 		
-		
-		/* ----- Eigentliche Animation ------ */
-		
-		
-		
-		/* Da wird der aktuelle Faktor berechnet.
-		 * Je näher das Scrollziel an der akutellen
-		 * Y-Koordinate ist, desto kleiner (langsameer) ist der Faktor.
-		 * 
-		 * Der Faktor ist standardmäßig 1
-		 * und wird bei z.B 80% healprozess mit 0,2 und NICHT 0,8
-		 * subtrahiert und mit 10000 . 
-		 */
-		else this.scrollFac -= (1-this.scrollZ/this.yD) /3000 ;
+		else this.scrollFac -= (1-this.scrollZ/this.yD) /(4000/speedFac) ;
 		this.yD =  this.yD*this.scrollFac;
 	}
 	
@@ -296,8 +212,18 @@ public class UnderlingEntry implements GraphicElement {
 	
 	@Override
 	public void update() {
+		if(speed > 4) speedFac = 2;
+		else speedFac = 1;
 		scrollRunterUpdate();
 		scrollRaufUpdate();
 	}
 	
+	
+	
+	
+	public Pokemon getP() {
+		return p;
+	}
+
+	public boolean scrolling() { return this.scrolling; }
 }

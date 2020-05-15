@@ -2,7 +2,6 @@ package poke.game.view.gameState;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import poke.Controller;
 import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.typ.Typ;
 import poke.game.sound.Sound;
 import poke.game.view.Entries.UnderlingEntry;
 import poke.game.view.tileMap.Background;
@@ -26,10 +26,13 @@ public class SelectionState extends GameState {
 	private ArrayList<UnderlingEntry> e;
 	private UnderlingEntry[] current;
 	private BufferedImage add,searchbar, background;
-	private int yEnt;
+	private int yEnt, underlingAnzahl;
 	private Sound scroll, blocked;
 	private int stelle;
 	private boolean scrollUpAble, scrollDownAble;
+	private Typ[][] se;
+	private Typ[] test;
+	
 	/**
 	 * Das ist ein Konstruktor
 	 * @param gsm der GameStateManager
@@ -38,38 +41,35 @@ public class SelectionState extends GameState {
 	public SelectionState(GameStateManager gsm, Controller c) {
 	
 		this.e = new ArrayList<>();
-	
+		this.current = new UnderlingEntry[6];
 		
 		
 		this.gsm = gsm;
 		testPokemon = c.getSpieler().getSpieler()[0];
+		this.underlingAnzahl = 50;
 		
-		this.yEnt = 70;
-		for(int i = 0; i < 8; i++) {
-			e.add(new UnderlingEntry(testPokemon, 10));
+		
+		// Das mit den Typen und so
+		testshit();
+		
+		
+		testPokemon.setTyp(test);
+		// Alle Underlings werden initialisiert
+		// Sie sind alle zuerst auf Y-Position 0!!!
+		int typI = 0;
+		for(int i = 0; i < this.underlingAnzahl;i++) {
+			
+			testPokemon.setTyp(se[typI]);
+			e.add(new UnderlingEntry(testPokemon,10));
+			if(typI < 7) typI++;
+			else typI = 0;
 		}
 		
 		
-		this.current = new UnderlingEntry[6];
-		this.stelle = 0;
-		
-		// Wenn man sowieso NICHT runter oder raufscrollen kann
-		if(e.size() < 4) {
-			this.scrollUpAble = false;
-			this.scrollDownAble = false;
-			current[0] = null;
-			for(int i = 0; i<e.size();i++) current[i] = e.get(i);
-		}
-		
-		else {
-			this.scrollDownAble = true;
-			this.scrollUpAble = true;
-		}
-		
-		
-		for(int i = 0;i < current.length; i++)  current[i] = e.get(i+stelle); 
 		
 		init();
+		
+		
 		try {
 			this.scroll = new Sound("res/Sound/scroll.wav");
 			this.blocked = new Sound("res/Sound/blocked.wav");
@@ -91,15 +91,37 @@ public class SelectionState extends GameState {
 	 */
 	@Override 
 	public void init() {
+		// Stelle 0 heisst dass das erste Grad noch sichtbar ist
 		this.stelle = 0;
-		for(int i = 0;i < current.length; i++) {
-			 current[i] = e.get(i);
+		
+		// Die Renderbaren werden initialisiert
+		// Am Anfang nur die ersten 
+		// DAS HEISST die erste Stelle ist NULL weil das erste sichtbar sein muss
+		current[0] = null;
+		if(this.underlingAnzahl > 4) {
+			
+			for(int i = 1; i< current.length; i++) {
+				current[i] = e.get(i-1);
+				// Hier werden sie auf die jeweiligen Positionen gebracht
+				if(current[i] != null) current[i].moveToStelle(i); 
+			}
+			// Da werden alle unteren Einträge runtergeschoben
+			for(int i = current.length-1; i < e.size(); i++) {
+				if(e.get(i) != null) {
+					e.get(i).setY(300); 
+				}
+			
+			}
 		}
-		yEnt = 10;
-		for(UnderlingEntry en: e) {
-			en.move(yEnt);
-			yEnt += 60;
+		else {
+			for(int i = 1; i <= underlingAnzahl; i++) {
+				current[i] = e.get(i-1);
+				// Hier werden sie auf die jeweiligen Positionen gebracht
+				if(current[i] != null) current[i].moveToStelle(i); 
+			}
 		}
+			
+		
 	}
 	/**
 	 * Diese Methode wird öfters pro Sekunde
@@ -108,22 +130,9 @@ public class SelectionState extends GameState {
 	 */
 	@Override
 	public void update() {
-		if(current[0] == null)  this.scrollDownAble = false;
+		// Updaten
+		for(int i = 0; i<current.length; i++) if(current[i] != null) current[i].update();
 		
-		if(this.stelle < e.size()*-1) this.scrollUpAble = false;
-	
-		else if(this.stelle > e.size()) this.scrollDownAble = false;
-
-		else if(this.stelle < e.size() && this.stelle >= 0) {
-			this.scrollUpAble = true;
-			this.scrollDownAble = true;
-			for(int i = 0;i < current.length; i++) {
-				
-				if((stelle+i) < 8) current[i] = e.get(stelle+i);
-				else current[i] = null;
-			}
-		}
-		for(UnderlingEntry en: current) if(en != null) en.update();
 	}
 	/**
 	 * Diese Methode zeichnet den ganzen Screen
@@ -133,20 +142,41 @@ public class SelectionState extends GameState {
 	public void draw(Graphics2D g) {
 		
 		g.setColor(new Color(201,201,201));
-		g.fillRect(0, 0, 320, 240);
+		g.fillRect(0, 0, 320, 310);
 		
+				
+	
 		
-		for(UnderlingEntry en: current) if(en != null) en.draw(g);
-
+		for(int i = 0; i<current.length; i++) if(current[i] != null) current[i].draw(g);
 		
 		g.drawImage(background,0,0,null);
-
 		g.drawImage(add,150,10,null);
 		g.drawImage(searchbar,5,10,null);
 		
 		
-		
+		/*g.setColor(Color.red);
+		g.drawLine(0, 55, 320, 55);
+		g.drawLine(0, 235, 320, 235); */
 	}
+	/**
+	 * Diese Methode speichert
+	 * die Renderbaren Einträge in das
+	 * current Array.
+	 */
+	public void neueRenderbare() {
+		
+		if(this.stelle == 0) {
+			init();
+		}
+		else {
+			for(int i = 0; i < current.length && this.stelle+i-1 < e.size(); i++) {
+				current[i] = e.get(this.stelle+i-1);
+				current[i].moveToStelle(i); 
+			}
+		}
+	}
+	
+	
 	@Override
 	public void keyPressed(int k) {
 		switch(k) {
@@ -154,39 +184,24 @@ public class SelectionState extends GameState {
 				this.gsm.setState(0);
 				break;
 			case KeyEvent.VK_DOWN:
-				if(this.stelle < 0) {
-					this.scrollDownAble = false;
-					blocked.play();
-				}
-				else if(!scrollDownAble) blocked.play();
-				else {
+				if(this.stelle > 0 && !current[1].scrolling()) {
 					this.stelle--;
-					update();
-					// for(UnderlingEntry en: current) if(en != null) en.scroll(-1);
-					
-					for(int i = 0; i < current.length; i++) if(current[i] != null) current[i].moveToStelle(i);
-					// for(UnderlingEntry en: e) en.move();
+					neueRenderbare();
 					scroll.play();
 				}
+				else if(this.stelle <= 0) blocked.play();
 				break;
 				
 				
 			case KeyEvent.VK_UP:
-				if(this.stelle >= e.size()-4) {
-					this.scrollUpAble = false;
-					blocked.play();
-				}
-				
-				else if(!scrollUpAble) blocked.play();
-				
-				else {
+				if(this.stelle < e.size()-3 && !current[1].scrolling()) {
 					this.stelle++;
-					update();
-					
-					// for(UnderlingEntry en: current) if(en != null) en.scroll(1);
-					for(int i = 0; i < current.length; i++) if(current[i] != null) current[i].moveToStelle(i);
+					neueRenderbare();
 					scroll.play();
 				}
+				else if(this.stelle >= e.size()-3) blocked.play();
+				
+				
 				break;
 		}
 	}
@@ -194,5 +209,62 @@ public class SelectionState extends GameState {
 	@Override
 	public void keyReleased(int k) {
 		
+		switch(k) {
+		case KeyEvent.VK_UP:
+			for(UnderlingEntry ein: current) if(ein != null) ein.setSpeed(0);
+			break;
+		case KeyEvent.VK_DOWN:
+			for(UnderlingEntry ein: current) if(ein != null) ein.setSpeed(0);
+			break;
+		}
+	}
+	
+	
+	
+	
+	
+	public void testshit() {
+		se = new Typ[8][2];
+		
+		test = new Typ[2];
+		test[0] = new Typ();
+		test[0].setTyp("Gift");
+		se[0] = test;
+		
+		Typ[] test1 = new Typ[2];
+		test1[0] = new Typ();
+		test1[0].setTyp("Fee");
+		se[1] = test1; 
+		
+		Typ[] test2 = new Typ[2];
+		test2[0] = new Typ();
+		test2[0].setTyp("Psycho");
+		se[2] = test2;
+		
+		
+		Typ[] test3 = new Typ[2];
+		test3[0] = new Typ();
+		test3[0].setTyp("Boden");
+		se[3] = test3;
+		
+		Typ[] test4 = new Typ[2];
+		test4[0] = new Typ();
+		test4[0].setTyp("Wasser");
+		se[4] = test4; 
+		
+		Typ[] test5 = new Typ[2];
+		test5[0] = new Typ();
+		test5[0].setTyp("Feuer");
+		se[5] = test5;
+		
+		Typ[] test6 = new Typ[2];
+		test6[0] = new Typ();
+		test6[0].setTyp("Flug");
+		se[6] = test6;
+		
+		Typ[] test7 = new Typ[2];
+		test7[0] = new Typ();
+		test7[0].setTyp("Unlicht");
+		se[7] = test7;
 	}
 }

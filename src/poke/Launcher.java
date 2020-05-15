@@ -40,6 +40,7 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	private GameStateManager gsm;
 	private Controller c;
 	
+	
 	public Launcher(Controller c) {
 		this.c = c;
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
