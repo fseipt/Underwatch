@@ -36,8 +36,7 @@ public class Stats {
 				case 4: spezialattack = Integer.parseInt(s.substring(zp,x)); // Setzt den Spezialangriff Teil des Parameters
 					break;
 				case 5: spezialdefense = Integer.parseInt(s.substring(zp,x)); // Setzt den Speezialdefensive Teil des Parameters
-					break;
-				case 6: speed = Integer.parseInt(s.substring(x)); // Setzt den Speed Teil des Parameters
+						speed = Integer.parseInt(s.substring(x+1)); // Setzt den Speed Teil des Parameters
 					break;
 				}
 			}
