@@ -1,8 +1,8 @@
-Catutomon;Normal;;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon2;Feuer;;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon3;Wasser;Fee;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon4;Pflanze;Fee;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon5;Kampf;Fee;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon6;Boden;Fee;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon7;Gift;Fee;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
-Catutomon8;Psycho;Fee;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon;Feuer;Kampf;1;1;85;255;Omnistart;1;001B;icon1;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Toxiglow;Gift;;1;1;200;255;Omnistart;2;002B;icon2;120,70,70,70,90,40;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon3;Wasser;Fee;1;1;85;255;Omnistart;3;003B;icon3;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon4;Pflanze;Fee;1;1;85;255;Omnistart;4;004B;icon4;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon5;Kampf;Fee;1;1;85;255;Omnistart;5;005B;icon5;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon6;Boden;Fee;1;1;85;255;Omnistart;6;006B;icon6;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon7;Gift;Fee;1;1;85;255;Omnistart;7;007B;icon7;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard
+Catutomon8;Psycho;Fee;1;1;85;255;Omnistart;8;008B;icon8;60,140,60,45,75,100;Flammenwurf;Eisstrahl;Eishieb;Blizzard

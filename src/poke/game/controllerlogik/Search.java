@@ -29,7 +29,7 @@ public class Search {
 		}
 		for(int x = 0; x < p.length; x++) {
 			String att = this.p[x].getName().substring(0,l);
-			if(att.equals(s)) {
+			if(att.contains(s)) {
 				this.add(p[x]);
 			}
 		}

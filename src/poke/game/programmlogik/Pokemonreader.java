@@ -150,4 +150,7 @@ public class Pokemonreader {
 	public Pokemon[] getPokemon() {
 		return this.pokemons;
 	}
+	public void setPokemon(Pokemon[] p) {
+		this.pokemons = p;
+	}
 }
