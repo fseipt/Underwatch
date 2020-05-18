@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 
 import poke.game.controllerlogik.Gegner;
 import poke.game.controllerlogik.Gegnerreader;
+import poke.game.controllerlogik.Search;
 import poke.game.controllerlogik.Spieler;
 import poke.game.controllerlogik.Spielstand;
 import poke.game.controllerlogik.Team;
@@ -42,7 +43,7 @@ public class Controller implements Serializable{
 	private GameStateManager gsm;
 	private Spielstand spielstand;
 	private Spielstand[] spielstaende;
-	
+	private Search search;
 	private Spieler spieler;
 	
 	public Controller() {
@@ -55,7 +56,8 @@ public class Controller implements Serializable{
 		this.gegner = new Gegnerreader(poke,item);
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(gegner);
-		
+		this.search = new Search(poke);
+		this.poke.setPokemon(this.search.getPokemon());
 		this.spieler = new Spieler();
 		Pokemon[] p2 = new Pokemon[1]; 
 		p2[0] = gegner.random();
