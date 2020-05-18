@@ -12,6 +12,7 @@ public class Search {
 	private Pokemon[] alph;
 	private Pokemon[] search = new Pokemon[0];
 	private Pokemon[] sort = new Pokemon[0];
+	private int[] check;
 	
 	public Search(Pokemonreader p) {
 		this.p = p.getPokemon();
@@ -84,8 +85,8 @@ public class Search {
 		int l = 0;
 		int ca, cb;
 		while(sort == false) {
+			sort = true;
 			for(int x = 0; x < this.sort.length-1; x++) {
-				sort = true;
 				
 				String a = this.sort[x].getName();
 				String b = this.sort[x+1].getName();
@@ -99,9 +100,9 @@ public class Search {
 				for(int y = 0; y < l; y++) {
 					innersort = false;
 					ca = a.charAt(y);
-					cb = a.charAt(y);
+					cb = b.charAt(y);
 					if(ca > cb) {
-						this.switchP(x, x+1);
+						sort = this.switchP(x, x+1);
 						innersort = true;
 						break;
 					}
@@ -110,7 +111,7 @@ public class Search {
 					}
 					if(y+1 == l && innersort == false) {
 						if(la > lb) {
-							switchP(x, x+1);
+							sort = switchP(x, x+1);
 						}
 					}
 				}
@@ -124,30 +125,35 @@ public class Search {
 	 * @param a der index des ersten Pokemons
 	 * @param b der Index des zweiten Pokemons
 	 */
-	public void switchP(int a, int b) {
+	public boolean switchP(int a, int b) {
 		Pokemon p = sort[a];
 		sort[a] = sort[b];
 		sort[b] = p;
+		return false;
 	}
-
 	
 	/**
 	 * Sortiert das Array nach HP
 	 * @return das Array nach HP sortiert
 	 */
 	public Pokemon[] sortByHP() {
+		Pokemon[] run = this.alph;
 		this.sort = new Pokemon[0];
-		int high = 0;
-		int index = 0;
-		for(int y = 0; y < this.alph.length; y++) {
-			for(int x = 0; x < this.alph.length; x++) {
-				int v = alph[x].getStat().getHP();
-				if(v > high) {
-					high = v;
-					index = x;
+		boolean ok = true;
+		for(int y = 0; y < run.length; y++) {
+			int high = 0;
+			int index = 0;
+			for(int x = 0; x < run.length; x++) {
+				if(run[x] != null) {
+					int v = run[x].getStat().getHP();
+					if(v > high) {
+						high = v;
+						index = x;
+					}
 				}
 			}
-			this.addSort(alph[index]);
+			this.addSort(run[index]);
+			run[index] = null;
 		}
 		return this.sort;
 	}
@@ -158,18 +164,23 @@ public class Search {
 	 * @return das Array nach Attack sortiert
 	 */
 	public Pokemon[] sortByATT() {
+		Pokemon[] run = this.alph;
 		this.sort = new Pokemon[0];
-		int high = 0;
-		int index = 0;
-		for(int y = 0; y < this.alph.length; y++) {
-			for(int x = 0; x < this.alph.length; x++) {
-				int v = alph[x].getStat().getATT();
-				if(v > high) {
-					high = v;
-					index = x;
+		boolean ok = true;
+		for(int y = 0; y < run.length; y++) {
+			int high = 0;
+			int index = 0;
+			for(int x = 0; x < run.length; x++) {
+				if(run[x] != null) {
+					int v = run[x].getStat().getATT();
+					if(v > high) {
+						high = v;
+						index = x;
+					}
 				}
 			}
-			this.addSort(alph[index]);
+			this.addSort(run[index]);
+			run[index] = null;
 		}
 		return this.sort;
 	}
@@ -180,18 +191,23 @@ public class Search {
 	 * @return das Array nach Defense sortiert
 	 */
 	public Pokemon[] sortByDEF() {
+		Pokemon[] run = this.alph;
 		this.sort = new Pokemon[0];
-		int high = 0;
-		int index = 0;
-		for(int y = 0; y < this.alph.length; y++) {
-			for(int x = 0; x < this.alph.length; x++) {
-				int v = alph[x].getStat().getDEF();
-				if(v > high) {
-					high = v;
-					index = x;
+		boolean ok = true;
+		for(int y = 0; y < run.length; y++) {
+			int high = 0;
+			int index = 0;
+			for(int x = 0; x < run.length; x++) {
+				if(run[x] != null) {
+					int v = run[x].getStat().getDEF();
+					if(v > high) {
+						high = v;
+						index = x;
+					}
 				}
 			}
-			this.addSort(alph[index]);
+			this.addSort(run[index]);
+			run[index] = null;
 		}
 		return this.sort;
 	}
@@ -202,18 +218,23 @@ public class Search {
 	 * @return das Array nach spezialattack sortiert
 	 */
 	public Pokemon[] sortBySATT() {
+		Pokemon[] run = this.alph;
 		this.sort = new Pokemon[0];
-		int high = 0;
-		int index = 0;
-		for(int y = 0; y < this.alph.length; y++) {
-			for(int x = 0; x < this.alph.length; x++) {
-				int v = alph[x].getStat().getSATT();
-				if(v > high) {
-					high = v;
-					index = x;
+		boolean ok = true;
+		for(int y = 0; y < run.length; y++) {
+			int high = 0;
+			int index = 0;
+			for(int x = 0; x < run.length; x++) {
+				if(run[x] != null) {
+					int v = run[x].getStat().getSATT();
+					if(v > high) {
+						high = v;
+						index = x;
+					}
 				}
 			}
-			this.addSort(alph[index]);
+			this.addSort(run[index]);
+			run[index] = null;
 		}
 		return this.sort;
 	}
@@ -224,18 +245,23 @@ public class Search {
 	 * @return das Array nach Spezialdefense sortiert
 	 */
 	public Pokemon[] sortBySDEF() {
+		Pokemon[] run = this.alph;
 		this.sort = new Pokemon[0];
-		int high = 0;
-		int index = 0;
-		for(int y = 0; y < this.alph.length; y++) {
-			for(int x = 0; x < this.alph.length; x++) {
-				int v = alph[x].getStat().getSDEF();
-				if(v > high) {
-					high = v;
-					index = x;
+		boolean ok = true;
+		for(int y = 0; y < run.length; y++) {
+			int high = 0;
+			int index = 0;
+			for(int x = 0; x < run.length; x++) {
+				if(run[x] != null) {
+					int v = run[x].getStat().getSDEF();
+					if(v > high) {
+						high = v;
+						index = x;
+					}
 				}
 			}
-			this.addSort(alph[index]);
+			this.addSort(run[index]);
+			run[index] = null;
 		}
 		return this.sort;
 	}
@@ -246,22 +272,31 @@ public class Search {
 	 * @return das Array nach Speed sortiert
 	 */
 	public Pokemon[] sortBySPE() {
+		Pokemon[] run = this.alph;
 		this.sort = new Pokemon[0];
-		int high = 0;
-		int index = 0;
-		for(int y = 0; y < this.alph.length; y++) {
-			for(int x = 0; x < this.alph.length; x++) {
-				int v = alph[x].getStat().getSPE();
-				if(v > high) {
-					high = v;
-					index = x;
+		boolean ok = true;
+		for(int y = 0; y < run.length; y++) {
+			int high = 0;
+			int index = 0;
+			for(int x = 0; x < run.length; x++) {
+				if(run[x] != null) {
+					int v = run[x].getStat().getSPE();
+					if(v > high) {
+						high = v;
+						index = x;
+					}
 				}
 			}
-			this.addSort(alph[index]);
+			this.addSort(run[index]);
+			run[index] = null;
 		}
 		return this.sort;
 	}
 	
+	/**
+	 * gibt das alphabetisch sotierte Array zurueck
+	 * @return das alphabetisch sotierte Array
+	 */
 	public Pokemon[] getPokemon() {
 		return this.alph;
 	}

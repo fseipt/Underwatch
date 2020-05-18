@@ -67,6 +67,10 @@ public class Controller implements Serializable{
 			throw new RuntimeException("Spieler ding hat verkackt");
 		}
 		
+		
+		
+		
+		
 		// Schrift
 		try {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
