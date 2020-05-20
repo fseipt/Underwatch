@@ -30,6 +30,7 @@ public class Status implements Allgemein{
 	public String getStatus() {
 		return this.status;
 	}
+	
 	public Pokemon setStati(Pokemon p, Status s) throws WrongArgumentException {
 		int z = 0;
 		for(int x = 0; x < Allgemein.statusse.length; x++) {
