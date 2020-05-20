@@ -1,1 +1,14 @@
-Omnistart;1,1.2.3.4.5.6,1,1;Boosted jeden Stat eines Pokemon, um eins. Der Boost hält so viele Runden an, wie viele Runden bis jz gespielt wurden.
+Omnistart;b,s,all,1,t;Boosted jeden Stat eines Underlings, um eins. Der Boost hält so viele Runden an, wie viele Runden bis jz gespielt wurden.
+Weakboost;b,s,weak,1,tu;Boosted den niedrigsten Stats eines Underlings um eins. Dieser erfolgt immer am Ende eines Turns.
+Injeziert;s,g,hp,tou,10;Vergiftet den Gegner Stark, nach gegnerischen offensiven Kontakt.
+Todesengel;s,g,d,l;Besiegt den Gegner, wenn er durch eine Offensive Attacke unter 15% seines Lebens fällt.
+Hotfeel;s,g,b,tou,10;Verbrennt den Gegner Stark, nach gegnerischen offensiven Kontakt.
+Magnetfeld;i,s,Boden;Das Underling ist Immun gegenüber Bodenattacken
+Statikabsorb;i,s,Elektro,h/25;Das Underling ist Immun gegenüber Elektroattacken, zusätzlich wird das Underling ein kleinwenig geheilt.
+Bessesen;s,g,flin,stou,20;Das Underling hat die Chance das gegnerische Underling zu Zurückschrecken zu lassen.
+Regentanz;i,s,Wasser,h/25;Das Underling ist Immin gegenüber Wasserattacken, zusätzlich wird das Underling ein kleinweing geheilt.
+Passend;stab,2;Attacken mit dem selben Typen wie das Underling werden verstärkt.
+Feuerzeug;s,g,b,ang,10;Verbrennt den Gegner Stark, nach eigenen offensiven Kontakt.
+Ego;b,s,att,1,kill;Steigert den Angriff eines Underlings um 1 Stufe, nachdem es ein gegnerisches besiegt hat.
+Echo;attacks,Schrei/Orientierung/Todesruf,2;Schallatacken werden stack verstärkt
+Krankheitsträger;s,g,random,tou,10;Bei Angriff des gegnerischen Underlings, wird dieser unterumständen mit einer Statusveränderung gewschächt.

@@ -193,6 +193,13 @@ public class Pokemon implements Allgemein{
 		
 	}
 	/**
+	 * gibt das Item zurück
+	 * @return das Item
+	 */
+	public Item getItem() {
+		return this.item;
+	}
+	/**
 	 * Setzt ein Movearray auf die Moves des Pokemnons
 	 * @param move
 	 * @throws WrongArgumentException
@@ -237,6 +244,13 @@ public class Pokemon implements Allgemein{
 	public void setStatus(Status status) throws WrongArgumentException {
 		this.status = status;
 		
+	}
+	/**
+	 * Gibt den Status zurück
+	 * @return der Status
+	 */
+	public Status getStatus() {
+		return this.getStatus();
 	}
 	public void setStatusveraenderungen(Statusveraenderungen statusveraenderungen) {
 		this.statusveraenderung = statusveraenderungen; // Setzt die Status veraenderung

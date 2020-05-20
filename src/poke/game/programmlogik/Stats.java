@@ -10,7 +10,7 @@ public class Stats {
 	private int speed;
 	private int total;
 	private int[] statsAmine = new int[6];
-	private int[] stats = new int[9];
+	private int[] stats = new int[10];
 	private int zb = 0, zp = 0;
 	private boolean zhelp = false;
 	
@@ -65,6 +65,8 @@ public class Stats {
 			case 7: this.stats[x] = 1; // Der Fluchtwertsmultiplikator
 				break;
 			case 8: this.stats[x] = 20; // Die Chance auf einen Crit
+				break;
+			case 9: this.stats[x] = this.stats[0];
 			}
 		}
 		this.setStatsAmine();
@@ -179,5 +181,11 @@ public class Stats {
 	
 	public int getSPE() {
 		return this.speed;
+	}
+	public void setKP(int wert) {
+		this.stats[9] = wert;
+	}
+	public int getKP() {
+		return this.stats[9];
 	}
 }

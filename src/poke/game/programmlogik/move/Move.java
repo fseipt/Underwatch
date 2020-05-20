@@ -186,4 +186,8 @@ public class Move implements Allgemein {
 	public int getPrioritaet() {
 		return this.prioritaet;
 	}
+	
+	public int getArt() {
+		return this.getArt();
+	}
 }
