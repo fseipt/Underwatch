@@ -46,6 +46,9 @@ public class Controller implements Serializable{
 	private Search search;
 	private Spieler spieler;
 	
+	/**
+	 * 
+	 */
 	public Controller() {
 		
 		this.type = new Typreader();
