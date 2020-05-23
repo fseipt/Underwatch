@@ -90,6 +90,9 @@ public class Zusatz {
 			}
 		}
 	}
+	public Status getStatus() {
+		return this.status;
+	}
 }
 	
 	

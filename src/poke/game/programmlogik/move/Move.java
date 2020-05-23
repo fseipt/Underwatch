@@ -190,4 +190,7 @@ public class Move implements Allgemein {
 	public int getArt() {
 		return this.getArt();
 	}
+	public void doEffect() {
+		
+	}
 }

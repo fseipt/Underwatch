@@ -7,6 +7,7 @@ public class Item {
 	private String name;
 	private Effekt effekt;
 	private String bezeichnung;
+	private String Icon;
 	
 	public Item() {
 		
@@ -53,7 +54,16 @@ public class Item {
 			this.bezeichnung = s;
 		}
 	}
+	public void setIcon(String s) {
+		this.Icon = s;
+	}
 	public String getName() {
 		return this.name;
+	}
+	public String getBesch() {
+		return this.bezeichnung;
+	}
+	public String getIcon() {
+		return this.Icon;
 	}
 }

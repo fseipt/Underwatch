@@ -24,20 +24,34 @@ public class Statusveraenderungen {
 	 * @param s der String 
 	 * @throws WrongArgumentException
 	 */
-	public Statusveraenderungen(String s) throws WrongArgumentException {
-		int c = 0; // deklarieren und initialisieren einer int Variable
-		for(int x = 0; x < s.length(); x++) {
-			if(s.charAt(x) == 58) { // checkt ob
-				c++;
-			}
+	public void setStatusveraenderungen(String s) throws WrongArgumentException {
+		switch(s) {
+			case "Attack":
+				break;
+			case "Defense":
+				break;
+			case "Specialattack":
+				break;
+			case "Specialdefense":
+				break;
+			case "Speed":
+				break;
+			case "Genauigkeit":
+				break;
+			case "Fluchtwert":
+				break;
+			case "Crit-Chance":
+				break;
 		}
-		String[] stat = new String[c];
-		multyplier = new int[c];
+		String[] stat = new String[8];
+		multyplier = new int[8];
 		double m = 0;
-		for(int y = 0; y < c; y++) {
+		int a = 0;
+		for(int y = 0; y < 8; y++) {
 			for(int x = 0; x < s.length(); x++) {
 				if(s.charAt(x) == 47) {
-					stat[y] = s.substring(0,x);
+					stat[y] = s.substring(a,x);
+					a = x+1;
 					multyplier[y] = Integer.parseInt(s.substring((x+1)));
 					break;
 				}

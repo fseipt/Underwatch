@@ -80,6 +80,7 @@ public class Itemreader {
 			Effekt e = new Effekt(this.att[1]);
 			item.setEffekt(e); // Typen setzen
 			item.setBezeichnung(this.att[2]);
+			item.setIcon(this.att[3]);
 			this.addEintragA(this.item); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
