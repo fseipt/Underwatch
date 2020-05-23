@@ -18,6 +18,7 @@ public class Move implements Allgemein {
 	private Zusatz zusatz;
 	private boolean zTarget;
 	private int prioritaet;
+	private String beschreibung;
 	private boolean zcheckR = false;
 	
 	public Move() {
@@ -67,11 +68,11 @@ public class Move implements Allgemein {
 					break;
 				case 1:
 					this.art = a;
-					this.artS = "Physisch";
+					this.artS = "Physical";
 					break;
 				case 2:
 					this.art = a;
-					this.artS = "Speziell";
+					this.artS = "Special";
 					break;
 			}
 		}
@@ -199,6 +200,23 @@ public class Move implements Allgemein {
 	public int getArt() {
 		return this.getArt();
 	}
+	
+	/**
+	 * Setzt die Beschreibung
+	 * @param s die Beschreibung
+	 */
+	public void setBeschreibung(String s) {
+		this.beschreibung = s;
+	}
+	
+	/** Gibt die Beschreibung zurueck
+	 * 
+	 * @return die Beschreibung
+	 */
+	public String getBeschreibung() {
+		return this.beschreibung;
+	}
+	
 	public String getEffect() {
 		String s = "";
 		if((int) ((Math.random() * 101) + 1) -1 <= this.zusatz.getChance()) {

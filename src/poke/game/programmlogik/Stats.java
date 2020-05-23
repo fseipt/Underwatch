@@ -84,9 +84,9 @@ public class Stats {
 	 * Multipliziert alle Stats mit der Veraenderung
 	 * @param a Die Veraenderung
 	 */
-	public void setStats(int[] a) {
-		for(int x = 0; x < this.stats.length; x++) { 
-			this.stats[x] = this.stats[x] * a[x]; // Setzt die Stats mit Status veraenderungen
+	public void setStats(double[] a) {
+		for(int x = 1; x < this.stats.length-1; x++) { 
+			this.stats[x] = (int) (this.stats[x] * a[x]); // Setzt die Stats mit Status veraenderungen
 		}
 	}
 	public void setHP(int i) throws WrongArgumentException {

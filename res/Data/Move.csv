@@ -1,18 +1,18 @@
-﻿Feuerspuck;Feuer;80;2;100;10;Burned,10;0
-Stahlstrahl;Stahl;90;2;100;10;_Specialdefense,10;0
-Flambierend;Feuer;75;2;100;10;Burned,30;0
-Feenstaub;Fee;50;2;100;20;_Specialattack,100;0
-Unheil;Unlicht;120;2;85;5;;0
-Steckdose;Elektro;0;0;100;20;S/Specialattack/Specialattack,100;0
-Donnerschnell;Elektro;50;2;100;15;;1
-Verzehrer;Gift;100;1;90;10;S/Defense,50;0
-Schmutz;Boden;40;2;100;40;_Genauigkeit,50;0
-Loderndeflamme;Feuer;80;2;100;10;;0
-Meditieren;Psycho;0;0;100;25;S/Specialattack/Specialdefense,100;0
-Schock;Elektro;0;0;90;30;Paralysed,100;0
-Backpulver;Gift;0;0;100;20;Heal/50,100;0
-Giftwurf;Gift;90;0;100;10;WPoisened,30;0
-Vergifteterwurf;Gift;90;0;100;10;HPoisened,10;0
-Stoss;Normal;40;1;100;10;Critical-Chance*2,100;0
-Aufladung;Elektro;50;2;100;10;S/Speed,100;0
-Fairytale;Fee;0;0;70;10;Sleep,100;0
+﻿Feuerspuck;Feuer;80;2;100;10;Burned,10;0;Das  Underling  spuckt  mit  Brennender  Spucke  §auf  den  Gegener,  kann  diesen  Verbrennen.
+Stahlstrahl;Stahl;90;2;100;10;_Specialdefense,10;0;Das  Underling  buendelt  seine  gesamte  Kraft  und  §feuert  einen  metalennen  Strahl  ab. Kann  die  §Spezialverteidung des Zieles senken.
+Flambierend;Feuer;75;2;100;10;Burned,30;0;Zuendet  das  Ziel  mit  einer  Flamme  an,  kann  das  §Ziel  zu  einer  hohen  Warscheinlichkeit  Verbrennen.
+Feenstaub;Fee;50;2;100;20;_Specialattack,100;0;Ein  kleiner  Feenstaub,  der  dazu  fuehrt,  dass  das  §getroffene  Underling  eine  Senkung  in  seinem  speziellen  §Angriff.
+Unheil;Unlicht;120;2;85;5;;0;Keine besonderen Effekte.
+Steckdose;Elektro;0;0;100;20;S/Specialattack/Specialattack,100;0;Der  Benutzer  steckt  sich  an  und  steigert  seinen  §Spezialangriff  um  zwei  Stufen.
+Donnerschnell;Elektro;50;2;100;15;;1;Greift meist zuerst an.
+Verzehrer;Gift;100;1;90;10;S/Defense,50;0;Beisst  ein  Happen  vom  Gegner  ab,  kann  zusaetzlich  die  §Verteidung  senken.
+Schmutz;Boden;40;2;100;40;_Genauigkeit,50;0;Wirft  mit  Schmutz  auf  den  Gegner,  kann  zusaetzlich  die  Genaugkeit  senken.
+Loderndeflamme;Feuer;80;2;100;10;;0;Keine besonderen Effekte.
+Meditieren;Psycho;0;0;100;25;S/Specialattack/Specialdefense,100;0;Das  Underling  konzentriert  sich  und  steigert  seine  §Spezialverteidung  und  seinen  Spezialangriff.
+Schock;Elektro;0;0;90;30;Paralysed,100;0;Elektrizitaet  stoesst  aus  und  Paralysiert  den  Gegner.
+Backpulver;Gift;0;0;100;20;Heal/50,100;0;Frischt  sich  mit  neuem  Backpulver  auf.
+Giftwurf;Gift;90;0;100;10;WPoisened,30;0;Wirft  eine  Giftige  Subtanz,  kann  den  Gegner  §leicht  vergiften.
+Vergifteterwurf;Gift;90;0;100;10;HPoisened,10;0;Wirft  eine  stark  vergiftete  Substanz,  kann  den  §Gegenr  stark  vergiften.
+Stoss;Normal;40;1;100;10;Critical-Chance*2,100;0;Hat eine hohe Chance einen Kritischen Treffer zu landen.
+Aufladung;Elektro;50;2;100;10;S/Speed,100;0;Pulsierenderstrom  wird  ausgelassen,  dieser  steigert  die  §Initiative  des  Angreifers.
+Fairytale;Fee;0;0;70;10;Sleep,100;0;Das  Underling  erzaehlt  eine  spannende  Geschichte,  §bis  das  Ziel  einschlaeft.

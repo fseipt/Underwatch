@@ -361,10 +361,9 @@ public class Kampf {
 		if(s.contains(c)) {
 			double[] d = breakOpen(s);
 			if(t) {
-				int[] i = spieler.getStats();
-				
+				spieler.getStat().setStats(d);	
 			} else {
-				
+				gegner.getStat().setStats(d);
 			}
 		}
 		
