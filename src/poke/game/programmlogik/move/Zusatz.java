@@ -35,25 +35,50 @@ public class Zusatz {
 		}		
 	}
 	public void setEffekte(String s) throws WrongArgumentException {
-		boolean test = false;;
-		for(int x = 0; x < Allgemein.statusse.length; x++) {
-			if(s.equals(Allgemein.statusse[x])) {
-				test = true;
-				Status status = new Status(s);
-				this.status = status;
-			}
-		}
-		if(test == false) {
-			for(int x = 0; x < Allgemein.stausveraenderungen.length; x++) {
-				if(s.equals(Allgemein.stausveraenderungen[x])) {
-					test = true;
-					this.sv = s;
+		for(int x = 0; x < s.length(); x++) {
+			if(s.charAt(x) == 47) {
+				if(s.substring(0,x).equals("S")) {
+					target = true;
+					s=s.substring(x+1);
+					break;
 				}
 			}
 		}
-		if(test == false) {
-			if(s.equals("Heal")) {
-				this.heal = "50";
+		String[] string = new String[6];
+		for(int x = 0; x < s.length(); x++) {
+			if(s.charAt(x) == 47) {
+				string = new String[2];
+				string[0] = s.substring(0,x);
+				string[1] = s.substring(x+1);
+			}
+		}
+		if(string[0] == null) {
+			string = new String[1];
+			string[0] = s;
+		}
+		for(int y = 0; y < string.length; y++) {
+			boolean test = false;;
+			for(int x = 0; x < Allgemein.statusse.length; x++) {
+				if(string[y].equals(Allgemein.statusse[x])) {
+					test = true;
+					Status status = new Status(string[y]);
+					this.status = status;
+					break;
+				}
+			}
+			if(test == false) {
+				for(int x = 0; x < Allgemein.stausveraenderungen.length; x++) {
+					if(string[y].equals(Allgemein.stausveraenderungen[x])) {
+						test = true;
+						this.sv += string[y];
+						break;
+					}
+				}
+			}
+			if(test == false) {
+				if(s.equals("Heal")) {
+					this.heal = "50";
+				}
 			}
 		}
 	}

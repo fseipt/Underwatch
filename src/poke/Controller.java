@@ -56,8 +56,8 @@ public class Controller implements Serializable{
 		this.gegner = new Gegnerreader(poke,item);
 		this.team[0] = new Spieler();
 		this.team[1] = new Gegner(gegner);
-		this.search = new Search(poke);
-		this.poke.setPokemon(this.search.getPokemon());
+		//this.search = new Search(poke);
+		//this.poke.setPokemon(this.search.getPokemon());
 		this.spieler = new Spieler();
 		Pokemon[] p2 = new Pokemon[1]; 
 		p2[0] = gegner.random();
