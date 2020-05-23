@@ -103,23 +103,14 @@ public class Launcher extends JPanel implements Runnable, KeyListener{
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent arg0) { gsm.keyPressed(arg0.getKeyCode());}
+	public void keyPressed(KeyEvent arg0)  { if(gsm != null) gsm.keyPressed(arg0.getKeyCode()); }
 	@Override
-	public void keyReleased(KeyEvent arg0) { gsm.keyReleased(arg0.getKeyCode());}
+	public void keyReleased(KeyEvent arg0) { if(gsm != null) gsm.keyReleased(arg0.getKeyCode());}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		
 	}
-	/* public static void main(String[] args) {
-		JFrame window = new JFrame("Underwatch");
-		window.setContentPane(new Launcher(window));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-		window.pack();
-		window.setVisible(true);
-		window.setBackground(Color.white);
-	} */
 }
 
 

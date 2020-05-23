@@ -22,7 +22,7 @@ import poke.game.view.Graphics.StatsEnum;
  */
 public class UnderlingEntry implements GraphicElement {
 	private Pokemon p;
-	private BufferedImage rahmen, bg,icon, typen[];
+	private BufferedImage rahmen, bg,icon, typen[], statsFelder;
 	private int y,yO;
 	
 	private String[] stats;
@@ -31,7 +31,8 @@ public class UnderlingEntry implements GraphicElement {
 	private boolean scrolling;
 	private ArrayList<Integer> possible;
 	private int speed, speedFac;
-	
+	private String name;
+	private int[] statsV;
 	
 	public UnderlingEntry(Pokemon p, int y) {
 		this.speedFac = 1;
@@ -51,21 +52,26 @@ public class UnderlingEntry implements GraphicElement {
 		this.y = y;
 		this.yD = y;
 		this.yO = y;
+		
+	
+		String icon;
+		if(p.getIcon() == null)  icon = "icon.gif";
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
 			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
-			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/icon3.gif"));
+			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+p.getIcon()+".gif"));
 			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBg.gif"));
+			this.statsFelder = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/statsFelder.gif"));
 			this.typen[0] = Typen.valueOf(p.getTyp()[0].getTyp()).getImage();
 			if(p.getTyp()[1] != null) this.typen[1] = Typen.valueOf(p.getTyp()[1].getTyp()).getImage();
 		}
 		catch (IOException e) { e.printStackTrace(); }
 		
-		this.stats = new String[7];
+		this.stats = new String[8];
+		stats[0] = "HP";
+		for(StatsEnum s: StatsEnum.values()) stats[s.ordinal()+1] = s.getAbkuerzung();
+		stats[6] = "BST";
 		
-		for(StatsEnum s: StatsEnum.values()) stats[s.ordinal()] = s.getAbkuerzung();
-		stats[5] = "BST";
-		stats[6] = "";
 	}
 	
 	
@@ -141,7 +147,7 @@ public class UnderlingEntry implements GraphicElement {
 		}
 	
 		
-		this.scrollFac -= (1-this.scrollZ/this.yD) /(4000/speedFac) ;
+		this.scrollFac -= (1-this.scrollZ/this.yD) /(1000/speedFac) ;
 		this.yD =  this.yD*this.scrollFac;
 	}
 	
@@ -166,7 +172,7 @@ public class UnderlingEntry implements GraphicElement {
 			return;
 		}
 		
-		else this.scrollFac -= (1-this.scrollZ/this.yD) /(4000/speedFac) ;
+		else this.scrollFac -= (1-this.scrollZ/this.yD) /(1000/speedFac) ;
 		this.yD =  this.yD*this.scrollFac;
 	}
 	
@@ -175,38 +181,40 @@ public class UnderlingEntry implements GraphicElement {
 		this.y = (int) yD;
 		g.setColor(Color.black);
 		g.drawImage(bg,0,y-23,null);
-			
+		g.drawImage(statsFelder,0,y-23,null);
+		
 		// Icon
-		g.drawImage(rahmen,7,y,null);
-		g.drawImage(icon,9,y+2,null);
+		g.drawImage(rahmen,5,y,null);
+		g.drawImage(icon,7,y+2,null);
 		g.setFont(new Font("Press Start 2P", 1, 8));
 		
 		
 		g.setFont(new Font("8-bit fortress",0, 7));
-		int xS = 171;
+		int xS = 141;
 		
 		g.setColor(Color.DARK_GRAY);
 		for(String s: stats) {
 			g.drawString(s,xS,y+10);
-			xS+=24;
+			xS+=22;
 		}
-		xS = 171;
+		
+		xS = 141;
 		
 		g.setColor(Color.white);
 		for(int i: p.getStats()) {
 			g.drawString(""+i,xS,y+23);
-			xS+=24;
+			xS+=22;
 		}
 	
 		
-		g.drawString("Wasserding",10,y-5);
+		g.drawString(p.getName(),10,y-5);
 		
 		
 		if(p.getTyp()[1] != null) {
-			g.drawImage(typen[0],45,y+11,null);
-			g.drawImage(typen[1],93,y+11,null);
+			g.drawImage(typen[0],42,y+11,null);
+			g.drawImage(typen[1],90,y+11,null);
 		}
-		else g.drawImage(typen[0],69,y+11,null);
+		else g.drawImage(typen[0],65,y+11,null);
 		
 	}
 	
