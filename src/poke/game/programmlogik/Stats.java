@@ -132,7 +132,7 @@ public class Stats {
 		this.statsAmine[2] = this.defense;
 		this.statsAmine[3] = this.spezialattack;
 		this.statsAmine[4] = this.spezialdefense;
-		this.statsAmine[5] = this.defense;
+		this.statsAmine[5] = this.speed;
 		this.statsAmine[6] = this.getTotal();
 	}
 	
