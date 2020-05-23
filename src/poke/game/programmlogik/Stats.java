@@ -69,7 +69,6 @@ public class Stats {
 			case 9: this.stats[x] = this.stats[0];
 			}
 		}
-		this.settotal();
 		this.setStatsAmine();
 		
 	}
@@ -133,6 +132,7 @@ public class Stats {
 		this.statsAmine[3] = this.spezialattack;
 		this.statsAmine[4] = this.spezialdefense;
 		this.statsAmine[5] = this.speed;
+		this.settotal();
 		this.statsAmine[6] = this.getTotal();
 	}
 	
