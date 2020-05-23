@@ -34,6 +34,14 @@ public class Zusatz {
 			throw new WrongArgumentException();
 		}		
 	}
+	/**
+	 * Setzt den Effekt
+	 * Entweder ein Status
+	 * eine Statusveränderung
+	 * oder das Underling wird gehealt
+	 * @param s
+	 * @throws WrongArgumentException
+	 */
 	public void setEffekte(String s) throws WrongArgumentException {
 		for(int x = 0; x < s.length(); x++) {
 			if(s.charAt(x) == 47) {
