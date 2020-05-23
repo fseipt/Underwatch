@@ -345,4 +345,7 @@ public class Pokemon implements Allgemein{
 	public void setHP(int i) throws WrongArgumentException {
 		this.stat.setHP(i);
 	}
+	public int[] getStatsAmine() {
+		return this.stat.getStatsAmine();
+	}
 }
