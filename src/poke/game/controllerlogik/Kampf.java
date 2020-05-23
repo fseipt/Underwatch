@@ -86,7 +86,8 @@ public class Kampf {
 		int hp = 0;
 		int jz = gegner.getStats()[0];
 		if(m.getArt() == 0) {
-			
+			String s = m.getEffect();
+			doEffect(s, m.getzTarget());
 		}
 		
 		if(m.getArt() == 1) {
@@ -353,5 +354,32 @@ public class Kampf {
 			
 		}
 		return multi;
+	}
+	public void doEffect(String s, boolean t) {
+		boolean target = t;
+		CharSequence c = ",";
+		if(s.contains(c)) {
+			double[] d = breakOpen(s);
+			if(t) {
+				int[] i = spieler.getStats();
+				
+			} else {
+				
+			}
+		}
+		
+	}
+	public double[] breakOpen(String s) {
+		double[] d = new double[8];
+		int a = 0;
+		int b = 0;
+		for(int x = 0; x < s.length(); x++) {
+			if(s.charAt(x) == 44) {
+				d[a] = Double.parseDouble(s.substring(b,x));
+				a++;
+				b = x+1;
+			}
+		}
+		return d;
 	}
 }

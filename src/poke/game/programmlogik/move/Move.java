@@ -16,6 +16,7 @@ public class Move implements Allgemein {
 	private int genauigkeit;
 	private int angriffspunkte;
 	private Zusatz zusatz;
+	private boolean zTarget;
 	private int prioritaet;
 	private boolean zcheckR = false;
 	
@@ -120,8 +121,16 @@ public class Move implements Allgemein {
 	 */
 	public void setZusatz(Zusatz z) {
 		this.zusatz = z;
+		if(this.zusatz != null) {
+			this.setzTarget(this.zusatz.getTarget());
+		}
 	}
-	
+	public void setzTarget(boolean t) {
+		this.zTarget = t;
+	}
+	public boolean getzTarget() {
+		return this.zTarget;
+	}
 	/**
 	 * Gibt den Namen des Moves zurueck
 	 * @return der Name
@@ -190,7 +199,22 @@ public class Move implements Allgemein {
 	public int getArt() {
 		return this.getArt();
 	}
-	public void doEffect() {
-		
+	public String getEffect() {
+		String s = "";
+		if((int) ((Math.random() * 101) + 1) -1 <= this.zusatz.getChance()) {
+			if(this.zusatz.getStatus() != null) {
+				s = this.zusatz.getStatus().getStatus();
+			}
+			if(this.zusatz.getStatusver() != null) {
+				double[] d = this.zusatz.getStatusver().getMultti();
+				for(int x = 0; x < d.length; x++) {
+					s += d[x]+",";
+				}
+			}
+			if(this.zusatz.getHeal() != null) {
+				s = "Heal/"+this.zusatz.getHeal();
+			}
+		}
+		return s;
 	}
 }

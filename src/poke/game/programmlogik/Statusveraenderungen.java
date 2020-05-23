@@ -10,13 +10,13 @@ public class Statusveraenderungen {
 	private int genauigkeit = 0;
 	private int fluchtwert = 0;
 	private int critchance = 20;
-	private int[] multyplier;
+	private double[] multyplier;
 	
 	/**
 	 * Ein Konstruktor ohne Parameter
 	 */
 	public Statusveraenderungen() {
-		
+		this.multyplier = new double[8];
 	}
 	/**
 	 * Ein Konstruktor mit Parameter der den uebergebenen String ueberprueft und dann 
@@ -76,7 +76,7 @@ public class Statusveraenderungen {
 	 * gibt den Multiplier zurueck
 	 * @return
 	 */
-	public int[] getMultti() {
+	public double[] getMultti() {
 		return this.multyplier; //gibt den Multiplier zurueck
 	}
 	/**

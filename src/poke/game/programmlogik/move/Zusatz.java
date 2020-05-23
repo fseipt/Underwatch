@@ -8,7 +8,7 @@ import poke.game.programmlogik.WrongArgumentException;
 public class Zusatz {
 
 	private Status status;
-	private Statusveraenderungen sv = new Statusveraenderungen();
+	private Statusveraenderungen sv;
 	private String heal;
 	private boolean target;
 	private int chance;
@@ -78,6 +78,9 @@ public class Zusatz {
 				for(int x = 0; x < Allgemein.statusveraenderungen.length; x++) {
 					if(string[y].equals(Allgemein.statusveraenderungen[x])) {
 						test = true;
+						if(sv == null) {
+							sv = new Statusveraenderungen();
+						}
 						this.sv.setPStatusveraenderungen(s);
 						break;
 					}
@@ -88,6 +91,9 @@ public class Zusatz {
 				for(int x = 0; x < Allgemein.mstatusveraenderungen.length; x++) {
 					if(string[y].equals(Allgemein.mstatusveraenderungen[x])) {
 						test = true;
+						if(sv == null) {
+							sv = new Statusveraenderungen();
+						}
 						this.sv.setPStatusveraenderungen(s);
 						break;
 					}
@@ -102,6 +108,18 @@ public class Zusatz {
 	}
 	public Status getStatus() {
 		return this.status;
+	}
+	public Statusveraenderungen getStatusver() {
+		return this.sv;
+	}
+	public String getHeal() {
+		return this.heal;
+	}
+	public int getChance() {
+		return this.chance;
+	}
+	public boolean getTarget() {
+		return this.target;
 	}
 }
 	
