@@ -61,15 +61,14 @@ public class UnderlingEntry implements GraphicElement {
 			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
 			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+p.getIcon()+".gif"));
 			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBg.gif"));
-			this.statsFelder = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/statsFelder.gif"));
 			this.typen[0] = Typen.valueOf(p.getTyp()[0].getTyp()).getImage();
 			if(p.getTyp()[1] != null) this.typen[1] = Typen.valueOf(p.getTyp()[1].getTyp()).getImage();
 		}
 		catch (IOException e) { e.printStackTrace(); }
 		
-		this.stats = new String[8];
+		this.stats = new String[7];
 		stats[0] = "HP";
-		for(StatsEnum s: StatsEnum.values()) stats[s.ordinal()+1] = s.getAbkuerzung();
+		for(StatsEnum s: StatsEnum.values()) if(s.ordinal()<6)stats[s.ordinal()+1] = s.getAbkuerzung(); 
 		stats[6] = "BST";
 		
 	}
@@ -181,8 +180,6 @@ public class UnderlingEntry implements GraphicElement {
 		this.y = (int) yD;
 		g.setColor(Color.black);
 		g.drawImage(bg,0,y-23,null);
-		g.drawImage(statsFelder,0,y-23,null);
-		
 		// Icon
 		g.drawImage(rahmen,5,y,null);
 		g.drawImage(icon,7,y+2,null);
@@ -190,31 +187,40 @@ public class UnderlingEntry implements GraphicElement {
 		
 		
 		g.setFont(new Font("8-bit fortress",0, 7));
-		int xS = 141;
+		int xS = 147;
 		
 		g.setColor(Color.DARK_GRAY);
 		for(String s: stats) {
 			g.drawString(s,xS,y+10);
-			xS+=22;
+			xS+=24;
 		}
 		
-		xS = 141;
+		xS = 147;
+		
+		this.statsV = p.getStatsAmine();
 		
 		g.setColor(Color.white);
-		for(int i: p.getStats()) {
-			g.drawString(""+i,xS,y+23);
-			xS+=22;
+		for(int s :statsV) {
+			g.drawString(""+s,xS,y+23);
+			xS+=24;
 		}
+		
+		
+		/*for(int i: p.getStats()) {
+			if(i != 1) g.drawString(""+i,xS,y+23);
+			else g.drawString(""+p.getStats()[9],xS,y+23);
+			xS+=24;
+		}*/
 	
 		
 		g.drawString(p.getName(),10,y-5);
 		
 		
 		if(p.getTyp()[1] != null) {
-			g.drawImage(typen[0],42,y+11,null);
-			g.drawImage(typen[1],90,y+11,null);
+			g.drawImage(typen[0],45,y+11,null);
+			g.drawImage(typen[1],93,y+11,null);
 		}
-		else g.drawImage(typen[0],65,y+11,null);
+		else g.drawImage(typen[0],69,y+11,null);
 		
 	}
 	

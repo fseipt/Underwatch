@@ -46,20 +46,12 @@ public class SelectionState extends GameState {
 		
 		
 		this.gsm = gsm;
-		testPokemon = c.getSpieler().getSpieler()[0];
-		
 		//Pokemonreader alle = c.getPoke();
 		
 		Pokemon[] alle = c.getPoke().getPokemon();
 		
 		this.underlingAnzahl = 50;
 		
-		
-		// Das mit den Typen und so
-		testshit();
-		
-		
-		testPokemon.setTyp(test);
 		
 		// Alle Underlings werden initialisiert
 		// Sie sind alle zuerst auf Y-Position 0!!!
@@ -158,9 +150,6 @@ public class SelectionState extends GameState {
 		g.drawImage(searchbar,5,10,null);
 		
 		
-		/*g.setColor(Color.red);
-		g.drawLine(0, 55, 320, 55);
-		g.drawLine(0, 235, 320, 235); */
 	}
 	/**
 	 * Diese Methode speichert
@@ -227,48 +216,4 @@ public class SelectionState extends GameState {
 	
 	
 	
-	public void testshit() {
-		se = new Typ[8][2];
-		
-		test = new Typ[2];
-		test[0] = new Typ();
-		test[0].setTyp("Gift");
-		se[0] = test;
-		
-		Typ[] test1 = new Typ[2];
-		test1[0] = new Typ();
-		test1[0].setTyp("Fee");
-		se[1] = test1; 
-		
-		Typ[] test2 = new Typ[2];
-		test2[0] = new Typ();
-		test2[0].setTyp("Psycho");
-		se[2] = test2;
-		
-		
-		Typ[] test3 = new Typ[2];
-		test3[0] = new Typ();
-		test3[0].setTyp("Boden");
-		se[3] = test3;
-		
-		Typ[] test4 = new Typ[2];
-		test4[0] = new Typ();
-		test4[0].setTyp("Wasser");
-		se[4] = test4; 
-		
-		Typ[] test5 = new Typ[2];
-		test5[0] = new Typ();
-		test5[0].setTyp("Feuer");
-		se[5] = test5;
-		
-		Typ[] test6 = new Typ[2];
-		test6[0] = new Typ();
-		test6[0].setTyp("Flug");
-		se[6] = test6;
-		
-		Typ[] test7 = new Typ[2];
-		test7[0] = new Typ();
-		test7[0].setTyp("Unlicht");
-		se[7] = test7;
-	}
 }
