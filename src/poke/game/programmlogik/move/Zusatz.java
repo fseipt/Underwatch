@@ -9,6 +9,8 @@ public class Zusatz {
 
 	private Status status;
 	private String sv;
+	private String heal;
+	private boolean target;
 	private int chance;
 	private String[] s = new String[2];
 
@@ -50,7 +52,9 @@ public class Zusatz {
 			}
 		}
 		if(test == false) {
-			throw new WrongArgumentException();
+			if(s.equals("Heal")) {
+				this.heal = "50";
+			}
 		}
 	}
 }

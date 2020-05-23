@@ -97,19 +97,8 @@ public class Gegnerreader {
 			
 			for(int x = 0; x < this.p.length; x++) {
 				if(this.att[0].equals(p[x].getName())) { // ueberprüft ob der Name vom "Gegnerpokemon" mit einem bestehenden Pokemon uebereinstimmt
-					pokemon = new Pokemon(); // setzt das Pokemon Objekt mit dem Pokemon, dass den selben Namen hat
-					String name = p[x].getName();
-					Typ[] t = p[x].getTyp();
-					int form = p[x].getForm();
-					int gender = p[x].getGender();
-					int weight = p[x].getWeight();
-					int happiness = p[x].getHappiness();
-					Ability a = p[x].getAbility();
-					String fb = p[x].getVBild();
-					String bb = p[x].getBBild();
-					String i = p[x].getIcon();
-					Stats stats = new Stats(p[x].getBasis());
-					pokemon = new Pokemon(name, t, form, gender, weight, happiness, a, fb, bb, i, stats, p[x].getPossible());
+					pokemon = p[x]; // setzt das Pokemon Objekt mit dem Pokemon, dass den selben Namen hat
+					break;
 				}
 			}
 			
@@ -117,6 +106,7 @@ public class Gegnerreader {
 			for(int x = 0; x < i.length; x++) {
 				if(this.att[1].equals(i[x].getName())) { // ueberprüft ob der Name vom "Item" mit einem bestehenden Item uebereinstimmt
 					item = i[x]; // setzt das Pokemon Objekt mit dem Pokemon, dass den selben Namen hat
+					break;
 				}
 			}
 			pokemon.setItem(item);

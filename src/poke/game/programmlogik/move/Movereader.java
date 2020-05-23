@@ -100,8 +100,12 @@ public class Movereader {
 			move.setArt(Integer.parseInt(this.att[3])); // Setzt die Art
 			move.setGenauigkeit(Integer.parseInt(this.att[4])); // Genauigkeit setzem
 			move.setAngriffspunkte(Integer.parseInt(this.att[5])); // AP setzen
-			Zusatz z = new Zusatz(this.att[6]);
-			move.setZusatz(z); // Effekte Setzen
+			if(this.att[6].equals("")) {
+				move.setZusatz(null);
+			} else {
+				Zusatz z = new Zusatz(this.att[6]);
+				move.setZusatz(z); // Effekte Setzen
+			}
 			move.setPrio(Integer.parseInt(this.att[7]));
 			this.addEintragA(this.move); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {

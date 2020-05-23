@@ -132,7 +132,7 @@ public class Pokemonreader {
 			
 			Move[] m = new Move[this.att.length-12];
 			for(int x = 12; x < this.att.length; x++) {
-				for(int y = 0; y < m.length; y++) {
+				for(int y = 0; y < this.m.length; y++) {
 					if(this.att[x].equals(this.m[y].getName())) {
 						m[x-12] = this.m[y];
 						break;
