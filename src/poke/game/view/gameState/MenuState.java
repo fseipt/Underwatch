@@ -69,7 +69,7 @@ public class MenuState extends GameState {
 	public void select() { // Servus
 		switch(currentChoice) {
 		case 0:
-			gsm.setState(GameStateManager.MENUSTATE); // Servus
+			gsm.setState(6); // Servus
 			break;
 		case 1: 
 			gsm.setState(GameStateManager.SELECTION);

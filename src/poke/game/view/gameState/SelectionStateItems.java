@@ -19,7 +19,7 @@ import poke.game.view.tileMap.Background;
 /**
  * Diese Klasse zeichent den Combatscreen
  */
-public class SelectionState extends GameState {		
+public class SelectionStateItems extends GameState {		
 	
 	private Background bg;
 	private ArrayList<Pokemon> underlings;
@@ -39,7 +39,7 @@ public class SelectionState extends GameState {
 	 * @param gsm der GameStateManager
 	 * @param c der Controller
 	 */
-	public SelectionState(GameStateManager gsm, Controller c) {
+	public SelectionStateItems(GameStateManager gsm, Controller c) {
 	
 		this.e = new ArrayList<>();
 		this.current = new UnderlingEntry[6];

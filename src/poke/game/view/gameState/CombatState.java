@@ -73,7 +73,8 @@ public class CombatState extends GameState {
 		this.heal = new Sound("res/Sound/heal.wav");
 		try {
 			this.magnet = ImageIO.read(getClass().getResourceAsStream("/Underlings/003.gif"));
-			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/Underlings/003B.gif"));
+			this.magnetBack = ImageIO.read(getClass().getResourceAsStream("/Underlings/002B.gif"));
+			
 			this.female = ImageIO.read(getClass().getResourceAsStream("/Graphics/female.gif"));
 			this.male = ImageIO.read(getClass().getResourceAsStream("/Graphics/male.gif"));
 			
