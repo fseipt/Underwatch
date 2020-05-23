@@ -11,8 +11,9 @@ public interface Allgemein {
 	String[] statusse = {"Alive", "Dead", "WPoisened", "HPoisened", "Freezed", "Paralysed", "Burned", "Sleep", "Flinched", "Attracted", "Confused"};
 	
 	// Alle Statusveraenderungen
-	String[] stausveraenderungen = {"Attack", "Defense", "Specialattack", "Specialdefense", "Speed", "Genauigkeit", "Fluchtwert", "Crit-Chance"}; 
-	
+	String[] statusveraenderungen = {"Attack", "Defense", "Specialattack", "Specialdefense", "Speed", "Genauigkeit", "Fluchtwert", "Crit-Chance"}; 
+	// Alle negativen Statusveraenderungen
+	String[] mstatusveraenderungen = {"_Attack", "_Defense", "_Specialattack", "_Specialdefense", "_Speed", "_Genauigkeit", "_Fluchtwert", "_Crit-Chance"};
 	// Alle moeglichen Angriffspunkte
 	int[] ap = {5,10,15,20,25,30,35,40};
 	

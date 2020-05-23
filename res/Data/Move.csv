@@ -1,12 +1,12 @@
 ﻿Feuerspuck;Feuer;80;2;100;10;Burned,10;0
-Stahlstrahl;Stahl;90;2;100;10;Specialdefense,10;0
+Stahlstrahl;Stahl;90;2;100;10;_Specialdefense,10;0
 Flambierend;Feuer;75;2;100;10;Burned,30;0
-Feenstaub;Fee;50;2;100;20;Specialattack,100;0
+Feenstaub;Fee;50;2;100;20;_Specialattack,100;0
 Unheil;Unlicht;120;2;85;5;;0
 Steckdose;Elektro;0;0;100;20;S/Specialattack/Specialattack,100;0
 Donnerschnell;Elektro;50;2;100;15;;1
 Verzehrer;Gift;100;1;90;10;S/Defense,50;0
-Schmutz;Boden;40;2;100;40;Genauigkeit,50;0
+Schmutz;Boden;40;2;100;40;_Genauigkeit,50;0
 Loderndeflamme;Feuer;80;2;100;10;;0
 Meditieren;Psycho;0;0;100;25;S/Specialattack/Specialdefense,100;0
 Schock;Elektro;0;0;90;30;Paralysed,100;0

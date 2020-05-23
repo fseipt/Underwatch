@@ -2,14 +2,14 @@ package poke.game.programmlogik;
 
 public class Statusveraenderungen {
 
-	private double attack = 1;
-	private double defense = 1;
-	private double spezialattack = 1;
-	private double spezialdefense = 1;
-	private double speed = 1;
-	private double genauigkeit = 1;
-	private double fluchtwert = 1;
-	private double critchance = 1;
+	private int attack = 0;
+	private int defense = 0;
+	private int spezialattack = 0;
+	private int spezialdefense = 0;
+	private int speed = 0;
+	private int genauigkeit = 0;
+	private int fluchtwert = 0;
+	private int critchance = 20;
 	private int[] multyplier;
 	
 	/**
@@ -24,71 +24,53 @@ public class Statusveraenderungen {
 	 * @param s der String 
 	 * @throws WrongArgumentException
 	 */
-	public void setStatusveraenderungen(String s) throws WrongArgumentException {
+	public void setPStatusveraenderungen(String s) throws WrongArgumentException {
+		for(int x = 0; x < this.multyplier.length; x++) {
+			this.multyplier[x] = 1;
+		}
 		switch(s) {
-			case "Attack":
+			case "Attack": this.attack++;
 				break;
-			case "Defense":
+			case "Defense": this.defense++;
 				break;
-			case "Specialattack":
+			case "Specialattack": this.spezialattack++;
 				break;
-			case "Specialdefense":
+			case "Specialdefense": this.spezialdefense++;
 				break;
-			case "Speed":
+			case "Speed": this.speed++;
 				break;
-			case "Genauigkeit":
+			case "Genauigkeit": this.genauigkeit++;
 				break;
-			case "Fluchtwert":
+			case "Fluchtwert": this.fluchtwert++;
 				break;
-			case "Crit-Chance":
+			case "Crit-Chance": this.critchance = this.critchance+20;
 				break;
 		}
-		String[] stat = new String[8];
-		multyplier = new int[8];
-		double m = 0;
-		int a = 0;
-		for(int y = 0; y < 8; y++) {
-			for(int x = 0; x < s.length(); x++) {
-				if(s.charAt(x) == 47) {
-					stat[y] = s.substring(a,x);
-					a = x+1;
-					multyplier[y] = Integer.parseInt(s.substring((x+1)));
-					break;
-				}
-			}
-			if(multyplier[y] > 6 || multyplier[y] < -6 ) {
-				throw new WrongArgumentException();
-			}
-			if(multyplier[y] < 0) {
-				m = 2 / (multyplier[y]+2);
-			} else {
-				m = (multyplier[y]+2) / 2;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[1])) {
-				this.attack = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[2])) {
-				this.defense = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[3])) {
-				this.spezialattack = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[4])) {
-				this.spezialdefense = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[5])) {
-				this.speed = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[6])) {
-				this.genauigkeit = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[7])) {
-				this.fluchtwert = m;
-			}
-			if(stat[y].equals(Allgemein.stausveraenderungen[8])) {
-				this.critchance = m;
-			}
+		setMulti();
+	}
+	public void setMStatusveraenderungen(String s) throws WrongArgumentException {
+		for(int x = 0; x < this.multyplier.length; x++) {
+			this.multyplier[x] = 1;
 		}
+		switch(s) {
+			case "_Attack": this.attack--;
+				break;
+			case "_Defense": this.defense--;
+				break;
+			case "_Specialattack": this.spezialattack--;
+				break;
+			case "_Specialdefense": this.spezialdefense--;
+				break;
+			case "_Speed": this.speed--;
+				break;
+			case "_Genauigkeit": this.genauigkeit--;
+				break;
+			case "_Fluchtwert": this.fluchtwert--;
+				break;
+			case "_Crit-Chance": this.critchance = this.critchance-20;
+				break;
+		}
+		setMulti();
 	}
 	/**
 	 * gibt den Multiplier zurueck
@@ -96,5 +78,104 @@ public class Statusveraenderungen {
 	 */
 	public int[] getMultti() {
 		return this.multyplier; //gibt den Multiplier zurueck
+	}
+	/**
+	 * Packt alle Werte in ein Array
+	 * @return
+	 */
+	public int[] pack() {
+		int[] i = new int[8];
+		i[0] = this.attack;
+		i[1] = this.defense;
+		i[2] = this.spezialattack;
+		i[3] = this.spezialdefense;
+		i[4] = this.speed;
+		i[5] = this.genauigkeit;
+		i[6] = this.fluchtwert;
+		i[7] = this.critchance;
+		return i;
+		
+	}
+	
+	public void setMulti() {
+		checkOver();
+		int[] i = pack();
+		for(int x = 0; x < i.length-1; x++) {
+			if(i[x] > 0) {
+				this.multyplier[x] = (i[x]+2)/2;
+			}
+			if(i[x] < 0) {
+				this.multyplier[x] = 2/((-1*i[x])+2);
+			}
+		}
+		
+	}
+	/**
+	 * Ruft die Check Methoden auf
+	 */
+	public void checkOver() {
+		checkOverP();
+		checkOverM();
+	}
+
+	/**
+	 * Checkt ob ein Wert zu hoch verrstärkt ist 
+	 * und schwächt inh zum Maximum sollte der Fall eintreten
+	 */
+	public void checkOverP() {
+		if(this.attack > 6) {
+			this.attack = 6;
+		}
+		if(this.defense > 6) {
+			this.defense = 6;
+		}
+		if(this.spezialattack > 6) {
+			this.spezialattack = 6;
+		}
+		if(this.spezialdefense > 6) {
+			this.spezialdefense = 6;
+		}
+		if(this.speed > 6) {
+			this.speed = 6;
+		}
+		if(this.genauigkeit > 6) {
+			this.genauigkeit = 6;
+		}
+		if(this.fluchtwert > 6) {
+			this.fluchtwert = 6;
+		}
+		if(this.critchance > 100) {
+			this.critchance = 100;
+		}	
+	}
+	/**
+	 * Checkt ob ein Stat zu stark geschwächt wurde
+	 * und stärkt ihn zum Minimun sollte der Fall eintreten
+	 */
+	public void checkOverM() {
+		if(this.attack < -6) {
+			this.attack = -6;
+		}
+		if(this.defense < -6) {
+			this.defense = -6;
+		}
+		if(this.spezialattack < -6) {
+			this.spezialattack = -6;
+		}
+		if(this.spezialdefense < -6) {
+			this.spezialdefense = -6;
+		}
+		if(this.speed < -6) {
+			this.speed = -6;
+		}
+		if(this.genauigkeit < -6) {
+			this.genauigkeit = -6;
+		}
+		if(this.fluchtwert < -6) {
+			this.fluchtwert = -6;
+		}
+		if(this.critchance < 0) {
+			this.critchance = 0;
+		}	
 	}
 }
