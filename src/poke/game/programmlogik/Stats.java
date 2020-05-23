@@ -9,7 +9,7 @@ public class Stats {
 	private int spezialdefense;
 	private int speed;
 	private int total;
-	private int[] statsAmine = new int[6];
+	private int[] statsAmine = new int[7];
 	private int[] stats = new int[10];
 	private int zb = 0, zp = 0;
 	private boolean zhelp = false;
