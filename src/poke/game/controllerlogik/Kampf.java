@@ -18,6 +18,7 @@ public class Kampf {
 	private String spi, geg;
 	private boolean spielerTurn, gegnerTurn, faster;
 	private int turn;
+	private int poison;
 	
 	/**
 	 * default Konstruktor
@@ -32,15 +33,24 @@ public class Kampf {
 		this.g = g;
 		this.speedG = gegner.getStats()[5];
 		this.faster();
+		
 	}
 	
+	/**
+	 * Evaluiert die Aktion die beide Spieler, wenn beide "Switchen" begintt das Underling 
+	 * das einen höheren momentanen "Speedwert" hat. Wenn beide "Angreifen" greift das 
+	 * Underling zu erst an mit einem höheren momentanen "Speedwert". Sonstig ist switchen 
+	 * bevorzugt
+	 * @param spieler Aktion des Spieler
+	 * @param gegner Aktion des Gegners
+	 */
 	public void Auswahl(Object spieler, Object gegner) {
 		if(spieler.getClass() == gegner.getClass()) {
 			if(spieler.getClass() == this.spieler.getClass()) {
 				if(faster) {
 					this.switchS((Pokemon) spieler);
 				} else {
-					this.switchG((Pokemon) spieler);
+					this.switchG((Pokemon) gegner);
 				}
 			}
 			else {
@@ -53,7 +63,22 @@ public class Kampf {
 				}
 			}
 		}
+		else {
+			if(spieler.getClass() == this.spieler.getMoves()[0].getClass()) {
+				switchG((Pokemon) gegner);
+				angriffS((Move) spieler);
+			} else {
+				switchS((Pokemon) spieler);
+				angriffG((Move) gegner);
+			}
+		}
 	}
+	
+	/**
+	 * Die Berechnungen für den Angriff des Usersq
+	 * @param m
+	 * @return
+	 */
 	public boolean angriffS(Move m)  {
 		if(spieler.getStats()[0] == 0) {
 			return false;

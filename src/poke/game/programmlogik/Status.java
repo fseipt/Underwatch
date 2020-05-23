@@ -43,10 +43,10 @@ public class Status implements Allgemein{
 					p.setHP(0);
 				break;
 			case 2: p.setStatus(new Status("WPoisened")); 
-					
+					p.setChance(100);
 				break;
 			case 3: p.setStatus(new Status("HPoisened"));
-					
+					p.setChance(100);
 				break;
 			case 4: p.setStatus(new Status("Freezed"));
 					p.setChance(20);
@@ -55,7 +55,7 @@ public class Status implements Allgemein{
 					p.setChance(75);
 				break;
 			case 6: p.setStatus(new Status("Burned"));
-			
+					p.setChance(100);
 				break;
 			case 7: p.setStatus(new Status("Sleep"));
 					p.setChance(0);
@@ -66,8 +66,8 @@ public class Status implements Allgemein{
 			case 9: p.setStatus(new Status("Attracted"));
 					p.setChance(50);
 				break;
-			case 10: p.setStatus(new Status("Confused"));
-					 
+			case 10:p.setStatus(new Status("Confused"));
+					p.setChance(500); 
 				break;
 		}
 		return p;

@@ -60,6 +60,7 @@ public class Pokemon implements Allgemein{
 		this.setBilder(i);
 		this.setStats(stats);
 		this.setPossible(m);
+		this.setChance(100);
 	}
 	/**
 	 * Setzt den Namen
@@ -314,7 +315,7 @@ public class Pokemon implements Allgemein{
 	 * Gibt zurueck ob der Move trifft
 	 */
 	public boolean getChance() {
-		if((int) ((Math.random() * 101) + 1) -1 < this.chance) {
+		if((int) ((Math.random() * 101) + 1) -1 <= this.chance) {
 			return true;
 		} else {
 			return false;
