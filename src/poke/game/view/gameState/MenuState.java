@@ -14,7 +14,7 @@ import poke.game.view.tileMap.Background;
 public class MenuState extends GameState {
 	
 	private Background bg;
-	private String[] options = {"New Game", "Selection", "Combat", "Alle Typen", "Quit"	};
+	private String[] options = {"New Game", "Selection", "Combat", "Items","Moves", "Quit"	};
 	private int currentChoice = 0;
 	private Color titleColor;
 	private Font titleFont;
@@ -78,9 +78,12 @@ public class MenuState extends GameState {
 			gsm.setState(GameStateManager.COMBAT); // seruss
 			break;
 		case 3: 
-			gsm.setState(GameStateManager.ALLTYPES);
+			gsm.setState(GameStateManager.SELECTIONITEMS);
 			break;
 		case 4:
+			gsm.setState(GameStateManager.SELECTIONMOVES);
+			break;
+		case 5:
 			System.exit(0);// Servusservuss
 			break;
 		}

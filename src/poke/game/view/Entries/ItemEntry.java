@@ -2,19 +2,16 @@ package poke.game.view.Entries;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.NoSuchElementException;
 
 import javax.imageio.ImageIO;
 
 import poke.GraphicElement;
-import poke.game.programmlogik.Pokemon;
 import poke.game.programmlogik.item.Item;
-import poke.game.programmlogik.typ.Typen;
 import poke.game.view.Graphics.StatsEnum;
 
 /**
@@ -22,7 +19,7 @@ import poke.game.view.Graphics.StatsEnum;
  * @author Amine Boutahar
  */
 public class ItemEntry implements GraphicElement {
-	private Pokemon p;
+	private Item p;
 	private BufferedImage rahmen, bg,icon, typen[], statsFelder;
 	private int y,yO;
 	
@@ -55,17 +52,17 @@ public class ItemEntry implements GraphicElement {
 		this.yO = y;
 		
 	
-		String icon;
-		if(p.getIcon() == null)  icon = "icon.gif";
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
 			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
-			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+p.getIcon()+".gif"));
-			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBg.gif"));
-			this.typen[0] = Typen.valueOf(p.getTyp()[0].getTyp()).getImage();
-			if(p.getTyp()[1] != null) this.typen[1] = Typen.valueOf(p.getTyp()[1].getTyp()).getImage();
+			this.icon = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/nullIcon.gif"));
+			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBgI.gif"));
 		}
-		catch (IOException e) { e.printStackTrace(); }
+		catch (IOException e) {
+			try { this.icon = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/nullIcon.gif"));
+			} 
+			catch(IOException es) {es.printStackTrace();}
+		}
 		
 		this.stats = new String[7];
 		stats[0] = "HP";
@@ -182,48 +179,21 @@ public class ItemEntry implements GraphicElement {
 		g.setColor(Color.black);
 		g.drawImage(bg,0,y-23,null);
 		// Icon
-		g.drawImage(rahmen,5,y,null);
-		g.drawImage(icon,7,y+2,null);
+		g.drawImage(rahmen,10,y,null);
+		g.drawImage(icon,12,y+2,null);
 		g.setFont(new Font("Press Start 2P", 1, 8));
 		
 		
 		g.setFont(new Font("8-bit fortress",0, 7));
 		int xS = 147;
 		
-		g.setColor(Color.DARK_GRAY);
-		for(String s: stats) {
-			g.drawString(s,xS,y+10);
-			xS+=24;
-		}
 		
-		xS = 147;
-		
-		int[] statsV = new int[7];
-		statsV = p.getStats();
-		statsV[6] = p.getStats()[9];
+
 		g.setColor(Color.white);
-		for(int s :statsV) {
-			g.drawString(""+s,xS,y+23);
-			xS+=24;
-		}
-		
-		
-		/*for(int i: p.getStats()) {
-			if(i != 1) g.drawString(""+i,xS,y+23);
-			else g.drawString(""+p.getStats()[9],xS,y+23);
-			xS+=24;
-		}*/
-	
+		drawString(g,p.getBesch(), 65, y+3);
+
 		
 		g.drawString(p.getName(),10,y-5);
-		
-		
-		if(p.getTyp()[1] != null) {
-			g.drawImage(typen[0],45,y+11,null);
-			g.drawImage(typen[1],93,y+11,null);
-		}
-		else g.drawImage(typen[0],69,y+11,null);
-		
 	}
 	
 	@Override
@@ -236,8 +206,12 @@ public class ItemEntry implements GraphicElement {
 	
 	
 	
-	
-	public Pokemon getP() {
+	 private void drawString(Graphics g, String text, int x, int y) {
+	        for (String line : text.split("§"))
+	            g.drawString(line, x, y += g.getFontMetrics().getHeight());
+	    }
+
+	public Item getP() {
 		return p;
 	}
 

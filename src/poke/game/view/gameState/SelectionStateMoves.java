@@ -11,23 +11,22 @@ import javax.imageio.ImageIO;
 
 import poke.Controller;
 import poke.game.programmlogik.Pokemon;
-import poke.game.programmlogik.Pokemonreader;
 import poke.game.programmlogik.item.Item;
+import poke.game.programmlogik.move.Move;
 import poke.game.programmlogik.typ.Typ;
 import poke.game.sound.Sound;
 import poke.game.view.Entries.ItemEntry;
-import poke.game.view.Entries.UnderlingEntry;
+import poke.game.view.Entries.MoveEntry;
 import poke.game.view.tileMap.Background;
 /**
  * Diese Klasse zeichent den Combatscreen
  */
-public class SelectionStateItems extends GameState {		
+public class SelectionStateMoves extends GameState {		
 	
 	private Background bg;
-	private ArrayList<Item> items;
-	private Pokemon testPokemon;
-	private ArrayList<ItemEntry> e;
-	private ItemEntry[] current;
+	private ArrayList<Move> moves;
+	private ArrayList<MoveEntry> e;
+	private MoveEntry[] current;
 	private BufferedImage add,searchbar, background;
 	private int yEnt, underlingAnzahl;
 	private Sound scroll, blocked;
@@ -41,18 +40,16 @@ public class SelectionStateItems extends GameState {
 	 * @param gsm der GameStateManager
 	 * @param c der Controller
 	 */
-	public SelectionStateItems(GameStateManager gsm, Controller c) {
+	public SelectionStateMoves(GameStateManager gsm, Controller c) {
 	
 		this.e = new ArrayList<>();
-		this.current = new ItemEntry[6];
+		this.current = new MoveEntry[6];
 		
 		
 		this.gsm = gsm;
-		testPokemon = c.getSpieler().getSpieler()[0];
-		
 		//Pokemonreader alle = c.getPoke();
 		
-		Item[] alle = c.getItem().getItems();
+		Move[] alle = c.getMove().getMoves();
 		
 		this.underlingAnzahl = alle.length;
 		
@@ -60,14 +57,11 @@ public class SelectionStateItems extends GameState {
 		// Das mit den Typen und so
 		testshit();
 		
-		
-		testPokemon.setTyp(test);
-		
 		// Alle Underlings werden initialisiert
 		// Sie sind alle zuerst auf Y-Position 0!!!
 		int typI = 0;
 		for(int i = 0; i < alle.length;i++) {
-			e.add(new ItemEntry(alle[i],10));
+			e.add(new MoveEntry(alle[i],10));
 		}
 		
 		
@@ -216,10 +210,10 @@ public class SelectionStateItems extends GameState {
 		
 		switch(k) {
 		case KeyEvent.VK_UP:
-			for(ItemEntry ein: current) if(ein != null) ein.setSpeed(0);
+			for(MoveEntry ein: current) if(ein != null) ein.setSpeed(0);
 			break;
 		case KeyEvent.VK_DOWN:
-			for(ItemEntry ein: current) if(ein != null) ein.setSpeed(0);
+			for(MoveEntry ein: current) if(ein != null) ein.setSpeed(0);
 			break;
 		}
 	}

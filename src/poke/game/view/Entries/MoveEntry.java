@@ -2,17 +2,17 @@ package poke.game.view.Entries;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.NoSuchElementException;
 
 import javax.imageio.ImageIO;
 
 import poke.GraphicElement;
-import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.item.Item;
+import poke.game.programmlogik.move.Move;
 import poke.game.programmlogik.typ.Typen;
 import poke.game.view.Graphics.StatsEnum;
 
@@ -20,9 +20,9 @@ import poke.game.view.Graphics.StatsEnum;
  * Diese Methoede erzeugt ein Underling Entry GraphicElement
  * @author Amine Boutahar
  */
-public class UnderlingEntry implements GraphicElement {
-	private Pokemon p;
-	private BufferedImage rahmen, bg,icon, typen[], statsFelder;
+public class MoveEntry implements GraphicElement {
+	private Move p;
+	private BufferedImage bg, typ, statsFelder, cat;
 	private int y,yO;
 	
 	private String[] stats;
@@ -34,7 +34,7 @@ public class UnderlingEntry implements GraphicElement {
 	private String name;
 	private int[] statsV;
 	
-	public UnderlingEntry(Pokemon p, int y) {
+	public MoveEntry(Move p, int y) {
 		this.speedFac = 1;
 		this.speed = 0;
 		this.stelle = 0;
@@ -47,30 +47,25 @@ public class UnderlingEntry implements GraphicElement {
 		this.scrollZ = 0;
 		this.scrollDir = 0;
 		
-		this.typen = new BufferedImage[2];
 		this.p = p;
 		this.y = y;
 		this.yD = y;
 		this.yO = y;
-		
 	
-		String icon;
-		if(p.getIcon() == null)  icon = "icon12.gif";
+	
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
-			this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
-			this.icon = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+p.getIcon()+".gif"));
-			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBg.gif"));
-			this.typen[0] = Typen.valueOf(p.getTyp()[0].getTyp()).getImage();
-			if(p.getTyp()[1] != null) this.typen[1] = Typen.valueOf(p.getTyp()[1].getTyp()).getImage();
+			this.bg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entryBgM.gif"));
+			this.cat = ImageIO.read(getClass().getResourceAsStream("/Graphics/types/"+p.getSArt()+".gif"));
+			
+			this.typ = Typen.valueOf(p.getTyp().getTyp()).getImage();
+			
 		}
-		catch (IOException e) { e.printStackTrace(); }
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		this.stats = new String[7];
-		stats[0] = "HP";
-		for(StatsEnum s: StatsEnum.values()) if(s.ordinal()<6)stats[s.ordinal()+1] = s.getAbkuerzung(); 
-		stats[6] = "BST";
-	
+		
 	}
 	
 	
@@ -180,48 +175,21 @@ public class UnderlingEntry implements GraphicElement {
 		this.y = (int) yD;
 		g.setColor(Color.black);
 		g.drawImage(bg,0,y-23,null);
-		// Icon
-		g.drawImage(rahmen,5,y,null);
-		g.drawImage(icon,7,y+2,null);
-		g.setFont(new Font("Press Start 2P", 1, 8));
-		
+
 		
 		g.setFont(new Font("8-bit fortress",0, 7));
 		int xS = 147;
 		
-		g.setColor(Color.DARK_GRAY);
-		for(String s: stats) {
-			g.drawString(s,xS,y+10);
-			xS+=24;
-		}
 		
-		xS = 147;
-		
-		this.statsV = p.getStatsAmine();
-		
+		g.drawImage(this.cat,51,y+11,null);
+		g.drawImage(this.typ,6,y+11,null);
 		g.setColor(Color.white);
-		for(int s :statsV) {
-			g.drawString(""+s,xS,y+23);
-			xS+=24;
-		}
 		
-		
-		/*for(int i: p.getStats()) {
-			if(i != 1) g.drawString(""+i,xS,y+23);
-			else g.drawString(""+p.getStats()[9],xS,y+23);
-			xS+=24;
-		}*/
-	
+
+		drawString(g,p.getBeschreibung(), 97, y+3);
+
 		
 		g.drawString(p.getName(),10,y-5);
-		
-		
-		if(p.getTyp()[1] != null) {
-			g.drawImage(typen[0],45,y+11,null);
-			g.drawImage(typen[1],93,y+11,null);
-		}
-		else g.drawImage(typen[0],69,y+11,null);
-		
 	}
 	
 	@Override
@@ -234,8 +202,12 @@ public class UnderlingEntry implements GraphicElement {
 	
 	
 	
-	
-	public Pokemon getP() {
+	 private void drawString(Graphics g, String text, int x, int y) {
+	        for (String line : text.split("§"))
+	            g.drawString(line, x, y += g.getFontMetrics().getHeight());
+	    }
+
+	public Move getP() {
 		return p;
 	}
 

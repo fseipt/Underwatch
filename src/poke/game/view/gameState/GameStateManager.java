@@ -15,22 +15,25 @@ public class GameStateManager {
 	private int currentState = 0;
 	public static final int MENUSTATE = 0;
 	public static final int NEWGAME = 1;
-	public static final int SELECTION = 3;
-	public static final int COMBAT = 4;
-	public static final int ALLTYPES = 5;
-	public static final int LOAD = 6;
+	public static final int SELECTION = 2;
+	public static final int SELECTIONITEMS = 3;
+	public static final int SELECTIONMOVES = 4;
+	public static final int COMBAT = 5;
+	public static final int ALLTYPES = 6;
+	public static final int LOAD = 7;
 	public GameStateManager(Controller c) {
 		
 		
 		this.gameStates =  new ArrayList<GameState>();
 		this.currentState = MENUSTATE;
-		this.gameStates.add(new MenuState(this)); // 0
-		this.gameStates.add(new MenuState(this)); // 0
-		this.gameStates.add(new MenuState(this)); // 0
-		this.gameStates.add(new SelectionState(this, c)); // 3
-		this.gameStates.add(new CombatState(this, c)); // 4
-		this.gameStates.add(new TypesState(this, c)); // 4
-		this.gameStates.add(new MenuState2(this)); // 4
+		this.gameStates.add(new MenuState(this)); // 0 -> MenuState
+		this.gameStates.add(new MenuState(this)); // 1 -> NewGame
+		this.gameStates.add(new SelectionState(this,c)); // 2 -> Selection
+		this.gameStates.add(new SelectionStateItems(this, c)); // 3 -> SelectionItems
+		this.gameStates.add(new SelectionStateMoves(this, c)); // 4 -> SelectionMoves
+		this.gameStates.add(new CombatState(this, c)); // 5 -> Combat
+		this.gameStates.add(new MenuState(this)); // 6 -> Alltypes
+		this.gameStates.add(new MenuState(this)); // 7 -> Load
 		
 	}
 	public void setState(int state) {
