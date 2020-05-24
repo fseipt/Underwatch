@@ -87,7 +87,7 @@ public class Kampf {
 		int jz = gegner.getStats()[0];
 		if(m.getArt() == 0) {
 			String s = m.getEffect();
-			doEffect(s, m.getzTarget());
+			doEffectS(s, m.getzTarget());
 		}
 		
 		if(m.getArt() == 1) {
@@ -139,13 +139,10 @@ public class Kampf {
 		gegner.getStats()[9] -= hp;
 		if(gegner.getStats()[9] < 1) {
 			gegner.getStats()[9] = 0;
-			try {
-				gegner.setStatus(new Status("Dead"));
-			} catch (WrongArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			gegner.setStatus(new Status("Dead"));
 		}
+		String s = m.getEffect();
+		doEffectS(s, m.getzTarget());
 		return true;
 	}	
 	
@@ -213,13 +210,11 @@ public class Kampf {
 		spieler.getStats()[9] -= hp;
 		if(spieler.getStats()[9] < 1) {
 			spieler.getStats()[9] = 0;
-			try {
-				spieler.setStatus(new Status("Dead"));
-			} catch (WrongArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			spieler.setStatus(new Status("Dead"));
+			
 		}
+		String s = m.getEffect();
+		doEffectS(s, m.getzTarget());
 		return true;
 	}
 	/**
@@ -355,8 +350,17 @@ public class Kampf {
 		}
 		return multi;
 	}
-	public void doEffect(String s, boolean t) {
+	
+	
+
+	/**
+	 * Fuerht den Effekt des Moves vom Spieler aus
+	 * @param s der Effekt als kleiner String
+	 * @param t das Target als boolean
+	 */
+	public void doEffectS(String s, boolean t) {
 		boolean target = t;
+		int h;
 		CharSequence c = ",";
 		if(s.contains(c)) {
 			double[] d = breakOpen(s);
@@ -365,9 +369,65 @@ public class Kampf {
 			} else {
 				gegner.getStat().setStats(d);
 			}
+		} else {
+			c = "/";
+			if(s.contains(c)) {
+				h = Integer.parseInt(s.substring(5));
+				if(t) {
+					h = h * spieler.getStats()[0];
+					spieler.getStat().setKP(spieler.getStats()[0]+h);
+				} else {
+					h = h * gegner.getStats()[0];
+					gegner.getStat().setKP(gegner.getStats()[0]+h);
+				}
+			} else {
+				if(t) {
+					spieler.setStatus(new Status(s));
+				} else {
+					gegner.setStatus(new Status(s));
+				}
+			}
 		}
-		
 	}
+	
+	/**
+	 * Fuerht den Effekt des Moves vom Gegner aus
+	 * @param s der Effekt als kleiner String
+	 * @param t das Target als boolean
+	 */
+	public void doEffectG(String s, boolean t) {
+		boolean target = t;
+		int h;
+		CharSequence c = ",";
+		if(s.contains(c)) {
+			double[] d = breakOpen(s);
+			if(t) {
+				gegner.getStat().setStats(d);	
+			} else {
+				spieler.getStat().setStats(d);
+			}
+		} else {
+			c = "/";
+			if(s.contains(c)) {
+				h = Integer.parseInt(s.substring(5));
+				if(t) {
+					h = h * gegner.getStats()[0];
+					gegner.getStat().setKP(gegner.getStats()[0]+h);
+				} else {
+					h = h * spieler.getStats()[0];
+					spieler.getStat().setKP(spieler.getStats()[0]+h);
+				}
+			} else {
+				if(t) {
+					gegner.setStatus(new Status(s));
+				} else {
+					spieler.setStatus(new Status(s));
+				}
+			}
+		}
+	}
+	
+	
 	public double[] breakOpen(String s) {
 		double[] d = new double[8];
 		int a = 0;

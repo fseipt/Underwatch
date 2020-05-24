@@ -242,7 +242,7 @@ public class Pokemon implements Allgemein{
 	 * @param status der Status
 	 * @throws WrongArgumentException
 	 */
-	public void setStatus(Status status) throws WrongArgumentException {
+	public void setStatus(Status status) {
 		this.status = status;
 		
 	}
@@ -305,11 +305,12 @@ public class Pokemon implements Allgemein{
 	 * setzt die Chance einen Move zu hitten
 	 * @throws WrongArgumentException 
 	 */
-	public void setChance(int x) throws WrongArgumentException {
-		if(x < 0 && x > 100) {
-			throw new WrongArgumentException();
+	public void setChance(int x) {
+		int y = x;
+		if(y < 0 && y > 100) {
+			y = 100;
 		}
-		this.chance = x;
+		this.chance = y;
 	}
 	/**
 	 * Gibt zurueck ob der Move trifft
@@ -342,8 +343,8 @@ public class Pokemon implements Allgemein{
 	 * @param i die Hp
 	 * @throws WrongArgumentException 
 	 */
-	public void setHP(int i) throws WrongArgumentException {
-		this.stat.setHP(i);
+	public void setHP(int i)  {
+		this.stat.setKP(i);
 	}
 	public int[] getStatsAmine() {
 		return this.stat.getStatsAmine();
