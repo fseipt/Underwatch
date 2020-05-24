@@ -76,7 +76,7 @@ public class Kampf {
 	
 	/**
 	 * Die Berechnungen für den Angriff des Usersq
-	 * @param m
+	 * @param m der Move
 	 * @return
 	 */
 	public boolean angriffS(Move m)  {
