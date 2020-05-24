@@ -69,7 +69,7 @@ public class TeamState extends GameState {
 			g.drawImage(this.entryBg,10,60+(i*41),null);
 			g.drawImage(this.rahmen,7,62+(i*41),null);
 			g.drawImage(this.icon[i],9,64+(i*41),null);
-		}
+		}//d
 		
 		for(int i = 0; i < 3; i++) {
 			
