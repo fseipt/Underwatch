@@ -200,7 +200,10 @@ public class Move implements Allgemein {
 	public int getArt() {
 		return this.getArt();
 	}
-	
+	public String getSArt() {
+		return this.artS;
+		
+	}
 	/**
 	 * Setzt die Beschreibung
 	 * @param s die Beschreibung
