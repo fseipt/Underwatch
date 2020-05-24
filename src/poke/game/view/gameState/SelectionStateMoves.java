@@ -193,7 +193,7 @@ public class SelectionStateMoves extends GameState {
 				
 				
 			case KeyEvent.VK_UP:
-				if(this.stelle < e.size()-3 && !current[1].scrolling()) {
+				if(this.stelle < e.size()-2 && !current[1].scrolling()) {
 					this.stelle++;
 					neueRenderbare();
 					scroll.play();

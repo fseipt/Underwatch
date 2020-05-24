@@ -40,7 +40,7 @@ public class MoveEntry implements GraphicElement {
 		this.stelle = 0;
 		this.possible = new ArrayList<>();
 		
-		for(int i = 10; i <= 310; i+=60) possible.add(i);
+		for(int i = 0; i <= 510; i+=85) possible.add(i);
 		
 		this.scroll = 0;
 		this.scrollFac = 1;
@@ -51,7 +51,7 @@ public class MoveEntry implements GraphicElement {
 		this.y = y;
 		this.yD = y;
 		this.yO = y;
-	
+		this.stats = new String[] {"Pwr","Acc","AP"};
 	
 		// System.out.println(Typen.valueOf(p.getTyp()[1].getTyp()));
 		try {
@@ -178,18 +178,26 @@ public class MoveEntry implements GraphicElement {
 
 		
 		g.setFont(new Font("8-bit fortress",0, 7));
-		int xS = 147;
+		int xS = 65;
 		
-		
-		g.drawImage(this.cat,51,y+11,null);
-		g.drawImage(this.typ,6,y+11,null);
+		for(String s: this.stats) {
+			g.drawString(s, xS, y+11);
+			xS+=23;
+		}
+	
+		g.drawImage(this.cat,12,y+5,null);
+		g.drawImage(this.typ,10,y+22,null);
 		g.setColor(Color.white);
 		
+		g.drawString(""+p.getStaerke(),66,y+22);
+		g.drawString(""+p.getGenauigkeit(),65+23,y+22);
+		g.drawString(""+p.getAngriffspunkte(),65+45,y+22);
+		
 
-		drawString(g,p.getBeschreibung(), 97, y+3);
+		drawString(g,p.getBeschreibung(),138, y);
 
 		
-		g.drawString(p.getName(),10,y-5);
+		g.drawString(p.getName(),10,y-11);
 	}
 	
 	@Override

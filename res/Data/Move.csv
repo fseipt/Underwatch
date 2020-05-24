@@ -1,5 +1,5 @@
-ï»¿Feuerspuck;Feuer;80;2;100;10;Burned,10;0;Das  Underling  spuckt  mit  Brennender  Spucke  Â§auf  den  Gegener,  kann  diesen  Verbrennen.
-Stahlstrahl;Stahl;90;2;100;10;_Specialdefense,10;0;Das  Underling  buendelt  seine  gesamte  Kraft§  und  feuert  einen  metalennen  Strahl  ab. Kann  die  Â§Spezialverteidung des Zieles senken.
+ï»¿Feuerspuck;Feuer;80;2;100;10;Burned,10;0;Das  Underling  spuckt  mit  §Brennender  Spucke  Â§auf  den  Gegener,  kann  diesen  Verbrennen.
+Stahlstrahl;Stahl;90;2;100;10;_Specialdefense,10;0;Das  Underling  buendelt  seine§gesamte  Kraft  und  feuert  einen§metalennen  Strahl  ab. Kann  die  §Spezialverteidung des Zieles §senken.
 Flambierend;Feuer;75;2;100;10;Burned,30;0;Zuendet  das  Ziel  mit  einer  Flamme  an,  kann  das  §Ziel  zu  einer  hohen  Warscheinlichkeit§Verbrennen.
 Feenstaub;Fee;50;2;100;20;_Specialattack,100;0;Ein  kleiner  Feenstaub,  der  dazu  fuehrt,  dass  das  Â§getroffene  Underling  eine  Senkung  in  seinem  speziellen  Â§Angriff.
 Unheil;Unlicht;120;2;85;5;;0;Keine besonderen Effekte.
