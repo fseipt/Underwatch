@@ -107,6 +107,7 @@ public class Movereader {
 				move.setZusatz(z); // Effekte Setzen
 			}
 			move.setPrio(Integer.parseInt(this.att[7]));
+			move.setBeschreibung(this.att[8]);
 			this.addEintragA(this.move); // fuegt den neu erstellten Move zu der Liste hinzu
 		} catch(WrongArgumentException wae) {
 			System.err.println("Fehler beim speichern eines Moves: " + wae.getMessage());
