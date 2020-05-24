@@ -8,30 +8,46 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import poke.Controller;
+import poke.game.programmlogik.Pokemon;
+import poke.game.programmlogik.typ.Typen;
 import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
 
-public class MenuState extends GameState {
+public class TeamState extends GameState {
 	
 	private Background bg;
-	private String[] options = {"New Game", "Selection", "Combat", "Items","Moves","Load", "Team", "Quit"	};
+	private String[] options = {"Spielstand 1", "Spielstand 2", "Spielstand 3"};
 	private int currentChoice = 0;
 	private Color titleColor;
 	private Font titleFont;
 	private Font font;
 	private Sound select2;
-	private BufferedImage logo;
-	public MenuState(GameStateManager gsm) {
+	private BufferedImage entryBg, typen[][],icon[], rahmen;
+	public TeamState(GameStateManager gsm, Controller c) {
+		Pokemon[] p = new Pokemon[6];
+		for(int i = 0; i<6;i++) p[i] = c.getPoke().getPokemon()[i];
+		
+		this.typen = new BufferedImage[6][2];
+		this.icon = new BufferedImage[6];
 		
 		this.gsm = gsm;
 		try { // heyy
 			this.select2 = new Sound("res/Sound/MenuSelect.wav");
 			bg = new Background("/Backgrounds/menubg.gif",1);
 			bg.setVector(-0.1, 0);
-			titleColor = new Color(128,0,0);
-			titleFont = new Font("Press Start 2P", 1,28);
-			font = new Font("Press Start 2P", 1, 12);
-			this.logo = ImageIO.read(getClass().getResourceAsStream("/Graphics/FullLogo.gif"));
+			
+			this.entryBg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/entrySBg.gif"));
+			
+			for(int i = 0; i<6;i++) {
+				this.icon[i] = ImageIO.read(getClass().getResourceAsStream("/Underlings/"+p[i].getIcon()+".gif"));
+				this.typen[i][0] = Typen.valueOf(p[i].getTyp()[0].getTyp()).getImage();
+				if(p[i].getTyp()[1] != null) this.typen[i][1] = Typen.valueOf(p[i].getTyp()[1].getTyp()).getImage();
+			}
+				this.rahmen = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/iconRahmen.gif"));
+			
+			// 
+			
 		}
  		catch(Exception e) {
  			e.printStackTrace();
@@ -48,19 +64,22 @@ public class MenuState extends GameState {
 		
 		// Draw Title
 		g.setColor(titleColor);
-		g.setFont(titleFont);
 		
-		//g.drawImage(logo,30,10, null);
-		// g.drawString("Underwatch", 80, 70 );
-		
-		// draw menun options
-		g.setFont(font);
-		for (int i = 0; i < options.length; i++) {
-			if(i== currentChoice) g.setColor(Color.red);
-			else g.setColor(Color.black);
-			g.setFont(font);
-			g.drawString(options[i],130,40 +i *15 );
+		for(int i = 0; i < 3; i++) {
+			g.drawImage(this.entryBg,10,60+(i*41),null);
+			g.drawImage(this.rahmen,7,62+(i*41),null);
+			g.drawImage(this.icon[i],9,64+(i*41),null);
 		}
+		
+		for(int i = 0; i < 3; i++) {
+			
+			g.drawImage(this.entryBg,165,60+(i*41),null);
+			g.drawImage(this.rahmen,165,62+(i*41),null);
+			g.drawImage(this.icon[i+3],168,64+(i*41),null);
+		}
+	
+		
+		
 	}
 	@Override
 	public void update() {
@@ -77,22 +96,6 @@ public class MenuState extends GameState {
 		case 2:
 			gsm.setState(GameStateManager.COMBAT); // seruss
 			break;
-		case 3: 
-			gsm.setState(GameStateManager.SELECTIONITEMS);
-			break;
-		case 4:
-			gsm.setState(GameStateManager.SELECTIONMOVES);
-			break;
-		case 5:
-			gsm.setState(GameStateManager.LOAD);
-			break;
-		case 6:
-			gsm.setState(GameStateManager.TEAM);
-			break;
-		case 7:
-			System.exit(0);// Servusservuss
-			break;
-			
 		}
 	}
 	@Override

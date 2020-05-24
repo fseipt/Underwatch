@@ -21,6 +21,7 @@ public class GameStateManager {
 	public static final int COMBAT = 5;
 	public static final int ALLTYPES = 6;
 	public static final int LOAD = 7;
+	public static final int TEAM = 8;
 	public GameStateManager(Controller c) {
 		
 		
@@ -33,8 +34,8 @@ public class GameStateManager {
 		this.gameStates.add(new SelectionStateMoves(this, c)); // 4 -> SelectionMoves
 		this.gameStates.add(new CombatState(this, c)); // 5 -> Combat
 		this.gameStates.add(new MenuState(this)); // 6 -> Alltypes
-		this.gameStates.add(new MenuState(this)); // 7 -> Load
-		
+		this.gameStates.add(new LoadGame(this, c)); // 7 -> Load
+		this.gameStates.add(new TeamState(this, c)); // 8 -> Team
 	}
 	public void setState(int state) {
 		currentState = state;

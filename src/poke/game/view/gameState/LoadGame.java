@@ -8,20 +8,21 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import poke.Controller;
 import poke.game.sound.Sound;
 import poke.game.view.tileMap.Background;
 
-public class MenuState extends GameState {
+public class LoadGame extends GameState {
 	
 	private Background bg;
-	private String[] options = {"New Game", "Selection", "Combat", "Items","Moves","Load", "Team", "Quit"	};
+	private String[] options = {"Spielstand 1", "Spielstand 2", "Spielstand 3"};
 	private int currentChoice = 0;
 	private Color titleColor;
 	private Font titleFont;
 	private Font font;
 	private Sound select2;
-	private BufferedImage logo;
-	public MenuState(GameStateManager gsm) {
+	private BufferedImage iconBg;
+	public LoadGame(GameStateManager gsm, Controller c) {
 		
 		this.gsm = gsm;
 		try { // heyy
@@ -31,7 +32,7 @@ public class MenuState extends GameState {
 			titleColor = new Color(128,0,0);
 			titleFont = new Font("Press Start 2P", 1,28);
 			font = new Font("Press Start 2P", 1, 12);
-			this.logo = ImageIO.read(getClass().getResourceAsStream("/Graphics/FullLogo.gif"));
+			this.iconBg = ImageIO.read(getClass().getResourceAsStream("/Graphics/UI/speicherIconBg.gif"));
 		}
  		catch(Exception e) {
  			e.printStackTrace();
@@ -48,19 +49,18 @@ public class MenuState extends GameState {
 		
 		// Draw Title
 		g.setColor(titleColor);
-		g.setFont(titleFont);
 		
-		//g.drawImage(logo,30,10, null);
-		// g.drawString("Underwatch", 80, 70 );
 		
 		// draw menun options
 		g.setFont(font);
 		for (int i = 0; i < options.length; i++) {
-			if(i== currentChoice) g.setColor(Color.red);
-			else g.setColor(Color.black);
+			if(i== currentChoice) g.setColor(Color.black);
+			else g.setColor(Color.LIGHT_GRAY);
 			g.setFont(font);
-			g.drawString(options[i],130,40 +i *15 );
+			g.drawString(options[i],40+(i *90),177);
+			g.drawImage(iconBg,45+i*89,85,null);
 		}
+		
 	}
 	@Override
 	public void update() {
@@ -77,22 +77,6 @@ public class MenuState extends GameState {
 		case 2:
 			gsm.setState(GameStateManager.COMBAT); // seruss
 			break;
-		case 3: 
-			gsm.setState(GameStateManager.SELECTIONITEMS);
-			break;
-		case 4:
-			gsm.setState(GameStateManager.SELECTIONMOVES);
-			break;
-		case 5:
-			gsm.setState(GameStateManager.LOAD);
-			break;
-		case 6:
-			gsm.setState(GameStateManager.TEAM);
-			break;
-		case 7:
-			System.exit(0);// Servusservuss
-			break;
-			
 		}
 	}
 	@Override
